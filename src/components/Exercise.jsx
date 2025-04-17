@@ -93,27 +93,46 @@ const Exercise = () => {
         }
     }, [lessonId, exercise.startingCode]);
 
+    // Helper function to encode/decode base64
+    const encodeBase64 = (str) => {
+        try {
+            return btoa(unescape(encodeURIComponent(str || "")));
+        } catch (e) {
+            console.error("Base64 encoding error:", e);
+            return "";
+        }
+    };
+
+    const decodeBase64 = (str) => {
+        try {
+            return decodeURIComponent(escape(atob(str || "")));
+        } catch (e) {
+            console.error("Base64 decoding error:", e);
+            return str || "";
+        }
+    };
+
     const runCode = async () => {
         setIsRunning(true);
         setError(null);
         setOutput("");
 
         try {
-            // Step 1: Create a submission
+            // Step 1: Create a submission with base64 encoding enabled
             const options = {
                 method: "POST",
                 url: `${JUDGE0_API_URL}/submissions`,
-                params: { base64_encoded: "false", wait: "false" },
+                params: { base64_encoded: "true", wait: "false" },
                 headers: {
                     "content-type": "application/json",
                     "X-RapidAPI-Key": JUDGE0_API_KEY,
                     "X-RapidAPI-Host": JUDGE0_API_HOST
                 },
                 data: {
-                    source_code: code,
+                    source_code: encodeBase64(code),
                     language_id: languageIds[exercise.language?.toLowerCase()],
-                    stdin: exercise.testInput || "",
-                    expected_output: exercise.expectedOutput || null,
+                    stdin: exercise.testInput ? encodeBase64(exercise.testInput) : "",
+                    expected_output: exercise.expectedOutput ? encodeBase64(exercise.expectedOutput) : null,
                     cpu_time_limit: 2,
                     memory_limit: 128000
                 }
@@ -137,7 +156,7 @@ const Exercise = () => {
                 const getResultOptions = {
                     method: "GET",
                     url: `${JUDGE0_API_URL}/submissions/${token}`,
-                    params: { base64_encoded: "false" },
+                    params: { base64_encoded: "true" },
                     headers: {
                         "X-RapidAPI-Key": JUDGE0_API_KEY,
                         "X-RapidAPI-Host": JUDGE0_API_HOST
@@ -167,30 +186,33 @@ const Exercise = () => {
 
             if (statusId === 3) {
                 setOutput(
-                    result.stdout || "Code executed successfully (no output)"
+                    decodeBase64(result.stdout) || "Code executed successfully (no output)"
                 );
             } else if (statusId === 6) {
-                setError(`Compilation Error: ${result.compile_output}`);
+                setError(`Compilation Error: ${decodeBase64(result.compile_output)}`);
             } else if (statusId >= 7 && statusId <= 12) {
-                setError(
-                    `Runtime Error (${statusMap[statusId]}): ${
-                        result.stderr || ""
-                    }`
-                );
+                let errorMessage = `Runtime Error (${statusMap[statusId]}): ${
+                    decodeBase64(result.stderr) || ""
+                }`;
+                
                 if (result.message) {
-                    setError(prev => `${prev}\n${result.message}`);
+                    errorMessage += `\n${typeof result.message === 'string' ? decodeBase64(result.message) : result.message}`;
                 }
+                
+                setError(errorMessage);
             } else {
                 setError(
                     `Execution Error: ${statusMap[statusId] || "Unknown error"}`
                 );
             }
         } catch (err) {
+            console.error("Judge0 API error:", err);
             setError(`API Error: ${err.response?.data?.error || err.message}`);
         } finally {
             setIsRunning(false);
         }
     };
+    
     const getHint = () => {
         if (remainingHints > 0) {
             setShowHint(true);
