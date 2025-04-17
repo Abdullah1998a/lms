@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { exercises } from "../data/exercises";
 import MarkdownRender from "./MarkdownRender";
 import axios from "axios";
@@ -12,6 +12,8 @@ import {
     Info,
     Clock,
     ArrowRight,
+    ArrowLeftCircle,
+    ArrowRightCircle,
     Loader
 } from "lucide-react";
 
@@ -43,6 +45,7 @@ import { addCompleter } from "ace-builds/src-noconflict/ext-language_tools";
 
 const Exercise = () => {
     const { lessonId } = useParams();
+    const navigate = useNavigate();
     const [code, setCode] = useState("");
     const [output, setOutput] = useState("");
     const [isRunning, setIsRunning] = useState(false);
@@ -67,34 +70,79 @@ const Exercise = () => {
         python: 71,
         ruby: 72
     };
-    const exercise = exercises.find(
+
+    // Find all exercises for this lesson
+    const lessonExercises = exercises.filter(
         ex => ex.lessonId === parseInt(lessonId)
-    ) || {
-        title: "تمرين غير موجود",
-        description: "لم يتم العثور على هذا التمرين",
-        startingCode: "",
-        solution: "",
-        hints: ["لا توجد تلميحات"]
-    };
+    );
+
+    // Check if there are exercises for this lesson
+    const hasExercises = lessonExercises.length > 0;
+
+    // Find current exercise (first one from the lesson if available)
+    const currentExercise = hasExercises
+        ? lessonExercises[0]
+        : {
+            title: "تمرين غير موجود",
+            description: "لم يتم العثور على هذا التمرين",
+            startingCode: "",
+            solution: "",
+            hints: ["لا توجد تلميحات"]
+        };
+
+    // Find previous and next exercises in the same lesson
+    const currentExerciseIndex = hasExercises
+        ? lessonExercises.findIndex(ex => ex.id === currentExercise.id)
+        : -1;
+    
+    const previousExercise = 
+        currentExerciseIndex > 0
+            ? lessonExercises[currentExerciseIndex - 1]
+            : null;
+    
+    const nextExercise = 
+        currentExerciseIndex < lessonExercises.length - 1
+            ? lessonExercises[currentExerciseIndex + 1]
+            : null;
+
     // Save progress to localStorage
     useEffect(() => {
-        if (code) {
-            localStorage.setItem(`exercise-${lessonId}`, code);
+        if (code && hasExercises) {
+            localStorage.setItem(`exercise-${currentExercise.id}`, code);
         }
-    }, [code, lessonId]);
+    }, [code, currentExercise.id, hasExercises]);
 
     // Load saved progress on component mount
     useEffect(() => {
-        const savedCode = localStorage.getItem(`exercise-${lessonId}`);
-        if (savedCode) {
-            setCode(savedCode);
-        } else {
-            setCode(exercise.startingCode || "");
+        if (hasExercises) {
+            const savedCode = localStorage.getItem(`exercise-${currentExercise.id}`);
+            if (savedCode) {
+                setCode(savedCode);
+            } else {
+                setCode(currentExercise.startingCode || "");
+            }
         }
-    }, [lessonId, exercise.startingCode]);
+    }, [currentExercise.id, currentExercise.startingCode, hasExercises]);
+
+    // Navigate to previous exercise
+    const goToPreviousExercise = () => {
+        if (previousExercise) {
+            navigate(`/exercises/${previousExercise.id}`);
+        }
+    };
+
+    // Navigate to next exercise
+    const goToNextExercise = () => {
+        if (nextExercise) {
+            navigate(`/exercises/${nextExercise.id}`);
+        } else {
+            // Navigate to next lesson if no more exercises
+            navigate(`/lessons/${parseInt(lessonId) + 1}`);
+        }
+    };
 
     // Helper function to encode/decode base64
-    const encodeBase64 = (str) => {
+    const encodeBase64 = str => {
         try {
             return btoa(unescape(encodeURIComponent(str || "")));
         } catch (e) {
@@ -103,7 +151,7 @@ const Exercise = () => {
         }
     };
 
-    const decodeBase64 = (str) => {
+    const decodeBase64 = str => {
         try {
             return decodeURIComponent(escape(atob(str || "")));
         } catch (e) {
@@ -113,6 +161,8 @@ const Exercise = () => {
     };
 
     const runCode = async () => {
+        if (!hasExercises) return;
+        
         setIsRunning(true);
         setError(null);
         setOutput("");
@@ -130,9 +180,13 @@ const Exercise = () => {
                 },
                 data: {
                     source_code: encodeBase64(code),
-                    language_id: languageIds[exercise.language?.toLowerCase()],
-                    stdin: exercise.testInput ? encodeBase64(exercise.testInput) : "",
-                    expected_output: exercise.expectedOutput ? encodeBase64(exercise.expectedOutput) : null,
+                    language_id: languageIds[currentExercise.language?.toLowerCase()],
+                    stdin: currentExercise.testInput
+                        ? encodeBase64(currentExercise.testInput)
+                        : "",
+                    expected_output: currentExercise.expectedOutput
+                        ? encodeBase64(currentExercise.expectedOutput)
+                        : null,
                     cpu_time_limit: 2,
                     memory_limit: 128000
                 }
@@ -186,19 +240,26 @@ const Exercise = () => {
 
             if (statusId === 3) {
                 setOutput(
-                    decodeBase64(result.stdout) || "Code executed successfully (no output)"
+                    decodeBase64(result.stdout) ||
+                        "Code executed successfully (no output)"
                 );
             } else if (statusId === 6) {
-                setError(`Compilation Error: ${decodeBase64(result.compile_output)}`);
+                setError(
+                    `Compilation Error: ${decodeBase64(result.compile_output)}`
+                );
             } else if (statusId >= 7 && statusId <= 12) {
                 let errorMessage = `Runtime Error (${statusMap[statusId]}): ${
                     decodeBase64(result.stderr) || ""
                 }`;
-                
+
                 if (result.message) {
-                    errorMessage += `\n${typeof result.message === 'string' ? decodeBase64(result.message) : result.message}`;
+                    errorMessage += `\n${
+                        typeof result.message === "string"
+                            ? decodeBase64(result.message)
+                            : result.message
+                    }`;
                 }
-                
+
                 setError(errorMessage);
             } else {
                 setError(
@@ -212,15 +273,17 @@ const Exercise = () => {
             setIsRunning(false);
         }
     };
-    
+
     const getHint = () => {
+        if (!hasExercises) return;
+        
         if (remainingHints > 0) {
             setShowHint(true);
             setRemainingHints(prev => prev - 1);
             setFeedbackType("hint");
             setFeedbackMessage(
-                exercise.hints
-                    ? exercise.hints[3 - remainingHints]
+                currentExercise.hints
+                    ? currentExercise.hints[3 - remainingHints]
                     : "لا توجد تلميحات إضافية"
             );
         } else {
@@ -230,21 +293,25 @@ const Exercise = () => {
     };
 
     const resetExercise = () => {
+        if (!hasExercises) return;
+        
         if (
             window.confirm(
                 "هل أنت متأكد من أنك تريد إعادة ضبط التمرين؟ سيتم حذف جميع التقدم المحرز."
             )
         ) {
-            setCode(exercise.startingCode || "");
+            setCode(currentExercise.startingCode || "");
             setFeedbackMessage("");
             setFeedbackType("");
             setOutput("");
             setError(null);
-            localStorage.removeItem(`exercise-${lessonId}`);
+            localStorage.removeItem(`exercise-${currentExercise.id}`);
         }
     };
 
     const toggleSolution = () => {
+        if (!hasExercises) return;
+        
         if (
             !showSolution &&
             !window.confirm(
@@ -263,7 +330,7 @@ const Exercise = () => {
 
     // Detect language mode for the editor
     const getEditorMode = () => {
-        const language = exercise.language?.toLowerCase();
+        const language = currentExercise.language?.toLowerCase();
         if (!language) return "c_cpp"; // Default to C/C++
 
         switch (language) {
@@ -282,6 +349,40 @@ const Exercise = () => {
         }
     };
 
+    // If there are no exercises for this lesson, show a message
+    if (!hasExercises) {
+        return (
+            <div className="max-w-4xl mx-auto">
+                <div className="flex justify-between items-center mb-6">
+                    <Link
+                        to={`/lessons/${lessonId}`}
+                        className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                        <ArrowLeft className="h-5 w-5" />
+                        الرجوع للدرس
+                    </Link>
+                    <div className="text-sm bg-gray-100 px-3 py-1 rounded-full">
+                        الدرس {lessonId}
+                    </div>
+                </div>
+                
+                <div className="bg-blue-50 border border-blue-200 text-blue-800 p-8 rounded-lg text-center">
+                    <Info className="h-12 w-12 mx-auto mb-4 text-blue-600" />
+                    <h2 className="text-2xl font-bold mb-3">لا توجد تمارين بعد</h2>
+                    <p className="text-lg">
+                        لم يتم إضافة تمارين لهذا الدرس حتى الآن. يرجى العودة لاحقاً.
+                    </p>
+                    <Link
+                        to={`/lessons/${lessonId}`}
+                        className="mt-6 inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md"
+                    >
+                        الرجوع للدرس
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-4xl mx-auto">
             <div className="flex justify-between items-center mb-6">
@@ -293,14 +394,14 @@ const Exercise = () => {
                     الرجوع للدرس
                 </Link>
                 <div className="text-sm bg-gray-100 px-3 py-1 rounded-full">
-                    تمرين {lessonId}
+                    تمرين {currentExercise.id} من {lessonExercises.length}
                 </div>
             </div>
             <div className="mb-6">
                 <h2 className="text-2xl font-bold mb-3 text-gray-800">
-                    {exercise.title}
+                    {currentExercise.title}
                 </h2>
-                <p className="text-gray-700 mb-6">{exercise.description}</p>
+                <p className="text-gray-700 mb-6">{currentExercise.description}</p>
             </div>
             {feedbackMessage && (
                 <div
@@ -336,7 +437,7 @@ const Exercise = () => {
                 {/* Ace Editor */}
                 <div className="code-editor rounded-lg overflow-hidden border border-gray-200">
                     <AceEditor
-                        theme="github"
+                        theme="xcode"
                         mode={getEditorMode()}
                         name="ace-editor"
                         onChange={onChange}
@@ -428,7 +529,7 @@ const Exercise = () => {
                     <h3 className="text-lg font-medium text-gray-800 mb-3">
                         الحل النموذجي
                     </h3>
-                    <MarkdownRender content={exercise.solution} />
+                    <MarkdownRender content={currentExercise.solution} />
                     <p className="mt-4 text-sm text-gray-600">
                         تذكر أن هناك أكثر من طريقة لحل المشكلة. استخدم هذا الحل
                         للتعلم والمقارنة مع حلك الخاص.
@@ -436,14 +537,44 @@ const Exercise = () => {
                 </div>
             )}
 
-            <div className="mt-8 text-center">
+            {/* Exercise navigation */}
+            <div className="mt-8 flex justify-between items-center">
+                {previousExercise ? (
+                    <button
+                        onClick={goToPreviousExercise}
+                        className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                        <ArrowLeftCircle className="h-5 w-5" />
+                        التمرين السابق
+                    </button>
+                ) : (
+                    <div></div> // Empty div to maintain flexbox spacing
+                )}
+                
                 <Link
-                    to={`/lessons/${parseInt(lessonId) + 1}`}
-                    className="text-blue-600 hover:text-blue-800 font-medium flex items-center justify-center gap-1"
+                    to={`/lessons/${lessonId}`}
+                    className="text-gray-600 hover:text-gray-800 font-medium"
                 >
-                    الانتقال إلى الدرس التالي
-                    <ArrowRight className="h-5 w-5" />
+                    العودة للدرس
                 </Link>
+                
+                {nextExercise ? (
+                    <button
+                        onClick={goToNextExercise}
+                        className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                        التمرين التالي
+                        <ArrowRightCircle className="h-5 w-5" />
+                    </button>
+                ) : (
+                    <Link
+                        to={`/lessons/${parseInt(lessonId) + 1}`}
+                        className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                        الدرس التالي
+                        <ArrowRight className="h-5 w-5" />
+                    </Link>
+                )}
             </div>
         </div>
     );

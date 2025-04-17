@@ -25,15 +25,29 @@ const Quiz = () => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [userAnswers, setUserAnswers] = useState([]);
     const [showResults, setShowResults] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [hasQuestions, setHasQuestions] = useState(true);
 
     // Default time per question in seconds
     const TIME_PER_QUESTION = 30;
 
     useEffect(() => {
-        // Filter and shuffle questions when lessonId changes
+        // Set loading state while we check for questions
+        setLoading(true);
+        
+        // Filter questions for this lesson
         const lessonQuestions = questions.filter(
             q => q.lessonId === parseInt(lessonId)
         );
+        
+        // Check if there are any questions for this lesson
+        if (!lessonQuestions.length) {
+            setHasQuestions(false);
+            setLoading(false);
+            return;
+        }
+        
+        // If we have questions, proceed with quiz setup
         const shuffled = shuffleArray(lessonQuestions);
         setShuffledQuestions(shuffled);
 
@@ -58,11 +72,12 @@ const Quiz = () => {
         setShuffledOptionsMap(optionsMap);
         setTimeRemaining(TIME_PER_QUESTION);
         setUserAnswers(new Array(shuffled.length).fill(null));
+        setLoading(false);
     }, [lessonId]);
 
     // Timer effect
     useEffect(() => {
-        if (quizCompleted || !timeRemaining || showFeedback) return;
+        if (quizCompleted || !timeRemaining || showFeedback || !hasQuestions) return;
 
         const timer = setInterval(() => {
             setTimeRemaining(prev => {
@@ -77,7 +92,7 @@ const Quiz = () => {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [timeRemaining, quizCompleted, showFeedback]);
+    }, [timeRemaining, quizCompleted, showFeedback, hasQuestions]);
 
     const handleTimerExpired = () => {
         // Update user answers
@@ -192,6 +207,47 @@ const Quiz = () => {
         if (percentage >= 60) return "مقبول";
         return "راسب";
     };
+
+    // Handle loading state
+    if (loading) {
+        return (
+            <div className="w-full h-64 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
+                    <p className="text-lg">جارٍ تحميل الأسئلة...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Handle case where lesson has no quiz questions
+    if (!hasQuestions) {
+        return (
+            <div className="w-full p-6 bg-white rounded-lg shadow-lg max-w-md mx-auto text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+                <h2 className="text-2xl font-bold mb-4">لا توجد أسئلة متاحة</h2>
+                <p className="text-gray-600 mb-6">
+                    لا يتوفر اختبار لهذا الدرس حالياً. يرجى الرجوع للدرس للمراجعة والتعلم.
+                </p>
+                <div className="flex flex-col gap-2">
+                    <Link
+                        to={`/lessons/${lessonId}`}
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-4 rounded w-full text-center"
+                    >
+                        الرجوع للدرس
+                    </Link>
+                    <Link
+                        to={`/exercises/${lessonId}`}
+                        className="border border-blue-500 text-blue-500 hover:bg-blue-50 font-bold py-2.5 px-4 rounded w-full text-center"
+                    >
+                        الذهاب للتمارين
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     // Detailed results view
     if (quizCompleted && showResults) {
@@ -323,6 +379,7 @@ const Quiz = () => {
         );
     }
 
+    // Safety check for shuffled questions and options
     if (!shuffledQuestions.length || !shuffledOptionsMap[currentQuestion]) {
         return (
             <div className="w-full h-64 flex items-center justify-center">
@@ -334,6 +391,7 @@ const Quiz = () => {
         );
     }
 
+    // Normal quiz view
     return (
         <div className="w-full bg-white max-w-md mx-auto">
             <div className="flex justify-between items-center mb-4">
