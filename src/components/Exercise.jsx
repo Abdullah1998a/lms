@@ -372,48 +372,6 @@ const Exercise = () => {
                     تمرين {currentExerciseIndex + 1} من {lessonExercises.length}
                 </div>
             </div>
-
-            {/* Exercise Navigation Slider */}
-            <div className="mb-8 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-md font-medium text-gray-700">التنقل بين التمارين</h3>
-                </div>
-                
-                <div className="flex items-center gap-2">
-                    <button 
-                        onClick={goToPreviousExercise}
-                        disabled={!previousExercise}
-                        className={`p-2 rounded-full ${previousExercise ? 'text-blue-600 hover:bg-blue-50' : 'text-gray-300 cursor-not-allowed'}`}
-                    >
-                        <ArrowRight className="h-5 w-5" />
-                    </button>
-
-                    <div className="flex-1 overflow-x-auto py-2 flex gap-2 items-center scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                        {lessonExercises.map((ex, index) => (
-                            <button
-                                key={ex.id}
-                                onClick={() => goToExercise(index)}
-                                className={`min-w-fit px-3 py-1 rounded-full text-sm transition-colors ${
-                                    currentExerciseIndex === index
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-100'
-                                }`}
-                            >
-                                {index + 1}: {ex.title.length > 15 ? ex.title.slice(0, 15) + '...' : ex.title}
-                            </button>
-                        ))}
-                    </div>
-
-                    <button 
-                        onClick={goToNextExercise}
-                        disabled={!nextExercise}
-                        className={`p-2 rounded-full ${nextExercise ? 'text-blue-600 hover:bg-blue-50' : 'text-gray-300 cursor-not-allowed'}`}
-                    >
-                        <ArrowLeft className="h-5 w-5" />
-                    </button>
-                </div>
-            </div>
-
             <div className="mb-6">
                 <h2 className="text-2xl font-bold mb-3 text-gray-800">
                     {currentExercise.title}
