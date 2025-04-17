@@ -49,12 +49,13 @@ const Exercise = () => {
     const [output, setOutput] = useState("");
     const [isRunning, setIsRunning] = useState(false);
     const [feedbackMessage, setFeedbackMessage] = useState("");
-    const [feedbackType, setFeedbackType] = useState(""); // "success", "error", "hint"
+    const [feedbackType, setFeedbackType] = useState(""); // "hint"
     const [showHint, setShowHint] = useState(false);
     const [remainingHints, setRemainingHints] = useState(3);
     const [showSolution, setShowSolution] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
+    const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 
     // Judge0 API credentials
     const JUDGE0_API_URL = import.meta.env.VITE_JUDGE0_API_URL;
@@ -78,9 +79,9 @@ const Exercise = () => {
     // Check if there are exercises for this lesson
     const hasExercises = lessonExercises.length > 0;
 
-    // Find current exercise (first one from the lesson if available)
+    // Find current exercise based on currentExerciseIndex
     const currentExercise = hasExercises
-        ? lessonExercises[0]
+        ? lessonExercises[currentExerciseIndex]
         : {
               title: "تمرين غير موجود",
               description: "لم يتم العثور على هذا التمرين",
@@ -90,19 +91,8 @@ const Exercise = () => {
           };
 
     // Find previous and next exercises in the same lesson
-    const currentExerciseIndex = hasExercises
-        ? lessonExercises.findIndex(ex => ex.id === currentExercise.id)
-        : -1;
-
-    const previousExercise =
-        currentExerciseIndex > 0
-            ? lessonExercises[currentExerciseIndex - 1]
-            : null;
-
-    const nextExercise =
-        currentExerciseIndex < lessonExercises.length - 1
-            ? lessonExercises[currentExerciseIndex + 1]
-            : null;
+    const previousExercise = currentExerciseIndex > 0 ? true : false;
+    const nextExercise = currentExerciseIndex < lessonExercises.length - 1 ? true : false;
 
     // Save progress to localStorage
     useEffect(() => {
@@ -111,7 +101,7 @@ const Exercise = () => {
         }
     }, [code, currentExercise.id, hasExercises]);
 
-    // Load saved progress on component mount
+    // Load saved progress on component mount or when exercise changes
     useEffect(() => {
         if (hasExercises) {
             const savedCode = localStorage.getItem(
@@ -122,25 +112,35 @@ const Exercise = () => {
             } else {
                 setCode(currentExercise.startingCode || "");
             }
+            
+            // Reset other states when changing exercises
+            setOutput("");
+            setError(null);
+            setFeedbackMessage("");
+            setFeedbackType("");
+            setShowSolution(false);
+            setRemainingHints(3);
         }
     }, [currentExercise.id, currentExercise.startingCode, hasExercises]);
 
     const goToPreviousExercise = () => {
         if (previousExercise) {
-            // Navigate to previous exercise in the same lesson
-            navigate(
-                `/exercises/${lessonId}?exerciseId=${previousExercise.id}`
-            );
+            setCurrentExerciseIndex(currentExerciseIndex - 1);
         }
     };
 
     const goToNextExercise = () => {
         if (nextExercise) {
-            // Navigate to next exercise in the same lesson
-            navigate(`/exercises/${lessonId}?exerciseId=${nextExercise.id}`);
+            setCurrentExerciseIndex(currentExerciseIndex + 1);
         } else {
             // Navigate to next lesson if no more exercises
             navigate(`/lessons/${parseInt(lessonId) + 1}`);
+        }
+    };
+
+    const goToExercise = (index) => {
+        if (index >= 0 && index < lessonExercises.length) {
+            setCurrentExerciseIndex(index);
         }
     };
 
@@ -369,9 +369,51 @@ const Exercise = () => {
                     الرجوع للدرس
                 </Link>
                 <div className="text-sm bg-gray-100 px-3 py-1 rounded-full">
-                    تمرين {currentExercise.id} من {lessonExercises.length}
+                    تمرين {currentExerciseIndex + 1} من {lessonExercises.length}
                 </div>
             </div>
+
+            {/* Exercise Navigation Slider */}
+            <div className="mb-8 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-md font-medium text-gray-700">التنقل بين التمارين</h3>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                    <button 
+                        onClick={goToPreviousExercise}
+                        disabled={!previousExercise}
+                        className={`p-2 rounded-full ${previousExercise ? 'text-blue-600 hover:bg-blue-50' : 'text-gray-300 cursor-not-allowed'}`}
+                    >
+                        <ArrowRight className="h-5 w-5" />
+                    </button>
+
+                    <div className="flex-1 overflow-x-auto py-2 flex gap-2 items-center scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                        {lessonExercises.map((ex, index) => (
+                            <button
+                                key={ex.id}
+                                onClick={() => goToExercise(index)}
+                                className={`min-w-fit px-3 py-1 rounded-full text-sm transition-colors ${
+                                    currentExerciseIndex === index
+                                        ? 'bg-blue-600 text-white'
+                                        : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-100'
+                                }`}
+                            >
+                                {index + 1}: {ex.title.length > 15 ? ex.title.slice(0, 15) + '...' : ex.title}
+                            </button>
+                        ))}
+                    </div>
+
+                    <button 
+                        onClick={goToNextExercise}
+                        disabled={!nextExercise}
+                        className={`p-2 rounded-full ${nextExercise ? 'text-blue-600 hover:bg-blue-50' : 'text-gray-300 cursor-not-allowed'}`}
+                    >
+                        <ArrowLeft className="h-5 w-5" />
+                    </button>
+                </div>
+            </div>
+
             <div className="mb-6">
                 <h2 className="text-2xl font-bold mb-3 text-gray-800">
                     {currentExercise.title}
@@ -514,14 +556,14 @@ const Exercise = () => {
                 </div>
             )}
 
-            {/* Exercise navigation */}
+            {/* Exercise navigation bottom buttons */}
             <div className="mt-8 flex justify-between items-center">
                 {previousExercise ? (
                     <button
                         onClick={goToPreviousExercise}
                         className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
                     >
-                        <ArrowLeftCircle className="h-5 w-5 mr-4" />
+                        <ArrowRightCircle className="h-5 w-5 mr-4" />
                         <span>التمرين السابق</span>
                     </button>
                 ) : (
@@ -541,7 +583,7 @@ const Exercise = () => {
                         className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
                     >
                         <span>التمرين التالي</span>
-                        <ArrowRightCircle className="h-5 w-5 ml-4" />
+                        <ArrowLeftCircle className="h-5 w-5 ml-4" />
                     </button>
                 ) : (
                     <Link
