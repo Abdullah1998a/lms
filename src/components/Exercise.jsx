@@ -17,8 +17,6 @@ import {
 
 // Import AceEditor component
 import AceEditor from "react-ace";
-import ace from 'ace-builds';
-import 'ace-builds/webpack-resolver';
 
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-github";
