@@ -302,7 +302,6 @@ const Exercise = () => {
                 </h2>
                 <p className="text-gray-700 mb-6">{exercise.description}</p>
             </div>
-
             {feedbackMessage && (
                 <div
                     className={`p-4 mb-6 ${
@@ -312,17 +311,8 @@ const Exercise = () => {
                     }`}
                 >
                     <div className="flex items-center">
-                        {feedbackType === "success" && (
-                            <CheckCircle className="h-5 w-5 mr-2" />
-                        )}
-                        {feedbackType === "error" && (
-                            <AlertCircle className="h-5 w-5 mr-2" />
-                        )}
                         {feedbackType === "hint" && (
                             <Info className="h-5 w-5 mr-2" />
-                        )}
-                        {feedbackType === "partial" && (
-                            <Clock className="h-5 w-5 mr-2" />
                         )}
                         <span>{feedbackMessage}</span>
                     </div>
@@ -346,7 +336,7 @@ const Exercise = () => {
                 {/* Ace Editor */}
                 <div className="code-editor rounded-lg overflow-hidden border border-gray-200">
                     <AceEditor
-                        theme="monokai"
+                        theme="github"
                         mode={getEditorMode()}
                         name="ace-editor"
                         onChange={onChange}
