@@ -18,9 +18,28 @@ import {
 // Import AceEditor component
 import AceEditor from "react-ace";
 
+// Explicitly import all required elements from ace-builds
+// Base ace imports
+import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/theme-github";
+
+// Import other common languages you might need
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/mode-java";
+
+// Import extensions
 import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/ext-searchbox";
+
+// Import a few extra themes
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-tomorrow";
+import "ace-builds/src-noconflict/theme-xcode";
+
+// Initialize the needed extensions
+import { addCompleter } from "ace-builds/src-noconflict/ext-language_tools";
 
 const Exercise = () => {
     const { lessonId } = useParams();
@@ -220,6 +239,27 @@ const Exercise = () => {
         setCode(newValue);
     };
 
+    // Detect language mode for the editor
+    const getEditorMode = () => {
+        const language = exercise.language?.toLowerCase();
+        if (!language) return "c_cpp"; // Default to C/C++
+
+        switch (language) {
+            case "cpp":
+                return "c_cpp";
+            case "c":
+                return "c_cpp";
+            case "java":
+                return "java";
+            case "python":
+                return "python";
+            case "javascript":
+                return "javascript";
+            default:
+                return "c_cpp";
+        }
+    };
+
     return (
         <div className="max-w-4xl mx-auto">
             <div className="flex justify-between items-center mb-6">
@@ -234,29 +274,17 @@ const Exercise = () => {
                     تمرين {lessonId}
                 </div>
             </div>
-
             <div className="mb-6">
                 <h2 className="text-2xl font-bold mb-3 text-gray-800">
                     {exercise.title}
                 </h2>
                 <p className="text-gray-700 mb-6">{exercise.description}</p>
-
-                <div className="bg-gray-50 p-4 rounded-md mb-6 border border-gray-200">
-                    <h3 className="text-sm uppercase tracking-wide text-gray-500 mb-2">
-                        الكود الأولي
-                    </h3>
-                    <MarkdownRender content={exercise.startingCodeMd} />
-                </div>
             </div>
 
             {feedbackMessage && (
                 <div
                     className={`p-4 mb-6 ${
-                        feedbackType === "success"
-                            ? "bg-green-50 border border-green-200 text-green-800"
-                            : feedbackType === "partial"
-                            ? "bg-yellow-50 border border-yellow-200 text-yellow-800"
-                            : feedbackType === "hint"
+                        feedbackType === "hint"
                             ? "bg-blue-50 border border-blue-200 text-blue-800"
                             : "bg-red-50 border border-red-200 text-red-800"
                     }`}
@@ -296,8 +324,8 @@ const Exercise = () => {
                 {/* Ace Editor */}
                 <div className="code-editor rounded-lg overflow-hidden border border-gray-200">
                     <AceEditor
-                        theme="github"
-                        mode="c_cpp"
+                        theme="monokai"
+                        mode={getEditorMode()}
                         name="ace-editor"
                         onChange={onChange}
                         value={code}
