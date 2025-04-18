@@ -91,8 +91,8 @@ using namespace std;
 // اكتب التابع calculateArea هنا
 
 int main() {
-    cout << "مساحة المستطيل 3×5 = " << calculateArea(3, 5) << endl; // يجب أن تكون النتيجة 15
-    cout << "مساحة المستطيل 2.5×4.0 = " << calculateArea(2.5, 4.0) << endl; // يجب أن تكون النتيجة 10.0
+    cout << "Area = 3 × 5 = " << calculateArea(3, 5) << endl; // يجب أن تكون النتيجة 15
+    cout << "Area = 2.5 × 4.0 = " << calculateArea(2.5, 4.0) << endl; // يجب أن تكون النتيجة 10.0
     return 0;
 }
 `,
@@ -129,15 +129,12 @@ using namespace std;
 
 int main() {
     int number;
-    cout << "أدخل رقمًا: ";
     cin >> number;
-    
     if (isEven(number)) {
-        cout << "الرقم " << number << " زوجي" << endl;
+        cout << "Number " << number << " is Even" << endl;
     } else {
-        cout << "الرقم " << number << " فردي" << endl;
+        cout << "Number " << number << " is Odd" << endl;
     }
-    
     return 0;
 }
 `,
@@ -154,7 +151,7 @@ bool isEven(int number) {
         ],
         requiresInput: true,
         sampleInput: 4,
-        inputDescription: "أدخل رقم بدون مسافات"
+        inputDescription: "أدخل رقم"
     },
     {
         id: 5,
@@ -172,8 +169,8 @@ using namespace std;
 // اكتب التابع average هنا
 
 int main() {
-    cout << "المتوسط الحسابي للأرقام 10, 20, 30 هو: " << average(10, 20, 30) << endl; // يجب أن تكون النتيجة 20
-    cout << "المتوسط الحسابي للأرقام 5.5, 10.5, 15.5 هو: " << average(5.5, 10.5, 15.5) << endl; // يجب أن تكون النتيجة 10.5
+    cout << "Average 10, 20, 30: " << average(10, 20, 30) << endl; // يجب أن تكون النتيجة 20
+    cout << "Average 5.5, 10.5, 15.5: " << average(5.5, 10.5, 15.5) << endl; // يجب أن تكون النتيجة 10.5
     return 0;
 }
 `,

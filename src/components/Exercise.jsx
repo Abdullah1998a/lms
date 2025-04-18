@@ -540,27 +540,7 @@ const Exercise = () => {
 
                 {/* User Input Section */}
                 <div className="mt-4">
-                    <div className="flex justify-between items-center mb-2">
-                        <button
-                            onClick={toggleInputSection}
-                            className="text-sm text-blue-600 hover:text-blue-800"
-                        >
-                            {showInputSection
-                                ? "إخفاء إدخال المستخدم"
-                                : "إظهار إدخال المستخدم"}
-                        </button>
-                        {showInputSection && (
-                            <button
-                                onClick={resetInput}
-                                className="text-sm text-gray-600 hover:text-red-600 flex items-center"
-                            >
-                                <RotateCcw className="h-4 w-4 ml-2" />
-                                إعادة ضبط الإدخال
-                            </button>
-                        )}
-                    </div>
-
-                    {showInputSection && (
+                    {currentExercise.requiresInput && (
                         <div className="mb-4">
                             <label
                                 htmlFor="user-input"
