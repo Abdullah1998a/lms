@@ -406,7 +406,7 @@ const Exercise = () => {
                         {currentExercise.title}
                     </h2>
                     <span
-                        className={`text rounded-full px-2 py-1.5 text-white ${
+                        className={`text rounded-full px-6 py-1.5 text-white ${
                             currentExercise.difficultyId === 1
                                 ? "bg-green-600"
                                 : currentExercise.difficultyId === 2
