@@ -5,6 +5,7 @@ export const exercises = [
         title: "جمع رقمين",
         description:
             "اكتب تابعًا (function) يجمع رقمين ويعيد الناتج. سيتم استدعاء التابع من الدالة الرئيسية واستخدام نتيجته.",
+        difficultyId: 1,
         difficulty: "سهل",
         language: "cpp",
         category: "functions",
@@ -30,8 +31,7 @@ int sum(int a, int b) {
             "تذكر أن التابع يحتاج إلى نوع البيانات المُرجع (return type)",
             "التابع يحتاج إلى معاملين (parameters) من نوع int",
             "استخدم عامل الجمع (+) للحصول على مجموع المعاملين"
-        ],
-        nextExercise: 2
+        ]
     },
     {
         id: 2,
@@ -40,6 +40,7 @@ int sum(int a, int b) {
         description:
             "اكتب تابعًا (function) يطبع اسمك 3 مرات باستخدام حلقة تكرار. لاحظ أن الدالة لا تُرجع أي قيمة.",
         language: "cpp",
+        difficultyId: 1,
         difficulty: "سهل",
         category: "functions",
         startingCode: `
@@ -65,8 +66,7 @@ void printName() {
             "استخدم كلمة void للتوابع التي لا ترجع قيمة",
             "يمكنك استخدام حلقة for للتكرار ثلاث مرات",
             "لا تنس استخدام endl في نهاية كل سطر لطباعة اسمك في سطر جديد"
-        ],
-        nextExercise: 3
+        ]
     },
     {
         id: 3,
@@ -74,6 +74,7 @@ void printName() {
         title: "حساب مساحة المستطيل",
         description:
             "اكتب تابعًا يحسب مساحة المستطيل باستخدام الطول والعرض ويرجع النتيجة.",
+        difficultyId: 1,
         difficulty: "سهل",
         language: "cpp",
         category: "functions",
@@ -99,15 +100,15 @@ double calculateArea(double length, double width) {
             "استخدم نوع البيانات double للتعامل مع الأرقام العشرية",
             "للحصول على المساحة، قم بضرب الطول في العرض",
             "تأكد من استخدام معاملين في التابع: الطول والعرض"
-        ],
-        nextExercise: 4
+        ]
     },
     {
         id: 4,
-        lessonId: 1,
+        lessonId: 8,
         title: "التحقق من الرقم الزوجي",
         description:
             "اكتب تابعًا يتحقق إذا كان الرقم زوجيًا ويرجع قيمة منطقية (true إذا كان زوجيًا، false إذا كان فرديًا).",
+        difficultyId: 2,
         difficulty: "متوسط",
         language: "cpp",
         category: "functions",
@@ -148,6 +149,7 @@ bool isEven(int number) {
         lessonId: 1,
         title: "حساب المتوسط الحسابي",
         description: "اكتب تابعًا يحسب المتوسط الحسابي لثلاثة أرقام.",
+        difficultyId: 2,
         difficulty: "متوسط",
         language: "cpp",
         category: "functions",
@@ -173,7 +175,6 @@ double average(double a, double b, double c) {
             "استخدم نوع البيانات double للتعامل مع الأرقام العشرية",
             "المتوسط الحسابي يُحسب بجمع الأرقام وقسمة المجموع على عددها",
             "تأكد من إجراء القسمة على الرقم 3 (عدد الأرقام)"
-        ],
-        nextExercise: null
+        ]
     }
 ];
