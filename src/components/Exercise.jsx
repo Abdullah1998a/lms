@@ -406,11 +406,11 @@ const Exercise = () => {
                         {currentExercise.title}
                     </h2>
                     <span
-                        className={`text rounded-full px-6 py-1.5 text-white ${
+                        className={`text-sm rounded-full px-6 py-1 text-white ${
                             currentExercise.difficultyId === 1
                                 ? "bg-green-600"
                                 : currentExercise.difficultyId === 2
-                                ? "bg-orange-600"
+                                ? "bg-orange-500"
                                 : "bg-red-600"
                         }`}
                     >
