@@ -31,7 +31,10 @@ int sum(int a, int b) {
             "تذكر أن التابع يحتاج إلى نوع البيانات المُرجع (return type)",
             "التابع يحتاج إلى معاملين (parameters) من نوع int",
             "استخدم عامل الجمع (+) للحصول على مجموع المعاملين"
-        ]
+        ],
+        requiresInput: false,
+        sampleInput: "",
+        inputDescription: ""
     },
     {
         id: 2,
@@ -66,7 +69,10 @@ void printName() {
             "استخدم كلمة void للتوابع التي لا ترجع قيمة",
             "يمكنك استخدام حلقة for للتكرار ثلاث مرات",
             "لا تنس استخدام endl في نهاية كل سطر لطباعة اسمك في سطر جديد"
-        ]
+        ],
+        requiresInput: false,
+        sampleInput: "",
+        inputDescription: ""
     },
     {
         id: 3,
@@ -100,11 +106,14 @@ double calculateArea(double length, double width) {
             "استخدم نوع البيانات double للتعامل مع الأرقام العشرية",
             "للحصول على المساحة، قم بضرب الطول في العرض",
             "تأكد من استخدام معاملين في التابع: الطول والعرض"
-        ]
+        ],
+        requiresInput: false,
+        sampleInput: "",
+        inputDescription: ""
     },
     {
         id: 4,
-        lessonId: 8,
+        lessonId: 1,
         title: "التحقق من الرقم الزوجي",
         description:
             "اكتب تابعًا يتحقق إذا كان الرقم زوجيًا ويرجع قيمة منطقية (true إذا كان زوجيًا، false إذا كان فرديًا).",
@@ -142,7 +151,10 @@ bool isEven(int number) {
             "استخدم نوع البيانات bool للتوابع التي ترجع قيمة منطقية (true/false)",
             "يمكنك استخدام عامل باقي القسمة (%) للتحقق من الزوجية",
             "الرقم يكون زوجيًا إذا كان باقي قسمته على 2 يساوي صفر"
-        ]
+        ],
+        requiresInput: true,
+        sampleInput: 4,
+        inputDescription: "أدخل رقم بدون مسافات"
     },
     {
         id: 5,
@@ -175,6 +187,9 @@ double average(double a, double b, double c) {
             "استخدم نوع البيانات double للتعامل مع الأرقام العشرية",
             "المتوسط الحسابي يُحسب بجمع الأرقام وقسمة المجموع على عددها",
             "تأكد من إجراء القسمة على الرقم 3 (عدد الأرقام)"
-        ]
+        ],
+        requiresInput: false,
+        sampleInput: "",
+        inputDescription: ""
     }
 ];

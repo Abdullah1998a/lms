@@ -52,6 +52,10 @@ const Exercise = () => {
     const [error, setError] = useState(null);
     const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 
+    // New state for user input
+    const [userInput, setUserInput] = useState("");
+    const [showInputSection, setShowInputSection] = useState(false);
+
     // Judge0 API configuration
     const JUDGE0_API_URL = import.meta.env.VITE_JUDGE0_API_URL;
     const JUDGE0_API_KEY = import.meta.env.VITE_JUDGE0_API_KEY;
@@ -140,12 +144,18 @@ const Exercise = () => {
             setShowSolution(false);
             setRemainingHints(3);
             setShowHint(false);
+            setUserInput(""); // Reset user input
+
+            // Determine if input section should be shown based on exercise properties
+            setShowInputSection(currentExercise.requiresInput || false);
 
             // Get the exercise ID to use for storage
             const exerciseKey = `exercise-${currentExercise.id}`;
+            const inputKey = `exercise-input-${currentExercise.id}`;
 
             // Check localStorage first
             const savedCode = localStorage.getItem(exerciseKey);
+            const savedInput = localStorage.getItem(inputKey);
 
             // If saved code exists for this specific exercise, use it
             if (savedCode && savedCode.trim() !== "") {
@@ -154,11 +164,21 @@ const Exercise = () => {
                 // Otherwise use the starting code
                 setCode(currentExercise.startingCode || "");
             }
+
+            // If saved input exists, use it
+            if (savedInput) {
+                setUserInput(savedInput);
+            } else if (currentExercise.sampleInput) {
+                // Use sample input as a placeholder if available
+                setUserInput(currentExercise.sampleInput);
+            }
         }
     }, [
         currentExerciseIndex,
         currentExercise.id,
         currentExercise.startingCode,
+        currentExercise.sampleInput,
+        currentExercise.requiresInput,
         hasExercises
     ]);
 
@@ -173,6 +193,16 @@ const Exercise = () => {
             }
         }
     }, [code, currentExercise.id, hasExercises]);
+
+    // Save user input to localStorage when it changes
+    useEffect(() => {
+        if (hasExercises && currentExercise.id) {
+            const inputKey = `exercise-input-${currentExercise.id}`;
+
+            // Always save input, even if empty
+            localStorage.setItem(inputKey, userInput);
+        }
+    }, [userInput, currentExercise.id, hasExercises]);
 
     // Navigation functions - Fixed to properly update code with startingCode
     const goToPreviousExercise = () => {
@@ -219,9 +249,13 @@ const Exercise = () => {
                     source_code: encodeBase64(code),
                     language_id:
                         languageIds[currentExercise.language?.toLowerCase()],
-                    stdin: currentExercise.testInput
-                        ? encodeBase64(currentExercise.testInput)
-                        : "",
+                    // Use user input if provided, otherwise use exercise's test input
+                    stdin:
+                        showInputSection && userInput.trim()
+                            ? encodeBase64(userInput)
+                            : currentExercise.testInput
+                            ? encodeBase64(currentExercise.testInput)
+                            : "",
                     expected_output: currentExercise.expectedOutput
                         ? encodeBase64(currentExercise.expectedOutput)
                         : null,
@@ -351,6 +385,18 @@ const Exercise = () => {
         setOutput("");
         setError(null);
     };
+
+    // Reset input to sample input or clear it
+    const resetInput = () => {
+        if (!hasExercises) return;
+
+        // Reset input to sample or empty
+        setUserInput(currentExercise.sampleInput || "");
+
+        // Clear saved input
+        localStorage.removeItem(`exercise-input-${currentExercise.id}`);
+    };
+
     const toggleSolution = () => {
         if (!hasExercises) return;
         setShowSolution(prev => !prev);
@@ -360,6 +406,17 @@ const Exercise = () => {
     const onChange = newValue => {
         setCode(newValue);
     };
+
+    // Handle input changes
+    const onInputChange = e => {
+        setUserInput(e.target.value);
+    };
+
+    // Toggle input visibility
+    const toggleInputSection = () => {
+        setShowInputSection(prev => !prev);
+    };
+
     // If no exercises for this lesson, show message
     if (!hasExercises) {
         return (
@@ -479,6 +536,58 @@ const Exercise = () => {
                             borderRadius: "0.5rem"
                         }}
                     />
+                </div>
+
+                {/* User Input Section */}
+                <div className="mt-4">
+                    <div className="flex justify-between items-center mb-2">
+                        <button
+                            onClick={toggleInputSection}
+                            className="text-sm text-blue-600 hover:text-blue-800"
+                        >
+                            {showInputSection
+                                ? "إخفاء إدخال المستخدم"
+                                : "إظهار إدخال المستخدم"}
+                        </button>
+                        {showInputSection && (
+                            <button
+                                onClick={resetInput}
+                                className="text-sm text-gray-600 hover:text-red-600 flex items-center"
+                            >
+                                <RotateCcw className="h-4 w-4 ml-2" />
+                                إعادة ضبط الإدخال
+                            </button>
+                        )}
+                    </div>
+
+                    {showInputSection && (
+                        <div className="mb-4">
+                            <label
+                                htmlFor="user-input"
+                                className="block text-sm font-medium text-gray-700 mb-1"
+                            >
+                                إدخال البيانات
+                            </label>
+                            <textarea
+                                id="user-input"
+                                value={userInput}
+                                onChange={onInputChange}
+                                className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                                rows="4"
+                                dir="ltr"
+                                placeholder={
+                                    currentExercise.sampleInput
+                                        ? "أدخل البيانات هنا..."
+                                        : "أدخل البيانات التي سيستخدمها البرنامج..."
+                                }
+                            ></textarea>
+                            {currentExercise.inputDescription && (
+                                <p className="text-sm text-gray-600 mt-1">
+                                    {currentExercise.inputDescription}
+                                </p>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* Code run button */}
