@@ -9,13 +9,17 @@ const Lesson = () => {
         <div className="self-start">
             <div className="flex gap-2">
                 <Link
-                    to={`/quiz/${id}`}
-                    className="bg-blue-300 px-4 py-1.5 rounded-md"
+                    to={`quiz/${id}`}
+                    className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 font-medium rounded-md transition-colors"
                 >
                     اختبر نفسك
                 </Link>
-                <Link to={`/exercises/${id}`}
-                className="bg-blue-300 px-4 py-1.5 rounded-md">تمرّن</Link>
+                <Link
+                    to={`exercises/${id}`}
+                    className="px-4 py-2 bg-white border border-blue-500 text-blue-600 hover:bg-blue-50 font-medium rounded-md transition-colors"
+                >
+                    تمرّن
+                </Link>
             </div>
             <h1 className="text-3xl text-blue-500 font-bold my-4">
                 {lesson.title}

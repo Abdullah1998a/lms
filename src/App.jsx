@@ -15,13 +15,18 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="/lessons">
                         <Route index element={<Lessons />} />
-                        <Route path=":id" element={<Lesson />} />
+                        <Route path=":id">
+                            <Route index element={<Lesson />} />
+                            <Route path="quiz/:lessonId" element={<Quiz />} />
+                            <Route
+                                path="exercises/:lessonId"
+                                element={<Exercise />}
+                            />
+                        </Route>
                     </Route>
-                    <Route path="/quiz/:lessonId" element={<Quiz />} />
-                    <Route path="/exercises/:lessonId" element={<Exercise />} />
                 </Routes>
             </main>
-            <p className="p-4 text-white bg-neutral-800">الحقوق محفوظة</p>
+            <p className="p-4 text-white bg-neutral-800">حقوق الملكية محفوظة</p>
         </Router>
     );
 }
