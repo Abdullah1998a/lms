@@ -402,10 +402,20 @@ const Exercise = () => {
             {/* Exercise title and description */}
             <div className="mb-6">
                 <div className="mb-3 flex justify-between items-center gap-2">
-                <h2 className="text-2xl font-bold text-gray-800">
-                    {currentExercise.title}
-                </h2>
-                <span className={`text-white ${currentExercise.difficultyId === 1 ? "bg-green-600" : currentExercise.difficultyId === 2 ? "bg-orange-600" : "bg-red-600"}`}>{currentExercise.difficulty}</span>
+                    <h2 className="text-2xl font-bold text-gray-800">
+                        {currentExercise.title}
+                    </h2>
+                    <span
+                        className={`text rounded-full px-2 py-1.5 text-white ${
+                            currentExercise.difficultyId === 1
+                                ? "bg-green-600"
+                                : currentExercise.difficultyId === 2
+                                ? "bg-orange-600"
+                                : "bg-red-600"
+                        }`}
+                    >
+                        {currentExercise.difficulty}
+                    </span>
                 </div>
                 <p className="text-gray-700 mb-6">
                     {currentExercise.description}
