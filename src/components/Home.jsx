@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="">
+        <div className="w-full max-w-xl mx-auto">
             <h1 className="text-4xl text-blue-600 font-bold mb-4">
                 محاضرات مكثفة وتمارين عمليّة في لغات برمجية متعددة
             </h1>

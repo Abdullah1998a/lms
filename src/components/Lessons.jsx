@@ -3,7 +3,7 @@ import { lessons } from "../data/lessons";
 
 const Lessons = () => {
     return (
-        <div className="w-full space-y-2 self-start">
+        <div className="w-full max-w-xl mx-auto space-y-2 self-start">
             {lessons.map(({ id, title }) => (
                 <Link
                     to={`/lessons/${id}`}

@@ -3,19 +3,19 @@ import MarkdownRender from "./MarkdownRender";
 import { lessons } from "../data/lessons";
 
 const Lesson = () => {
-    const { id } = useParams();
-    const lesson = lessons.find(lesson => lesson.id === parseInt(id));
+    const { lessonId } = useParams();
+    const lesson = lessons.find(lesson => lesson.id === parseInt(lessonId));
     return (
-        <div className="self-start">
+        <div className="w-full max-w-xl mx-auto self-start">
             <div className="flex gap-2">
                 <Link
-                    to={`quiz/${id}`}
+                    to="quiz"
                     className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 font-medium rounded-md transition-colors"
                 >
                     اختبر نفسك
                 </Link>
                 <Link
-                    to={`exercises/${id}`}
+                    to="exercises"
                     className="px-4 py-2 bg-white border border-blue-500 text-blue-600 hover:bg-blue-50 font-medium rounded-md transition-colors"
                 >
                     تمرّن

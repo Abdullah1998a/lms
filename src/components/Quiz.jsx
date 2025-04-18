@@ -222,7 +222,7 @@ const Quiz = () => {
     // Detailed results view
     if (quizCompleted && showResults) {
         return (
-            <div className="w-full bg-white  max-w-md mx-auto">
+            <div className="w-full bg-white max-w-xl mx-auto">
                 <h2 className="text-2xl font-bold mb-6 text-center">
                     نتائج مفصلة
                 </h2>
@@ -341,7 +341,7 @@ const Quiz = () => {
         const passed = scorePercentage >= passThreshold;
 
         return (
-            <div className="w-full bg-white max-w-md mx-auto">
+            <div className="w-full bg-white max-w-xl mx-auto">
                 <h2 className="text-2xl font-bold mb-4 text-center">
                     انتهى الاختبار!
                 </h2>
@@ -398,7 +398,7 @@ const Quiz = () => {
                         الرجوع للدرس
                     </Link>
                     <Link
-                        to={`exercises/${lessonId}`}
+                        to={`/lessons/${lessonId}/exercises`}
                         className="border border-blue-500 text-blue-500 hover:bg-blue-50 font-bold py-2.5 px-4 rounded w-full text-center"
                     >
                         تمارين
@@ -422,7 +422,7 @@ const Quiz = () => {
 
     // Normal quiz view
     return (
-        <div className="w-full bg-white max-w-md mx-auto">
+        <div className="w-full bg-white max-w-xl mx-auto">
             <div className="flex justify-between items-center mb-4">
                 <Link
                     to={`/lessons/${lessonId}`}

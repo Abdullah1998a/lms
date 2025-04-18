@@ -386,7 +386,7 @@ const Exercise = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full max-w-xl mx-auto">
             {/* Header with back link and exercise counter */}
             <div className="flex justify-between items-center mb-6">
                 <Link

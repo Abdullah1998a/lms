@@ -15,11 +15,11 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="/lessons">
                         <Route index element={<Lessons />} />
-                        <Route path=":id">
+                        <Route path=":lessonId">
                             <Route index element={<Lesson />} />
-                            <Route path="quiz/:lessonId" element={<Quiz />} />
+                            <Route path="quiz" element={<Quiz />} />
                             <Route
-                                path="exercises/:lessonId"
+                                path="exercises"
                                 element={<Exercise />}
                             />
                         </Route>
