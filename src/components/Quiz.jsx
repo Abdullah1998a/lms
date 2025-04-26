@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import MarkdownRender from "./MarkdownRender";
 import { questions } from "../data/questions";
 import { CircleCheck, CircleAlert, Info, ArrowRight } from "lucide-react";
-// Helper function to shuffle an array (Fisher-Yates algorithm)
+
 const shuffleArray = array => {
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -26,33 +27,27 @@ const Quiz = () => {
     const [userAnswers, setUserAnswers] = useState([]);
     const [showResults, setShowResults] = useState(false);
     const [hasQuestions, setHasQuestions] = useState(true);
-
-    // Default time per question in seconds
-    const TIME_PER_QUESTION = 30;
-
+    const TIME_PER_QUESTION = 3000000;
     useEffect(() => {
-        // Filter questions for this lesson
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }, []);
+    useEffect(() => {
         const lessonQuestions = questions.filter(
             q => q.lessonId === parseInt(lessonId)
         );
-
-        // Check if there are any questions for this lesson
         if (!lessonQuestions.length) {
             setHasQuestions(false);
             return;
         }
-
-        // If we have questions, proceed with quiz setup
         const shuffled = shuffleArray(lessonQuestions);
         setShuffledQuestions(shuffled);
-
-        // Create a map of shuffled options for each question
         const optionsMap = {};
         shuffled.forEach((question, index) => {
             const originalOptions = question.options;
             const shuffledOptions = shuffleArray(originalOptions);
-
-            // Find the new index of the correct answer
             const originalCorrectAnswer =
                 originalOptions[question.correctAnswer];
             const newCorrectAnswer = shuffledOptions.indexOf(
@@ -67,37 +62,27 @@ const Quiz = () => {
         setTimeRemaining(TIME_PER_QUESTION);
         setUserAnswers(new Array(shuffled.length).fill(null));
     }, [lessonId]);
-
-    // Timer effect
     useEffect(() => {
         if (quizCompleted || !timeRemaining || showFeedback || !hasQuestions)
             return;
-
         const timer = setInterval(() => {
             setTimeRemaining(prev => {
                 if (prev <= 1) {
                     clearInterval(timer);
-                    // Time's up - mark as incorrect and move to next
                     handleTimerExpired();
                     return 0;
                 }
                 return prev - 1;
             });
         }, 1000);
-
         return () => clearInterval(timer);
     }, [timeRemaining, quizCompleted, showFeedback, hasQuestions]);
-
     const handleTimerExpired = () => {
-        // Update user answers
         const newUserAnswers = [...userAnswers];
-        newUserAnswers[currentQuestion] = -1; // -1 indicates timeout
+        newUserAnswers[currentQuestion] = -1;
         setUserAnswers(newUserAnswers);
-
         setIsCorrect(false);
         setShowFeedback(true);
-
-        // Wait 1.5 seconds before moving to next question
         setTimeout(() => {
             setShowFeedback(false);
             setSelectedAnswer(null);
@@ -109,19 +94,13 @@ const Quiz = () => {
             }
         }, 1500);
     };
-
     const handleAnswer = answerIndex => {
         if (!shuffledQuestions.length || !shuffledOptionsMap[currentQuestion])
             return;
-
         setSelectedAnswer(answerIndex);
-
-        // Update user answers array
         const newUserAnswers = [...userAnswers];
         newUserAnswers[currentQuestion] = answerIndex;
         setUserAnswers(newUserAnswers);
-
-        // Check if answer is correct using the shuffled options map
         const correct =
             answerIndex === shuffledOptionsMap[currentQuestion].correctAnswer;
         if (correct) {
@@ -129,8 +108,6 @@ const Quiz = () => {
         }
         setIsCorrect(correct);
         setShowFeedback(true);
-
-        // Wait 1.5 seconds before moving to next question
         setTimeout(() => {
             setShowFeedback(false);
             setSelectedAnswer(null);
@@ -142,15 +119,12 @@ const Quiz = () => {
             }
         }, 1500);
     };
-
     const resetQuiz = () => {
-        // Re-shuffle questions and options when resetting
         const lessonQuestions = questions.filter(
             q => q.lessonId === parseInt(lessonId)
         );
         const shuffled = shuffleArray(lessonQuestions);
         setShuffledQuestions(shuffled);
-
         const optionsMap = {};
         shuffled.forEach((question, index) => {
             const originalOptions = question.options;
@@ -160,14 +134,12 @@ const Quiz = () => {
             const newCorrectAnswer = shuffledOptions.indexOf(
                 originalCorrectAnswer
             );
-
             optionsMap[index] = {
                 options: shuffledOptions,
                 correctAnswer: newCorrectAnswer
             };
         });
         setShuffledOptionsMap(optionsMap);
-
         setCurrentQuestion(0);
         setScore(0);
         setShowFeedback(false);
@@ -177,7 +149,6 @@ const Quiz = () => {
         setUserAnswers(new Array(shuffled.length).fill(null));
         setShowResults(false);
     };
-
     const showDetailedResults = () => {
         setShowResults(true);
     };
@@ -186,7 +157,6 @@ const Quiz = () => {
         if (scorePercentage >= 60) return "text-yellow-600";
         return "text-red-600";
     };
-
     const getGrade = percentage => {
         if (percentage >= 90) return "ممتاز";
         if (percentage >= 80) return "جيد جداً";
@@ -194,8 +164,6 @@ const Quiz = () => {
         if (percentage >= 60) return "مقبول";
         return "راسب";
     };
-
-    // Handle case where lesson has no quiz questions
     if (!hasQuestions) {
         return (
             <div className="max-w-4xl mx-auto">
@@ -218,15 +186,12 @@ const Quiz = () => {
             </div>
         );
     }
-
-    // Detailed results view
     if (quizCompleted && showResults) {
         return (
             <div className="w-full bg-white max-w-xl mx-auto">
                 <h2 className="text-2xl font-bold mb-6 text-center">
                     نتائج مفصلة
                 </h2>
-
                 <div className="mb-6">
                     <div className="flex justify-between items-center mb-2">
                         <span className="font-bold">النتيجة النهائية</span>
@@ -254,7 +219,6 @@ const Quiz = () => {
                         </span>
                     </div>
                 </div>
-
                 <div className="mb-4">
                     <h3 className="text-lg font-bold mb-2 text-right">
                         تفاصيل الأسئلة
@@ -265,28 +229,25 @@ const Quiz = () => {
                             shuffledOptionsMap[index].correctAnswer;
                         const isUserCorrect = userAnswer === correctAnswer;
                         const timedOut = userAnswer === -1;
-
                         return (
                             <div
                                 key={index}
-                                className="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200"
+                                className="bg-gray-50 rounded-lg border border-gray-200 my-2 px-4 py-3"
                             >
-                                <div className="mb-2 text-right font-medium">
-                                    {index + 1}. {question.text}
-                                </div>
+                                <MarkdownRender content={question.text} />
                                 <div className="text-right mb-1">
                                     <span className="text-sm text-gray-600">
                                         الإجابة الصحيحة:{" "}
                                     </span>
                                     <span className="font-bold text-green-600">
-                                        {
+                                        <MarkdownRender content={
                                             shuffledOptionsMap[index].options[
                                                 correctAnswer
                                             ]
-                                        }
+                                        } />
                                     </span>
                                 </div>
-                                <div className="text-right">
+                                <div>
                                     <span className="text-sm text-gray-600">
                                         إجابتك:{" "}
                                     </span>
@@ -302,10 +263,10 @@ const Quiz = () => {
                                                     : "text-red-600"
                                             }`}
                                         >
-                                            {
+                                            <MarkdownRender content={
                                                 shuffledOptionsMap[index]
                                                     .options[userAnswer]
-                                            }
+                                            } />
                                         </span>
                                     )}
                                 </div>
@@ -313,7 +274,6 @@ const Quiz = () => {
                         );
                     })}
                 </div>
-
                 <div className="flex flex-col gap-2">
                     <button
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-4 rounded w-full"
@@ -331,21 +291,17 @@ const Quiz = () => {
             </div>
         );
     }
-
-    // Quiz completion summary
     if (quizCompleted) {
         const scorePercentage = Math.round(
             (score / shuffledQuestions.length) * 100
         );
         const passThreshold = 60;
         const passed = scorePercentage >= passThreshold;
-
         return (
             <div className="w-full bg-white max-w-xl mx-auto">
                 <h2 className="text-2xl font-bold mb-4 text-center">
                     انتهى الاختبار!
                 </h2>
-
                 <div className="text-center mb-6">
                     <div className="inline-flex justify-center items-center w-24 h-24 rounded-full bg-gray-100 mb-4">
                         <span
@@ -377,7 +333,6 @@ const Quiz = () => {
                         التقدير: {getGrade(scorePercentage)}
                     </p>
                 </div>
-
                 <div className="flex flex-col gap-2">
                     <button
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-4 rounded w-full"
@@ -407,8 +362,6 @@ const Quiz = () => {
             </div>
         );
     }
-
-    // Safety check for shuffled questions and options
     if (!shuffledQuestions.length || !shuffledOptionsMap[currentQuestion]) {
         return (
             <div className="w-full h-64 flex items-center justify-center">
@@ -419,8 +372,6 @@ const Quiz = () => {
             </div>
         );
     }
-
-    // Normal quiz view
     return (
         <div className="w-full bg-white max-w-xl mx-auto">
             <div className="flex justify-between items-center mb-4">
@@ -435,8 +386,6 @@ const Quiz = () => {
                     تمرين {currentQuestion + 1} من {shuffledQuestions.length}
                 </div>
             </div>
-
-            {/* Timer */}
             <div className="flex justify-between text-sm mb-4">
                 <span>الوقت المتبقي</span>
                 <span
@@ -447,15 +396,12 @@ const Quiz = () => {
                     {timeRemaining} ثانية
                 </span>
             </div>
-            <h2 className="text-xl font-bold mb-4 text-right">
-                {shuffledQuestions[currentQuestion].text}
-            </h2>
-            <div className="mb-4">
+            <MarkdownRender content={shuffledQuestions[currentQuestion].text} />
+            <div className="mb-2">
                 {shuffledOptionsMap[currentQuestion].options.map(
                     (option, index) => {
                         let buttonClass =
-                            "block w-full text-right my-2 p-4 rounded border transition-all duration-150 ";
-
+                            "block w-full rounded border transition-all duration-150 my-2 px-4 text-sm";
                         if (showFeedback) {
                             if (
                                 index ===
@@ -463,7 +409,7 @@ const Quiz = () => {
                                     .correctAnswer
                             ) {
                                 buttonClass +=
-                                    "bg-green-100 border-green-500 text-green-800";
+                                    "bg-green-100 border-green-600 text-green-800";
                             } else if (index === selectedAnswer) {
                                 buttonClass +=
                                     "bg-red-100 border-red-500 text-red-800";
@@ -478,11 +424,10 @@ const Quiz = () => {
                             buttonClass +=
                                 "bg-white border-gray-300 hover:bg-blue-50 hover:border-blue-300";
                         }
-
                         return (
                             <button
                                 className={buttonClass}
-                                key={index}
+                                key={option}
                                 onClick={() =>
                                     !showFeedback &&
                                     !selectedAnswer &&
@@ -492,13 +437,12 @@ const Quiz = () => {
                                     showFeedback || selectedAnswer !== null
                                 }
                             >
-                                {option}
+                                <MarkdownRender content={option} />
                             </button>
                         );
                     }
                 )}
             </div>
-
             {showFeedback && (
                 <div
                     className={`p-4 rounded-lg ${

@@ -35,11 +35,8 @@ import "ace-builds/src-noconflict/ext-searchbox";
 import "ace-builds/src-noconflict/theme-monokai";
 
 const Exercise = () => {
-    // Router hooks
     const { lessonId } = useParams();
     const navigate = useNavigate();
-
-    // State declarations
     const [code, setCode] = useState("");
     const [output, setOutput] = useState("");
     const [isRunning, setIsRunning] = useState(false);
@@ -48,20 +45,14 @@ const Exercise = () => {
     const [showHint, setShowHint] = useState(false);
     const [remainingHints, setRemainingHints] = useState(3);
     const [showSolution, setShowSolution] = useState(false);
+    const [showAlgorithm, setShowAlgorithm] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState(null);
     const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
-
-    // New state for user input
     const [userInput, setUserInput] = useState("");
-    const [showInputSection, setShowInputSection] = useState(false);
-
-    // Judge0 API configuration
     const JUDGE0_API_URL = import.meta.env.VITE_JUDGE0_API_URL;
     const JUDGE0_API_KEY = import.meta.env.VITE_JUDGE0_API_KEY;
     const JUDGE0_API_HOST = import.meta.env.VITE_JUDGE0_API_HOST;
-
-    // Language IDs for Judge0
     const languageIds = {
         cpp: 54,
         java: 62,
@@ -70,16 +61,10 @@ const Exercise = () => {
         python: 71,
         ruby: 72
     };
-
-    // Find exercises for the current lesson
     const lessonExercises = exercises.filter(
         ex => ex.lessonId === parseInt(lessonId)
     );
-
-    // Check if there are exercises for this lesson
     const hasExercises = lessonExercises.length > 0;
-
-    // Get the current exercise based on index
     const currentExercise = hasExercises
         ? lessonExercises[currentExerciseIndex]
         : {
@@ -89,12 +74,8 @@ const Exercise = () => {
               solution: "",
               hints: ["لا توجد تلميحات"]
           };
-
-    // Determine if previous/next exercises exist
     const hasPreviousExercise = currentExerciseIndex > 0;
     const hasNextExercise = currentExerciseIndex < lessonExercises.length - 1;
-
-    // Helper functions for base64 encoding/decoding
     const encodeBase64 = str => {
         try {
             return btoa(unescape(encodeURIComponent(str || "")));
@@ -103,7 +84,6 @@ const Exercise = () => {
             return "";
         }
     };
-
     const decodeBase64 = str => {
         try {
             return decodeURIComponent(escape(atob(str || "")));
@@ -112,12 +92,9 @@ const Exercise = () => {
             return str || "";
         }
     };
-
-    // Detect editor mode based on exercise language
     const getEditorMode = () => {
         const language = currentExercise.language?.toLowerCase();
-        if (!language) return "c_cpp"; // Default
-
+        if (!language) return "c_cpp";
         switch (language) {
             case "cpp":
             case "c":
@@ -132,44 +109,35 @@ const Exercise = () => {
                 return "c_cpp";
         }
     };
-
-    // Updated useEffect to properly handle code loading and local storage
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }, []);
     useEffect(() => {
         if (hasExercises) {
-            // Reset states first
             setOutput("");
             setError(null);
             setFeedbackMessage("");
             setFeedbackType("");
             setShowSolution(false);
+            setShowAlgorithm(false);
             setRemainingHints(3);
             setShowHint(false);
-            setUserInput(""); // Reset user input
-
-            // Determine if input section should be shown based on exercise properties
-            setShowInputSection(currentExercise.requiresInput || false);
-
-            // Get the exercise ID to use for storage
+            setUserInput("");
             const exerciseKey = `exercise-${currentExercise.id}`;
             const inputKey = `exercise-input-${currentExercise.id}`;
-
-            // Check localStorage first
             const savedCode = localStorage.getItem(exerciseKey);
             const savedInput = localStorage.getItem(inputKey);
-
-            // If saved code exists for this specific exercise, use it
             if (savedCode && savedCode.trim() !== "") {
                 setCode(savedCode);
             } else {
-                // Otherwise use the starting code
                 setCode(currentExercise.startingCode || "");
             }
-
-            // If saved input exists, use it
             if (savedInput) {
                 setUserInput(savedInput);
             } else if (currentExercise.sampleInput) {
-                // Use sample input as a placeholder if available
                 setUserInput(currentExercise.sampleInput);
             }
         }
@@ -181,61 +149,43 @@ const Exercise = () => {
         currentExercise.requiresInput,
         hasExercises
     ]);
-
-    // Improved code save logic to prevent overwriting with empty code
     useEffect(() => {
         if (code && hasExercises && currentExercise.id) {
             const exerciseKey = `exercise-${currentExercise.id}`;
-
-            // Only save non-empty code
             if (code.trim() !== "") {
                 localStorage.setItem(exerciseKey, code);
             }
         }
     }, [code, currentExercise.id, hasExercises]);
-
-    // Save user input to localStorage when it changes
     useEffect(() => {
         if (hasExercises && currentExercise.id) {
             const inputKey = `exercise-input-${currentExercise.id}`;
-
-            // Always save input, even if empty
             localStorage.setItem(inputKey, userInput);
         }
     }, [userInput, currentExercise.id, hasExercises]);
-
-    // Navigation functions - Fixed to properly update code with startingCode
     const goToPreviousExercise = () => {
         if (hasPreviousExercise) {
             setCurrentExerciseIndex(prevIndex => prevIndex - 1);
         }
     };
-
     const goToNextExercise = () => {
         if (hasNextExercise) {
             setCurrentExerciseIndex(prevIndex => prevIndex + 1);
         } else {
-            // Navigate to next lesson if no more exercises
             navigate(`/lessons/${parseInt(lessonId) + 1}`);
         }
     };
-
     const goToExercise = index => {
         if (index >= 0 && index < lessonExercises.length) {
             setCurrentExerciseIndex(index);
         }
     };
-
-    // Exercise action handlers
     const runCode = async () => {
         if (!hasExercises) return;
-
         setIsRunning(true);
         setError(null);
         setOutput("");
-
         try {
-            // Create submission - preserve comments by not pre-processing the code
             const options = {
                 method: "POST",
                 url: `${JUDGE0_API_URL}/submissions`,
@@ -249,7 +199,6 @@ const Exercise = () => {
                     source_code: encodeBase64(code),
                     language_id:
                         languageIds[currentExercise.language?.toLowerCase()],
-                    // Use user input if provided, otherwise use exercise's test input
                     stdin:
                         showInputSection && userInput.trim()
                             ? encodeBase64(userInput)
@@ -263,22 +212,15 @@ const Exercise = () => {
                     memory_limit: 128000
                 }
             };
-
             const submissionResponse = await axios.request(options);
             const token = submissionResponse.data.token;
-
             if (!token) {
                 throw new Error("No submission token received from Judge0 API");
             }
-
-            // Poll for results
             let result;
-            let statusId = 1; // 1: In Queue
-
+            let statusId = 1;
             while (statusId <= 2) {
-                // 1: In Queue, 2: Processing
                 await new Promise(resolve => setTimeout(resolve, 1000));
-
                 const getResultOptions = {
                     method: "GET",
                     url: `${JUDGE0_API_URL}/submissions/${token}`,
@@ -288,13 +230,10 @@ const Exercise = () => {
                         "X-RapidAPI-Host": JUDGE0_API_HOST
                     }
                 };
-
                 const resultResponse = await axios.request(getResultOptions);
                 result = resultResponse.data;
                 statusId = result.status?.id;
             }
-
-            // Handle the result based on status ID
             handleJudge0Result(result, statusId);
         } catch (err) {
             console.error("Judge0 API error:", err);
@@ -303,8 +242,6 @@ const Exercise = () => {
             setIsRunning(false);
         }
     };
-
-    // Helper to handle Judge0 result statuses
     const handleJudge0Result = (result, statusId) => {
         const statusMap = {
             3: "Accepted",
@@ -320,7 +257,6 @@ const Exercise = () => {
             13: "Internal Error",
             14: "Exec Format Error"
         };
-
         if (statusId === 3) {
             setOutput(
                 decodeBase64(result.stdout) ||
@@ -334,7 +270,6 @@ const Exercise = () => {
             let errorMessage = `Runtime Error (${statusMap[statusId]}): ${
                 decodeBase64(result.stderr) || ""
             }`;
-
             if (result.message) {
                 errorMessage += `\n${
                     typeof result.message === "string"
@@ -342,7 +277,6 @@ const Exercise = () => {
                         : result.message
                 }`;
             }
-
             setError(errorMessage);
         } else {
             setError(
@@ -350,10 +284,8 @@ const Exercise = () => {
             );
         }
     };
-
     const getHint = () => {
         if (!hasExercises) return;
-
         if (remainingHints > 0) {
             setShowHint(true);
             setRemainingHints(prev => prev - 1);
@@ -368,56 +300,34 @@ const Exercise = () => {
             setFeedbackMessage("لقد استخدمت جميع التلميحات المتاحة!");
         }
     };
-
-    // Reset function should clear only the specific exercise's code
     const resetExercise = () => {
         if (!hasExercises) return;
-
-        // Reset to starting code
         setCode(currentExercise.startingCode || "");
-
-        // Clear only this exercise's saved code
         localStorage.removeItem(`exercise-${currentExercise.id}`);
-
-        // Reset other states
         setFeedbackMessage("");
         setFeedbackType("");
         setOutput("");
         setError(null);
     };
-
-    // Reset input to sample input or clear it
     const resetInput = () => {
         if (!hasExercises) return;
-
-        // Reset input to sample or empty
         setUserInput(currentExercise.sampleInput || "");
-
-        // Clear saved input
         localStorage.removeItem(`exercise-input-${currentExercise.id}`);
     };
-
     const toggleSolution = () => {
         if (!hasExercises) return;
         setShowSolution(prev => !prev);
     };
-
-    // Handle code changes in editor - preserve comments
+    const toggleAlgorithm = () => {
+        if (!hasExercises) return;
+        setShowAlgorithm(prev => !prev);
+    };
     const onChange = newValue => {
         setCode(newValue);
     };
-
-    // Handle input changes
     const onInputChange = e => {
         setUserInput(e.target.value);
     };
-
-    // Toggle input visibility
-    const toggleInputSection = () => {
-        setShowInputSection(prev => !prev);
-    };
-
-    // If no exercises for this lesson, show message
     if (!hasExercises) {
         return (
             <div className="max-w-4xl mx-auto">
@@ -442,7 +352,6 @@ const Exercise = () => {
     }
     return (
         <div className="w-full max-w-xl mx-auto">
-            {/* Header with back link and exercise counter */}
             <div className="flex justify-between items-center mb-6">
                 <Link
                     to={`/lessons/${lessonId}`}
@@ -455,8 +364,6 @@ const Exercise = () => {
                     تمرين {currentExerciseIndex + 1} من {lessonExercises.length}
                 </div>
             </div>
-
-            {/* Exercise title and description */}
             <div className="mb-6">
                 <div className="mb-3 flex justify-between items-center gap-2">
                     <h2 className="text-2xl font-bold text-gray-800">
@@ -478,8 +385,6 @@ const Exercise = () => {
                     {currentExercise.description}
                 </p>
             </div>
-
-            {/* Feedback message (hint or error) */}
             {feedbackMessage && (
                 <div
                     className={`p-2 mb-6 rounded-md ${
@@ -496,8 +401,6 @@ const Exercise = () => {
                     </div>
                 </div>
             )}
-
-            {/* Code editor section */}
             <div className="mb-6">
                 <div className="flex justify-between items-center mb-3">
                     <h3 className="text-lg font-medium text-gray-800">
@@ -537,8 +440,6 @@ const Exercise = () => {
                         }}
                     />
                 </div>
-
-                {/* User Input Section */}
                 <div className="mt-4">
                     {currentExercise.requiresInput && (
                         <div className="mb-4">
@@ -569,8 +470,6 @@ const Exercise = () => {
                         </div>
                     )}
                 </div>
-
-                {/* Code run button */}
                 <div className="mt-4 flex gap-3">
                     <button
                         onClick={runCode}
@@ -590,8 +489,6 @@ const Exercise = () => {
                         )}
                     </button>
                 </div>
-
-                {/* Output display */}
                 {(output || error) && (
                     <div
                         className={`mt-4 p-4 rounded-md ${
@@ -607,32 +504,41 @@ const Exercise = () => {
                         >
                             {error ? "خطأ" : "النتيجة"}
                         </h3>
-                        <pre
-                            dir="ltr"
-                            className="mt-2 whitespace-pre-wrap text-sm"
-                        >
-                            {error || output}
-                        </pre>
+                        <pre dir="ltr">{error || output}</pre>
                     </div>
                 )}
-
-                {/* Hint and solution buttons */}
                 <div className="flex flex-col gap-3 mt-4">
                     <button
-                        className="px-4 py-2 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-50 transition-colors"
+                        className="px-4 py-2 text-blue-600 border border-blue-600 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors"
                         onClick={getHint}
                         disabled={remainingHints <= 0}
                     >
                         تلميح ({remainingHints} متبقية)
                     </button>
                     <button
-                        className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                        className="px-4 py-2 text-blue-600 border border-blue-300 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors"
+                        onClick={toggleAlgorithm}
+                        disabled={remainingHints > 0 || showSolution}
+                    >
+                        {showAlgorithm ? "إخفاء" : "عرض"} خوارزمية الحلّ
+                    </button>
+                    <button
+                        className="px-4 py-2 text-blue-600 border border-blue-300 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors"
                         onClick={toggleSolution}
+                        disabled={remainingHints > 0 || showAlgorithm}
                     >
                         {showSolution ? "إخفاء الحل" : "عرض الحل"}
                     </button>
                 </div>
             </div>
+            {showAlgorithm && (
+                <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-blue-500 mb-8">
+                    <h3 className="text-lg font-medium text-gray-800 mb-3">
+                        الخوارزمية
+                    </h3>
+                    <MarkdownRender content={currentExercise.algorithm} />
+                </div>
+            )}
             {showSolution && (
                 <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-blue-500 mb-8">
                     <h3 className="text-lg font-medium text-gray-800 mb-3">
