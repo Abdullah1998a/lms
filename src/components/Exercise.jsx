@@ -133,7 +133,7 @@ const Exercise = () => {
             if (savedCode && savedCode.trim() !== "") {
                 setCode(savedCode);
             } else {
-                setCode(currentExercise.startingCode || "");
+                setCode(currentExercise.solution || "");
             }
             if (savedInput) {
                 setUserInput(savedInput);
@@ -200,7 +200,7 @@ const Exercise = () => {
                     language_id:
                         languageIds[currentExercise.language?.toLowerCase()],
                     stdin:
-                        showInputSection && userInput.trim()
+                        currentExercise.requiresInput && userInput.trim()
                             ? encodeBase64(userInput)
                             : currentExercise.testInput
                             ? encodeBase64(currentExercise.testInput)
@@ -440,36 +440,34 @@ const Exercise = () => {
                         }}
                     />
                 </div>
-                <div className="mt-4">
-                    {currentExercise.requiresInput && (
-                        <div className="mb-4">
-                            <label
-                                htmlFor="user-input"
-                                className="block text-sm font-medium text-gray-700 mb-1"
-                            >
-                                إدخال البيانات
-                            </label>
-                            <textarea
-                                id="user-input"
-                                value={userInput}
-                                onChange={onInputChange}
-                                className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                                rows="4"
-                                dir="ltr"
-                                placeholder={
-                                    currentExercise.sampleInput
-                                        ? "أدخل البيانات هنا..."
-                                        : "أدخل البيانات التي سيستخدمها البرنامج..."
-                                }
-                            ></textarea>
-                            {currentExercise.inputDescription && (
-                                <p className="text-sm text-gray-600 mt-1">
-                                    {currentExercise.inputDescription}
-                                </p>
-                            )}
-                        </div>
-                    )}
-                </div>
+                {currentExercise.requiresInput && (
+                    <div className="my-4">
+                        <label
+                            htmlFor="user-input"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                            إدخال البيانات
+                        </label>
+                        <textarea
+                            id="user-input"
+                            value={userInput}
+                            onChange={onInputChange}
+                            className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                            rows="4"
+                            dir="ltr"
+                            placeholder={
+                                currentExercise.sampleInput
+                                    ? "أدخل البيانات هنا..."
+                                    : "أدخل البيانات التي سيستخدمها البرنامج..."
+                            }
+                        ></textarea>
+                        {currentExercise.inputDescription && (
+                            <p className="text-sm text-gray-600 mt-1">
+                                {currentExercise.inputDescription}
+                            </p>
+                        )}
+                    </div>
+                )}
                 <div className="mt-4 flex gap-3">
                     <button
                         onClick={runCode}
