@@ -209,7 +209,6 @@ const Exercise = () => {
                         ? encodeBase64(currentExercise.expectedOutput)
                         : null,
                     cpu_time_limit: 2,
-                    show_stdin: true,
                     memory_limit: 128000
                 }
             };
