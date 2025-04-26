@@ -133,7 +133,7 @@ const Exercise = () => {
             if (savedCode && savedCode.trim() !== "") {
                 setCode(savedCode);
             } else {
-                setCode(currentExercise.solution || "");
+                setCode(currentExercise.startingCode || "");
             }
             if (savedInput) {
                 setUserInput(savedInput);
@@ -209,6 +209,7 @@ const Exercise = () => {
                         ? encodeBase64(currentExercise.expectedOutput)
                         : null,
                     cpu_time_limit: 2,
+                    show_stdin: true,
                     memory_limit: 128000
                 }
             };
@@ -436,7 +437,8 @@ const Exercise = () => {
                         width="100%"
                         height="400px"
                         style={{
-                            borderRadius: "0.5rem"
+                            borderRadius: "0.5rem",
+                            paddingBlock: "0.5rem"
                         }}
                     />
                 </div>
@@ -489,7 +491,7 @@ const Exercise = () => {
                 </div>
                 {(output || error) && (
                     <div
-                        className={`mt-4 p-4 rounded-md ${
+                        className={`mt-4 p-4 rounded-md overflow-auto ${
                             error
                                 ? "bg-red-50 border border-red-200"
                                 : "bg-gray-50 border border-gray-200"
