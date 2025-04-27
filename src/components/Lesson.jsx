@@ -1,19 +1,34 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import MarkdownRender from "./MarkdownRender";
-import { Info } from "lucide-react";
+import { Info, ArrowUp } from "lucide-react";
 import { lessons } from "../data/lessons";
 import { exercises } from "../data/exercises";
 
 const Lesson = () => {
     const { lessonId } = useParams();
     const lesson = lessons.find(lesson => lesson.id === parseInt(lessonId));
+    const [show, setShow] = useState(false);
     useEffect(() => {
+        handleScroll();
+        const visibility = () => {
+            if (window.scrollY > 400) {
+                setShow(true);
+            } else {
+                setShow(false);
+            }
+        };
+        window.addEventListener("scroll", visibility);
+        return () => {
+            window.removeEventListener("scroll", visibility);
+        };
+    }, []);
+    const handleScroll = () => {
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
-    }, []);
+    };
     if (!lesson) {
         return (
             <div className="w-full max-w-4xl mx-auto">
@@ -62,6 +77,15 @@ const Lesson = () => {
                     </Link>
                 )}
             </div>
+            {show && (
+                <button
+                    type="button"
+                    onClick={handleScroll}
+                    className="fixed bottom-6 left-6 bg-gray-200 hover:bg-gray-300 p-3 rounded-full shadow-lg transition-all duration-300"
+                >
+                    <ArrowUp size={24} />
+                </button>
+            )}
         </div>
     );
 };

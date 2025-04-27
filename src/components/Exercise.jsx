@@ -16,24 +16,15 @@ import {
     ArrowRightCircle,
     Loader
 } from "lucide-react";
-
-// Import AceEditor component
 import AceEditor from "react-ace";
-
-// Base ace imports
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/mode-c_cpp";
 //import "ace-builds/src-noconflict/mode-javascript";
 //import "ace-builds/src-noconflict/mode-python";
 //import "ace-builds/src-noconflict/mode-java";
-
-// Import extensions
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/ext-searchbox";
-
-// Import theme
 import "ace-builds/src-noconflict/theme-monokai";
-
 const Exercise = () => {
     const { lessonId } = useParams();
     const navigate = useNavigate();
@@ -114,7 +105,7 @@ const Exercise = () => {
             top: 0,
             behavior: "smooth"
         });
-    }, []);
+    }, [currentExerciseIndex]);
     useEffect(() => {
         if (hasExercises) {
             setOutput("");
@@ -414,7 +405,6 @@ const Exercise = () => {
                         إعادة ضبط
                     </button>
                 </div>
-                {/* Ace Editor */}
                 <div className="code-editor rounded-lg overflow-hidden border border-gray-200">
                     <AceEditor
                         theme="monokai"
