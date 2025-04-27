@@ -376,22 +376,6 @@ const Exercise = () => {
                     {currentExercise.description}
                 </p>
             </div>
-            {feedbackMessage && (
-                <div
-                    className={`p-2 mb-6 rounded-md ${
-                        feedbackType === "hint"
-                            ? "bg-blue-50 border border-blue-200 text-blue-800"
-                            : "bg-red-50 border border-red-200 text-red-800"
-                    }`}
-                >
-                    <div className="flex items-center">
-                        {feedbackType === "hint" && (
-                            <Info className="h-5 w-5 ml-2" />
-                        )}
-                        <span>{feedbackMessage}</span>
-                    </div>
-                </div>
-            )}
             <div className="mb-6">
                 <div className="flex justify-between items-center mb-3">
                     <h3 className="text-lg font-medium text-gray-800">
@@ -494,6 +478,22 @@ const Exercise = () => {
                             {error ? "خطأ" : "النتيجة"}
                         </h3>
                         <pre dir="ltr">{error || output}</pre>
+                    </div>
+                )}
+                {feedbackMessage && (
+                    <div
+                        className={`p-2 mb-6 rounded-md ${
+                            feedbackType === "hint"
+                                ? "bg-blue-50 border border-blue-200 text-blue-800"
+                                : "bg-red-50 border border-red-200 text-red-800"
+                        }`}
+                    >
+                        <div className="flex items-center">
+                            {feedbackType === "hint" && (
+                                <Info className="h-5 w-5 ml-2" />
+                            )}
+                            <span>{feedbackMessage}</span>
+                        </div>
                     </div>
                 )}
                 <div className="flex flex-col gap-3 mt-4">
