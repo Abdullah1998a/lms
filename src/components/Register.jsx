@@ -16,7 +16,7 @@ const Register = () => {
         });
     }, []);
     const whatsappGroupLink =
-        "https://chat.whatsapp.com/ECBQVOweDf81EmiSoaGMQg";
+        "https://chat.whatsapp.com/CRF0BjA1t9q5HtCf9w747q";
     const handleChange = e => {
         const { name, value } = e.target;
         setFormData(prevState => ({
