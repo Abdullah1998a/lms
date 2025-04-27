@@ -482,7 +482,7 @@ const Exercise = () => {
                 )}
                 {feedbackMessage && (
                     <div
-                        className={`p-2 mb-6 rounded-md ${
+                        className={`p-2 my-4 rounded-md ${
                             feedbackType === "hint"
                                 ? "bg-blue-50 border border-blue-200 text-blue-800"
                                 : "bg-red-50 border border-red-200 text-red-800"
