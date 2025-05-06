@@ -22,7 +22,7 @@ a.active {
     z-index: -1;
 }
 .lesson h1::after {
-    @apply bg-orange-200/65;
+    @apply bg-yellow-200/65;
 }
 .markdown-content h3 {
     @apply text-xl font-bold mt-4 mb-2;

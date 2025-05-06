@@ -33,9 +33,13 @@ int main() {
             "يمكنك طباعة النص مباشرة بالترتيب المطلوب",
             "لا تنسَ إضافة سطر جديد في نهاية الطباعة"
         ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
+        testCases: [
+            {
+                description: "طباعة رسالة 'World Hello'",
+                input: "",
+                expectedOutput: "World Hello"
+            }
+        ]
     },
     {
         id: 2,
@@ -53,16 +57,22 @@ using namespace std;
 int main() {
     // عرّف المتغيرات اللازمة
     
-    // اقرأ أطوال أضلاع المثلث من المستخدم
+    //أقرأ أطوال أضلاع المثلث من المستخدمa, b, c
+    //أقرأ أطوال أضلاع المثلث من المستخدمa, b, c
     
-    // احسب محيط المثلث
+    // التحقق أن أطوال الأضلاع تشكل مثلثاً
+    if (a + b > c && a + c > b && b + c > a) {
+        // احسب محيط المثلث
+        
+        // احسب نصف المحيط
     
-    // احسب نصف المحيط
+        // احسب المساحة باستخدام قانون هيرون
     
-    // احسب المساحة باستخدام قانون هيرون
-    
-    // اطبع النتائج
-    
+        // اطبع النتائج
+        
+    } else {
+        cout << "The entered sides do not form a triangle!" << endl;
+    }
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -73,33 +83,27 @@ using namespace std;
 int main() {
     // تعريف المتغيرات
     double a, b, c, perimeter, s, area;
-    
     // قراءة أطوال الأضلاع من المستخدم
-    cout << "أدخل طول الضلع الأول: ";
+    cout << "Enter the length of the first side of the triangle: ";
     cin >> a;
-    cout << "أدخل طول الضلع الثاني: ";
+    cout << "Enter the length of the second side of the triangle: ";
     cin >> b;
-    cout << "أدخل طول الضلع الثالث: ";
+    cout << "Enter the length of the third side of the triangle: ";
     cin >> c;
-    
-    // التحقق من إمكانية تشكيل مثلث
+    // التحقق أن أطوال الأضلاع تشكل مثلثاً
     if (a + b > c && a + c > b && b + c > a) {
         // حساب المحيط
         perimeter = a + b + c;
-        
         // حساب نصف المحيط
         s = perimeter / 2;
-        
         // حساب المساحة باستخدام قانون هيرون
         area = sqrt(s * (s - a) * (s - b) * (s - c));
-        
         // طباعة النتائج
-        cout << "محيط المثلث = " << perimeter << endl;
-        cout << "مساحة المثلث = " << area << endl;
+        cout << "Triangle's perimeter = " << perimeter << endl;
+        cout << "Triangle's area = " << area << endl;
     } else {
-        cout << "الأضلاع المدخلة لا تشكل مثلثًا!" << endl;
+        cout << "The entered sides do not form a triangle!" << endl;
     }
-    
     return 0;
 }
 \`\`\``,
@@ -115,9 +119,24 @@ int main() {
             "استخدم قانون هيرون لحساب مساحة المثلث: √(s(s-a)(s-b)(s-c)) حيث s هو نصف المحيط",
             "استخدم مكتبة cmath للحصول على دالة الجذر التربيعي sqrt()"
         ],
-        requiresInput: true,
-        sampleInput: "3 4 5",
-        inputDescription: "أدخل أطوال أضلاع المثلث الثلاثة، مفصولة بمسافات"
+        testCases: [
+            {
+                description: "مثلث متساوي الأضلاع (3، 3، 3)",
+                input: "3 3 3",
+                expectedOutput:
+                    "Triangle's perimeter = 9\nTriangle's area = 3.89711"
+            },
+            {
+                description: "مثلث قائم الزاوية (3، 4، 5)",
+                input: "3 4 5",
+                expectedOutput: "Triangle's perimeter = 12\nTriangle's area = 6"
+            },
+            {
+                description: "أضلاع لا تشكل مثلث (1، 1، 10)",
+                input: "1 1 10",
+                expectedOutput: "The entered sides do not form a triangle!"
+            }
+        ]
     },
     {
         id: 3,
@@ -136,10 +155,21 @@ int main() {
     
     // اسأل المستخدم عن العملية المطلوبة
     
-    // نفذ عملية التحويل المناسبة
+    if (choice == 1) {
+        // نفذ عملية التحويل المناسبة
     
-    // اطبع النتيجة
+        // اطبع النتيجة
+        
+    } 
+    else if (choice == 2) {
+        // نفذ عملية التحويل المناسبة
     
+        // اطبع النتيجة
+        
+    } 
+    else {
+        cout << "Your choice is incorrect!" << endl;
+    }
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -150,28 +180,26 @@ int main() {
     double temp, result;
     int choice;
     
-    cout << "اختر عملية التحويل:" << endl;
-    cout << "1. من مئوية إلى فهرنهايت" << endl;
-    cout << "2. من فهرنهايت إلى مئوية" << endl;
-    cout << "اختيارك (1 أو 2): ";
+    cout << "Choose the conversion process" << endl;
+    cout << "1. Celsius to Fahrenheit." << endl;
+    cout << "2. Fahrenheit to Celsius." << endl;
+    cout << "Choose (1 or 2): ";
     cin >> choice;
-    
     if (choice == 1) {
-        cout << "أدخل درجة الحرارة بالمئوية: ";
+        cout << "Enter the temperature in Celsius: ";
         cin >> temp;
         result = (temp * 9/5) + 32;
-        cout << temp << " درجة مئوية = " << result << " درجة فهرنهايت" << endl;
+        cout << temp << " Celsius = " << result << " Fahrenheit" << endl;
     } 
     else if (choice == 2) {
-        cout << "أدخل درجة الحرارة بالفهرنهايت: ";
+        cout << "Enter the temperature in Fahrenheit: ";
         cin >> temp;
         result = (temp - 32) * 5/9;
-        cout << temp << " درجة فهرنهايت = " << result << " درجة مئوية" << endl;
+        cout << temp << " Fahrenheit = " << result << " Celsius" << endl;
     } 
     else {
-        cout << "اختيار غير صحيح!" << endl;
+        cout << "Your choice is incorrect!" << endl;
     }
-    
     return 0;
 }
 \`\`\``,
@@ -188,10 +216,23 @@ int main() {
             "معادلة التحويل من فهرنهايت إلى مئوية: C = (F - 32) × 5/9",
             "تأكد من تخزين النتيجة في متغير من نوع double للحفاظ على الدقة"
         ],
-        requiresInput: true,
-        sampleInput: "1 25",
-        inputDescription:
-            "أدخل اختيارك (1 للتحويل من مئوية إلى فهرنهايت، 2 للعكس) ثم أدخل درجة الحرارة"
+        testCases: [
+            {
+                description: "تحويل من مئوية إلى فهرنهايت (0 درجة مئوية)",
+                input: "1\n0",
+                expectedOutput: "0 Celsius = 32 Fahrenheit"
+            },
+            {
+                description: "تحويل من فهرنهايت إلى مئوية (32 درجة فهرنهايت)",
+                input: "2\n32",
+                expectedOutput: "32 Fahrenheit = 0 Celsius"
+            },
+            {
+                description: "اختبار إدخال خيار غير صحيح",
+                input: "3",
+                expectedOutput: "Your choice is incorrect!"
+            }
+        ]
     },
     {
         id: 4,
@@ -227,26 +268,18 @@ using namespace std;
 int main() {
     double num1, num2, num3;
     double mean, variance, stdDev;
-    
     // قراءة الأرقام من المستخدم
-    cout << "أدخل ثلاثة أرقام مفصولة بمسافات: ";
+    cout << "Enter three numbers separated by space: ";
     cin >> num1 >> num2 >> num3;
-    
     // حساب المتوسط الحسابي
     mean = (num1 + num2 + num3) / 3;
-    
     // حساب التباين
-    variance = ((num1 - mean) * (num1 - mean) + 
-               (num2 - mean) * (num2 - mean) + 
-               (num3 - mean) * (num3 - mean)) / 3;
-    
+    variance = ((num1 - mean) * (num1 - mean) + (num2 - mean) * (num2 - mean) + (num3 - mean) * (num3 - mean)) / 3;
     // حساب الانحراف المعياري (الجذر التربيعي للتباين)
     stdDev = sqrt(variance);
-    
     // طباعة النتائج
-    cout << "المتوسط الحسابي = " << mean << endl;
-    cout << "الانحراف المعياري = " << stdDev << endl;
-    
+    cout << "Mean = " << mean << endl;
+    cout << "Standard deviation = " << stdDev << endl;
     return 0;
 }
 \`\`\``,
@@ -261,9 +294,23 @@ int main() {
             "الانحراف المعياري هو الجذر التربيعي للتباين",
             "التباين هو متوسط مربعات الانحرافات عن المتوسط الحسابي"
         ],
-        requiresInput: true,
-        sampleInput: "10 20 30",
-        inputDescription: "أدخل ثلاثة أرقام مفصولة بمسافات"
+        testCases: [
+            {
+                description: "أعداد متتالية (10، 20، 30)",
+                input: "10 20 30",
+                expectedOutput: "Mean = 20\nStandard deviation = 8.16497"
+            },
+            {
+                description: "أعداد متساوية (5، 5، 5)",
+                input: "5 5 5",
+                expectedOutput: "Mean = 5\nStandard deviation = 0"
+            },
+            {
+                description: "أعداد سالبة وموجبة (-10، 0، 10)",
+                input: "-10 0 10",
+                expectedOutput: "Mean = 0\nStandard deviation = 8.16497"
+            }
+        ]
     },
     {
         id: 5,
@@ -282,41 +329,34 @@ int main() {
     
     // اقرأ المدخلات من المستخدم
     
-    // احسب معدل استهلاك الوقود
+    // التحقق من صحة المدخلات
+    if (distance > 0 && fuel > 0) {
+        // احسب معدل استهلاك الوقود
     
-    // اطبع النتائج
+        // اطبع النتائج
     
+    }
     return 0;
 }`,
         solution: `\`\`\`cpp
 #include <iostream>
-#include <iomanip>
 using namespace std;
 
 int main() {
     double distance, fuel, kmPerLiter, litersPer100km;
-    
     // قراءة المدخلات من المستخدم
-    cout << "أدخل المسافة المقطوعة (كم): ";
+    cout << "Enter the distance traveled in kilometers: ";
     cin >> distance;
-    cout << "أدخل كمية الوقود المستهلكة (لتر): ";
+    cout << "Enter the amount of fuel consumed in liters: ";
     cin >> fuel;
-    
     // التحقق من صحة المدخلات
-    if (distance <= 0 || fuel <= 0) {
-        cout << "خطأ: يجب أن تكون المدخلات أرقامًا موجبة!" << endl;
-        return 1;
+    if (distance > 0 && fuel > 0) {
+        // حساب معدل استهلاك الوقود
+        kmPerLiter = distance / fuel;
+        litersPer100km = (fuel * 100) / distance;
+        cout << "Consumption rate: " << kmPerLiter << "Km/L" << endl;
+        cout << "Consumption rate: " << litersPer100km << "L/100Km" << endl;
     }
-    
-    // حساب معدل استهلاك الوقود
-    kmPerLiter = distance / fuel;
-    litersPer100km = (fuel * 100) / distance;
-    
-    // طباعة النتائج مع تنسيق العرض إلى رقمين عشريين
-    cout << fixed << setprecision(2);
-    cout << "معدل الاستهلاك: " << kmPerLiter << " كم/لتر" << endl;
-    cout << "معدل الاستهلاك: " << litersPer100km << " لتر/100 كم" << endl;
-    
     return 0;
 }
 \`\`\``,
@@ -325,16 +365,31 @@ int main() {
 3. التحقق من صحة المدخلات (يجب أن تكون أرقامًا موجبة).
 4. حساب معدل الاستهلاك بالكيلومتر لكل ليتر: kmPerLiter = distance / fuel.
 5. حساب معدل الاستهلاك باللتر لكل 100 كم: litersPer100km = (fuel * 100) / distance.
-6. طباعة النتائج مع تنسيق العرض إلى رقمين عشريين.`,
+`,
         hints: [
-            "استخدم fixed و setprecision لعرض النتائج بعدد محدد من الأرقام العشرية",
             "تأكد من إجراء اختبار للمدخلات للتأكد من أنها أرقام موجبة",
             "معدل استهلاك الوقود يمكن حسابه بطريقتين: كم/لتر أو لتر/100كم"
         ],
-        requiresInput: true,
-        sampleInput: "500 40",
-        inputDescription:
-            "أدخل المسافة المقطوعة (بالكيلومتر) ثم كمية الوقود المستهلكة (باللتر)"
+        testCases: [
+            {
+                description: "مسافة 500 كم، استهلاك 40 لتر",
+                input: "500 40",
+                expectedOutput:
+                    "Consumption rate: 12.5Km/L\nConsumption rate: 8L/100Km"
+            },
+            {
+                description: "مسافة 100 كم، استهلاك 10 لتر",
+                input: "100 10",
+                expectedOutput:
+                    "Consumption rate: 10Km/L\nConsumption rate: 10L/100Km"
+            },
+            {
+                description: "مسافة 200 كم، استهلاك 15 لتر",
+                input: "200 15",
+                expectedOutput:
+                    "Consumption rate: 13.3333Km/L\nConsumption rate: 7.5L/100Km"
+            }
+        ]
     },
     {
         id: 6,
@@ -349,7 +404,13 @@ int main() {
 using namespace std;
 
 int main() {
-    // قم بكتابة الكود هنا
+    // عرّف المتغيرات اللازمة
+    
+    // اقرأ المدخلات من المستخدم
+    
+    // احسب المعدل
+    
+    // اطبع التقدير
     
     return 0;
 }`,
@@ -358,29 +419,26 @@ int main() {
 using namespace std;
 
 int main() {
-    double grade1, grade2, grade3, grade4, grade5;
-    double average;
-    
-    cout << "أدخل درجات الطالب في المواد الخمس:" << endl;
+    double grade1, grade2, grade3, grade4, grade5, average;
+    // قراءة المدخلات من المستخدم
+    cout << "Enter the student's grades in the five subjects:" << endl;
     cin >> grade1 >> grade2 >> grade3 >> grade4 >> grade5;
-    
+    // حساب المعدّل
     average = (grade1 + grade2 + grade3 + grade4 + grade5) / 5.0;
-    
-    cout << "المعدل: " << average << endl;
-    cout << "التقدير: ";
-    
+    cout << "Average = " << average << endl;
+    // طباعة التقدير
+    cout << "The estimate: ";
     if (average >= 90) {
-        cout << "ممتاز";
+        cout << "Excellent";
     } else if (average >= 80) {
-        cout << "جيد جداً";
+        cout << "Very Good";
     } else if (average >= 70) {
-        cout << "جيد";
+        cout << "Good";
     } else if (average >= 60) {
-        cout << "مقبول";
+        cout << "Acceptable";
     } else {
-        cout << "راسب";
+        cout << "Fail";
     }
-    
     cout << endl;
     return 0;
 }
@@ -394,10 +452,23 @@ int main() {
             "استخدم بنية if-else if-else المتسلسلة لتحديد التقدير.",
             "تأكد من قسمة المجموع على 5.0 للحصول على نتيجة بالفاصلة العشرية."
         ],
-        requiresInput: true,
-        sampleInput: "85 92 78 90 88",
-        inputDescription:
-            "أدخل خمسة أرقام تمثل درجات الطالب في كل مادة مفصولة بمسافة."
+        testCases: [
+            {
+                description: "اختبار تقدير جيد جداً",
+                input: "85 92 78 90 88",
+                expectedOutput: "Average = 86.6\nThe estimate: Very Good"
+            },
+            {
+                description: "اختبار تقدير ممتاز",
+                input: "95 91 93 97 94",
+                expectedOutput: "Average = 94\nThe estimate: Excellent"
+            },
+            {
+                description: "اختبار تقدير راسب",
+                input: "45 58 52 59 55",
+                expectedOutput: "Average = 53.8\nThe estimate: Fail"
+            }
+        ]
     },
     {
         id: 7,
@@ -412,7 +483,11 @@ int main() {
 using namespace std;
 
 int main() {
-    // قم بكتابة الكود هنا
+    // تعريف المتغيرات اللازمة
+    
+    // قراءة المدخلات من المستخدم
+    
+    // استخراج وطباعة الأعداد الأولية ضمن المجال المحدد
     
     return 0;
 }`,
@@ -424,33 +499,28 @@ using namespace std;
 int main() {
     int start, end;
     bool isPrime;
-    
+    // قراءة المدخلات من المستخدم
     cout << "أدخل بداية المجال: ";
     cin >> start;
     cout << "أدخل نهاية المجال: ";
     cin >> end;
-    
     if (start < 2) {
         start = 2;  // أصغر عدد أولي هو 2
     }
-    
     cout << "الأعداد الأولية ضمن المجال [" << start << ", " << end << "] هي:" << endl;
-    
+    // حساب الأعداد الأولية ضمن المجال المحدد وطباعتها
     for (int num = start; num <= end; num++) {
         isPrime = true;
-        
         for (int i = 2; i <= sqrt(num); i++) {
             if (num % i == 0) {
                 isPrime = false;
                 break;
             }
         }
-        
         if (isPrime) {
             cout << num << " ";
         }
     }
-    
     cout << endl;
     return 0;
 }
@@ -467,9 +537,25 @@ int main() {
             "استخدم sqrt() من مكتبة cmath للحصول على الجذر التربيعي.",
             "لا تنسَ أن أصغر عدد أولي هو 2."
         ],
-        requiresInput: true,
-        sampleInput: "10 50",
-        inputDescription: "أدخل رقمين يمثلان بداية ونهاية المجال المطلوب فحصه."
+        testCases: [
+            {
+                description: "اختبار مجال صغير",
+                input: "10 50",
+                expectedOutput:
+                    "الأعداد الأولية ضمن المجال [10, 50] هي:\n11 13 17 19 23 29 31 37 41 43 47"
+            },
+            {
+                description: "اختبار مجال يبدأ من 1",
+                input: "1 20",
+                expectedOutput:
+                    "الأعداد الأولية ضمن المجال [2, 20] هي:\n2 3 5 7 11 13 17 19"
+            },
+            {
+                description: "اختبار مجال أعداد كبيرة",
+                input: "90 100",
+                expectedOutput: "الأعداد الأولية ضمن المجال [90, 100] هي:\n97"
+            }
+        ]
     },
     {
         id: 8,
@@ -484,7 +570,11 @@ int main() {
 using namespace std;
 
 int main() {
-    // قم بكتابة الكود هنا
+    // تعريف المتغيرات اللازمة
+    
+    // قراءة المدخلات من المستخدم
+    
+    // حساب وطباعة عناصر المتسلسلة
     
     return 0;
 }`,
@@ -494,12 +584,11 @@ using namespace std;
 
 int main() {
     int n, first = 0, second = 1, next;
-    
-    cout << "أدخل عدد عناصر متسلسلة فيبوناتشي المطلوب طباعتها: ";
+    // قراءة المدخلات من المستخدم
+    cout << "Enter the number of Fibonacci sequence items to be printed: ";
     cin >> n;
-    
-    cout << "أول " << n << " عناصر من متسلسلة فيبوناتشي:" << endl;
-    
+    cout << "First " << n << "elements of the Fibonacci sequence" << endl;
+    // حساب وطباعة عناصر المتسلسلة
     for (int i = 0; i < n; i++) {
         if (i <= 1) {
             next = i;
@@ -510,7 +599,6 @@ int main() {
         }
         cout << next << " ";
     }
-    
     cout << endl;
     return 0;
 }
@@ -527,10 +615,25 @@ int main() {
             "تذكر أن متسلسلة فيبوناتشي تبدأ بـ 0 و 1.",
             "بعد حساب كل عنصر جديد، يجب تحديث قيم العنصرين السابقين."
         ],
-        requiresInput: true,
-        sampleInput: "10",
-        inputDescription:
-            "أدخل عددًا صحيحًا موجبًا يمثل عدد عناصر متسلسلة فيبوناتشي المطلوب طباعتها."
+        testCases: [
+            {
+                description: "اختبار أول 10 أرقام",
+                input: "10",
+                expectedOutput:
+                    "First 10elements of the Fibonacci sequence\n0 1 1 2 3 5 8 13 21 34"
+            },
+            {
+                description: "اختبار أول 5 أرقام",
+                input: "5",
+                expectedOutput:
+                    "First 5elements of the Fibonacci sequence\n0 1 1 2 3"
+            },
+            {
+                description: "اختبار رقم واحد",
+                input: "1",
+                expectedOutput: "First 1elements of the Fibonacci sequence\n0"
+            }
+        ]
     },
     {
         id: 9,
@@ -547,7 +650,13 @@ int main() {
 using namespace std;
 
 int main() {
-    // قم بكتابة الكود هنا
+    // تعريف المتغيرات اللازمة
+    int secretNumber;
+    // تهيئة مولد الأرقام العشوائية
+    srand(time(0));
+    // توليد رقم عشوائي بين 1 و 100
+    secretNumber = rand() % 100 + 1;
+    // اكتب الكود اللازم هنا
     
     return 0;
 }`,
@@ -565,25 +674,21 @@ int main() {
     
     // توليد رقم عشوائي بين 1 و 100
     secretNumber = rand() % 100 + 1;
-    
-    cout << "مرحباً بك في لعبة تخمين الرقم!" << endl;
-    cout << "لقد فكرت برقم بين 1 و 100. حاول تخمينه!" << endl;
-    
+    cout << "Welcome to the number guessing game!" << endl;
+    cout << "I've thought of a number between 1 and 100. Try to guess it!" << endl; 
     do {
-        cout << "أدخل تخمينك: ";
+        cout << "Enter your guess: ";
         cin >> guess;
         attempts++;
-        
         if (guess > secretNumber) {
-            cout << "تخمينك أكبر من الرقم المطلوب. حاول مرة أخرى." << endl;
+            cout << "Your guess is larger than my number. Try again." << endl;
         } else if (guess < secretNumber) {
-            cout << "تخمينك أصغر من الرقم المطلوب. حاول مرة أخرى." << endl;
+            cout << "Your guess is smaller than my number. Try again." << endl;
         } else {
-            cout << "تهانينا! لقد خمنت الرقم الصحيح وهو " << secretNumber << "!" << endl;
-            cout << "عدد المحاولات: " << attempts << endl;
+            cout << "Congratulations! You have correctly guessed the correct number, which is " << secretNumber << "!" << endl;
+            cout << "Number of attempts: " << attempts << endl;
         }
     } while (guess != secretNumber);
-    
     return 0;
 }
 \`\`\``,
@@ -595,14 +700,29 @@ int main() {
    c. الاستمرار حتى يخمن المستخدم الرقم الصحيح.
 4. طباعة رسالة تهنئة وعدد المحاولات المستغرقة.`,
         hints: [
-            "استخدم rand() لتوليد رقم عشوائي، و srand(time(0)) لتهيئة مولد الأرقام العشوائية.",
             "استخدم حلقة do-while لضمان تنفيذ جسم الحلقة مرة واحدة على الأقل.",
             "لا تنسَ زيادة عداد المحاولات مع كل تخمين."
         ],
-        requiresInput: true,
-        sampleInput: "50\n75\n62\n68\n65\n67\n66",
-        inputDescription:
-            "أدخل تخمينك للرقم بين 1 و 100. سيقدم البرنامج تلميحات بعد كل تخمين."
+        testCases: [
+            {
+                description: "اختبار تخمين مباشر للرقم",
+                input: "42",
+                expectedOutput:
+                    "Welcome to the number guessing game!\nI've thought of a number between 1 and 100. Try to guess it!\nCongratulations! You have correctly guessed the correct number, which is 42!\nNumber of attempts: 1"
+            },
+            {
+                description: "اختبار تخمين بعد عدة محاولات",
+                input: "50\n75\n62\n68\n65\n67\n66",
+                expectedOutput:
+                    "Welcome to the number guessing game!\nI've thought of a number between 1 and 100. Try to guess it!\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nCongratulations! You have correctly guessed the correct number, which is 66!\nNumber of attempts: 7"
+            },
+            {
+                description: "اختبار تخمين من أعلى وأسفل",
+                input: "1\n100\n50",
+                expectedOutput:
+                    "Welcome to the number guessing game!\nI've thought of a number between 1 and 100. Try to guess it!\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nCongratulations! You have correctly guessed the correct number, which is 50!\nNumber of attempts: 3"
+            }
+        ]
     },
     {
         id: 10,
@@ -617,8 +737,11 @@ int main() {
 using namespace std;
 
 int main() {
-    // قم بكتابة الكود هنا
+    // تعريف المتغيرات اللازمة
     
+    // قراءة المدخلات من المستخدم
+    
+    // كتابة الكود اللازم
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -627,24 +750,19 @@ using namespace std;
 
 int main() {
     int n;
-    
-    cout << "أدخل ارتفاع المثلث: ";
+    cout << "Enter the triangle's height: ";
     cin >> n;
-    
     for (int i = 0; i < n; i++) {
         // طباعة المسافات قبل النجوم
         for (int j = 0; j < n - i - 1; j++) {
             cout << " ";
         }
-        
         // طباعة النجوم
         for (int j = 0; j < 2 * i + 1; j++) {
             cout << "*";
         }
-        
         cout << endl;
     }
-    
     return 0;
 }
 \`\`\``,
@@ -659,10 +777,23 @@ int main() {
             "عدد النجوم في كل سطر يتبع الصيغة: 2*i+1 حيث i هو رقم السطر (بدءًا من 0).",
             "عدد المسافات قبل النجوم في كل سطر يتبع الصيغة: n-i-1."
         ],
-        requiresInput: true,
-        sampleInput: "5",
-        inputDescription:
-            "أدخل عددًا صحيحًا موجبًا يمثل ارتفاع المثلث المراد رسمه."
+        testCases: [
+            {
+                description: "اختبار مثلث بارتفاع 5",
+                input: "5",
+                expectedOutput: "    *\n   ***\n  *****\n *******\n*********"
+            },
+            {
+                description: "اختبار مثلث بارتفاع 3",
+                input: "3",
+                expectedOutput: "  *\n ***\n*****"
+            },
+            {
+                description: "اختبار مثلث بارتفاع 1",
+                input: "1",
+                expectedOutput: "*"
+            }
+        ]
     },
     {
         id: 11,
@@ -677,7 +808,28 @@ int main() {
 using namespace std;
 
 int main() {
-    // قم بتعريف المصفوفة وتنفيذ العمليات المطلوبة
+    // تعريف المتغيرات اللازمة
+    
+    // قراءة المدخلات من المستخدم
+    
+    // 1. طباعة العناصر بشكل منسق
+    
+    // 2. حساب وطباعة مجموع ومتوسط عناصر المصفوفة
+    
+    // 3. إيجاد وطباعة أكبر عنصر في المصفوفة
+    
+    // 4. إيجاد وطباعة أصغر عنصر في المصفوفة
+    
+    // 5. إيجاد معكوس المصفوفة
+    
+    // 6. البحث عن عنصر في المصفوفة
+    
+    // 7. حذف عنصر من المصفوفة
+    
+    // 8. إضافة عنصر إلى المصفوفة
+    
+    // 9. التحقق ما إذا كانت المصفوفة متناظرة
+    
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -688,131 +840,109 @@ int main() {
     int arr[100];  // تعريف مصفوفة بحد أقصى 100 عنصر
     int n, i;
     bool isSymmetric = true;
-    
     // إدخال عدد العناصر
-    cout << "أدخل عدد العناصر (الحد الأقصى 100): ";
+    cout << "Enter number of items (maximum 100): ";
     cin >> n;
-    
-    if (n > 100 || n <= 0) {
-        cout << "عدد العناصر غير صالح!" << endl;
-        return 1;
-    }
-    
-    // إدخال عناصر المصفوفة
-    cout << "أدخل " << n << " عناصر:" << endl;
-    for (i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
-    
-    // 1. طباعة العناصر بشكل منسق
-    cout << "\\n1. العناصر المدخلة: ";
-    for (i = 0; i < n; i++) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-    
-    // 2. حساب وطباعة مجموع ومتوسط عناصر المصفوفة
-    int sum = 0;
-    for (i = 0; i < n; i++) {
-        sum += arr[i];
-    }
-    float avg = (float)sum / n;
-    cout << "2. مجموع العناصر: " << sum << ", المتوسط: " << avg << endl;
-    
-    // 3. إيجاد وطباعة أكبر عنصر في المصفوفة
-    int max = arr[0];
-    for (i = 1; i < n; i++) {
-        if (arr[i] > max) {
-            max = arr[i];
+    if (n < 100 && n >= 0) {
+        // إدخال عناصر المصفوفة
+        cout << "Enter " << n << " items: " << endl;
+        for (i = 0; i < n; i++) {
+            cin >> arr[i];
         }
-    }
-    cout << "3. أكبر عنصر: " << max << endl;
-    
-    // 4. إيجاد وطباعة أصغر عنصر في المصفوفة
-    int min = arr[0];
-    for (i = 1; i < n; i++) {
-        if (arr[i] < min) {
-            min = arr[i];
-        }
-    }
-    cout << "4. أصغر عنصر: " << min << endl;
-    
-    // 5. إيجاد معكوس المصفوفة
-    cout << "5. معكوس المصفوفة: ";
-    for (i = n - 1; i >= 0; i--) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-    
-    // 6. البحث عن عنصر في المصفوفة
-    int search, found = -1;
-    cout << "\\nأدخل العنصر المراد البحث عنه: ";
-    cin >> search;
-    
-    for (i = 0; i < n; i++) {
-        if (arr[i] == search) {
-            found = i;
-            break;
-        }
-    }
-    
-    if (found != -1) {
-        cout << "6. العنصر " << search << " موجود في الموقع: " << found << endl;
-    } else {
-        cout << "6. العنصر " << search << " غير موجود في المصفوفة" << endl;
-    }
-    
-    // 7. حذف عنصر من المصفوفة
-    int delPos;
-    cout << "\\nأدخل موقع العنصر المراد حذفه (0 إلى " << n-1 << "): ";
-    cin >> delPos;
-    
-    if (delPos >= 0 && delPos < n) {
-        for (i = delPos; i < n - 1; i++) {
-            arr[i] = arr[i + 1];
-        }
-        n--;
-        
-        cout << "7. المصفوفة بعد الحذف: ";
+        // 1. طباعة العناصر بشكل منسق
+        cout << "\nThe entered items : ";
         for (i = 0; i < n; i++) {
             cout << arr[i] << " ";
         }
         cout << endl;
-    } else {
-        cout << "7. موقع غير صالح للحذف!" << endl;
-    }
-    
-    // 8. إضافة عنصر إلى المصفوفة
-    int newElem, addPos;
-    cout << "\\nأدخل العنصر الجديد وموقعه (0 إلى " << n << "): ";
-    cin >> newElem >> addPos;
-    
-    if (addPos >= 0 && addPos <= n && n < 100) {
-        for (i = n; i > addPos; i--) {
-            arr[i] = arr[i - 1];
-        }
-        arr[addPos] = newElem;
-        n++;
-        
-        cout << "8. المصفوفة بعد الإضافة: ";
+        // 2. حساب وطباعة مجموع ومتوسط عناصر المصفوفة
+        int sum = 0;
         for (i = 0; i < n; i++) {
+            sum += arr[i];
+        }
+        float avg = (float)sum / n;
+        cout << "Sumation: " << sum << ", Average: " << avg << endl;
+        // 3. إيجاد وطباعة أكبر عنصر في المصفوفة
+        int max = arr[0];
+        for (i = 1; i < n; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        cout << "The largest item : " << max << endl;
+        // 4. إيجاد وطباعة أصغر عنصر في المصفوفة
+        int min = arr[0];
+        for (i = 1; i < n; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+        cout << "The smallest item: " << min << endl;
+        // 5. إيجاد معكوس المصفوفة
+        cout << "Inverse array: ";
+        for (i = n - 1; i >= 0; i--) {
             cout << arr[i] << " ";
         }
         cout << endl;
-    } else {
-        cout << "8. لا يمكن إضافة العنصر (موقع غير صالح أو المصفوفة ممتلئة)!" << endl;
-    }
-    
-    // 9. التحقق ما إذا كانت المصفوفة متناظرة
-    for (i = 0; i < n / 2; i++) {
-        if (arr[i] != arr[n - i - 1]) {
-            isSymmetric = false;
-            break;
+        // 6. البحث عن عنصر في المصفوفة
+        int search, found = -1;
+        cout << "\nEnter the item to search for: ";
+        cin >> search;
+        for (i = 0; i < n; i++) {
+            if (arr[i] == search) {
+                found = i;
+                break;
+            }
         }
+        if (found != -1) {
+            cout << "The item " << search << " is in index: " << found << endl;
+        } else {
+            cout << "The item " << search << " isn't in the array!" << endl;
+        }
+        // 7. حذف عنصر من المصفوفة
+        int delPos;
+        cout << "\n Enter the index of the item to be deleted (0 to " << n-1 << "): ";
+        cin >> delPos;
+        if (delPos >= 0 && delPos < n) {
+            for (i = delPos; i < n - 1; i++) {
+                arr[i] = arr[i + 1];
+            }
+            n--;
+            cout << "Array after deletion: ";
+            for (i = 0; i < n; i++) {
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+        } else {
+            cout << "The item cannot be deleted (invalid index)!" << endl;
+        }
+        // 8. إضافة عنصر إلى المصفوفة
+        int newElem, addPos;
+        cout << "\nInsert new item and its index (0 to " << n << "): ";
+        cin >> newElem >> addPos;
+        if (addPos >= 0 && addPos <= n && n < 100) {
+            for (i = n; i > addPos; i--) {
+                arr[i] = arr[i - 1];
+            }
+            arr[addPos] = newElem;
+            n++;
+            cout << "Array after addition: ";
+            for (i = 0; i < n; i++) {
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+        } else {
+            cout << "The item cannot be added (invalid index or the array is full)!" << endl;
+        }
+        // 9. التحقق ما إذا كانت المصفوفة متناظرة
+        for (i = 0; i < n / 2; i++) {
+            if (arr[i] != arr[n - i - 1]) {
+                isSymmetric = false;
+                break;
+            }
+        }
+        cout << "\nArray is " << (isSymmetric ? "symmetric" : "asymmetric") << endl;
     }
-    
-    cout << "\\n9. المصفوفة " << (isSymmetric ? "متناظرة" : "غير متناظرة") << endl;
-    
     return 0;
 }
 \`\`\``,
@@ -833,10 +963,26 @@ int main() {
             "عند إضافة أو حذف عنصر تأكد من تحديث قيمة n",
             "للتحقق من تناظر المصفوفة، قارن العنصر الأول مع الأخير، والثاني مع قبل الأخير وهكذا"
         ],
-        requiresInput: true,
-        sampleInput: "5\n10 20 30 20 10\n30\n2\n40 3",
-        inputDescription:
-            "عدد العناصر، قيم العناصر، قيمة للبحث، موقع للحذف، قيمة جديدة وموقعها"
+        testCases: [
+            {
+                description: "مصفوفة متناظرة مع عمليات البحث والإضافة والحذف",
+                input: "5\n10 20 30 20 10\n30\n2\n40 3",
+                expectedOutput:
+                    "The entered items : 10 20 30 20 10\nSumation: 90, Average: 18\nThe largest item : 30\nThe smallest item: 10\nInverse array: 10 20 30 20 10\nThe item 30 is in index: 2\nArray after deletion: 10 20 20 10\nArray after addition: 10 20 40 20 10\nArray is symmetric"
+            },
+            {
+                description: "مصفوفة غير متناظرة مع عناصر متكررة",
+                input: "4\n5 10 15 20\n10\n1\n25 2",
+                expectedOutput:
+                    "The entered items : 5 10 15 20\nSumation: 50, Average: 12.5\nThe largest item : 20\nThe smallest item: 5\nInverse array: 20 15 10 5\nThe item 10 is in index: 1\nArray after deletion: 5 15 20\nArray after addition: 5 15 25 20\nArray is asymmetric"
+            },
+            {
+                description: "مصفوفة بعنصر واحد",
+                input: "1\n42\n42\n0\n99 0",
+                expectedOutput:
+                    "The entered items : 42\nSumation: 42, Average: 42\nThe largest item : 42\nThe smallest item: 42\nInverse array: 42\nThe item 42 is in index: 0\nArray after deletion: \nArray after addition: 99\nArray is symmetric"
+            }
+        ]
     },
     {
         id: 12,
@@ -852,6 +998,21 @@ using namespace std;
 
 int main() {
     // قم بتعريف المصفوفة الثنائية وتنفيذ العمليات المطلوبة
+    
+    // إدخال علامات الطلاب
+    
+    // طباعة العلامات بشكل منسق
+    // طباعة أرقام المواد
+    // طباعة علامات كل طالب
+    
+    // 1. طباعة علامات طالب محدد
+    
+    // 2. طباعة علامات الطالب الأخير
+    
+    // 3. طباعة أعلى علامة في البرمجة (العمود الثاني)
+    
+    // 4. طباعة معدلات كل طالب
+    
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -860,98 +1021,84 @@ using namespace std;
 
 int main() {
     int n, m; // n = عدد الطلاب، m = عدد المواد
-    
-    cout << "أدخل عدد الطلاب: ";
+    cout << "Enter students number: ";
     cin >> n;
-    cout << "أدخل عدد المواد: ";
+    cout << "Enter subjects number : ";
     cin >> m;
-    
     // تعريف المصفوفة
     float grades[50][50]; // بافتراض أن الحد الأقصى للطلاب والمواد هو 50
-    
     // إدخال علامات الطلاب
-    cout << "\\nأدخل علامات الطلاب:" << endl;
+    cout << "\nEnter students' marks:" << endl;
     for (int i = 0; i < n; i++) {
-        cout << "الطالب رقم " << i + 1 << ":" << endl;
+        cout << "Student ID " << i + 1 << ":" << endl;
         for (int j = 0; j < m; j++) {
-            cout << "المادة رقم " << j + 1 << ": ";
+            cout << "Subject ID " << j + 1 << ": ";
             cin >> grades[i][j];
         }
     }
-    
     // طباعة العلامات بشكل منسق
-    cout << "\\nعلامات الطلاب:" << endl;
-    
+    cout << "\nStudents' marks:" << endl;
     // طباعة أرقام المواد
-    cout << "\\t";
+    cout << "\t";
     for (int j = 0; j < m; j++) {
-        cout << "المادة " << j + 1 << "\\t";
+        cout << "Subject " << j + 1 << "\t";
     }
-    cout << "المعدل" << endl;
-    
+    cout << "Average" << endl;
     // طباعة علامات كل طالب
     for (int i = 0; i < n; i++) {
-        cout << "الطالب " << i + 1 << "\\t";
+        cout << "Student " << i + 1 << "\t";
         float sum = 0;
         for (int j = 0; j < m; j++) {
-            cout << grades[i][j] << "\\t\\t";
+            cout << grades[i][j] << "\t\t";
             sum += grades[i][j];
         }
         float avg = sum / m;
         cout << avg << endl;
     }
-    
     // 1. طباعة علامات طالب محدد
     int studentId;
-    cout << "\\n1. أدخل رقم الطالب للحصول على علاماته (1 إلى " << n << "): ";
+    Cout << "\nEnter the student's number to get his marks (1 to " << n << "): ";
     cin >> studentId;
-    
     if (studentId >= 1 && studentId <= n) {
-        cout << "علامات الطالب رقم " << studentId << ": ";
+        cout << "Student's marks ID " << studentId << ": ";
         for (int j = 0; j < m; j++) {
             cout << grades[studentId - 1][j] << " ";
         }
         cout << endl;
     } else {
-        cout << "رقم طالب غير صالح!" << endl;
+        cout << "Student ID isn't correct!" << endl;
     }
-    
     // 2. طباعة علامات الطالب الأخير
-    cout << "\\n2. علامات الطالب الأخير: ";
+    cout << "\nThe last student's marks: ";
     for (int j = 0; j < m; j++) {
         cout << grades[n - 1][j] << " ";
     }
     cout << endl;
-    
     // 3. طباعة أعلى علامة في البرمجة (العمود الثاني)
     if (m >= 2) {
         float maxProgramming = grades[0][1]; // الطالب الأول، العمود الثاني (البرمجة)
         int topStudent = 0;
-        
         for (int i = 1; i < n; i++) {
             if (grades[i][1] > maxProgramming) {
                 maxProgramming = grades[i][1];
                 topStudent = i;
             }
         }
-        
-        cout << "\\n3. أعلى علامة في البرمجة: " << maxProgramming;
-        cout << " (الطالب رقم " << topStudent + 1 << ")" << endl;
+        cout << "\nThe heighest mark in Programming: " << maxProgramming;
+        cout << " (Student ID " << topStudent + 1 << ")" << endl;
     } else {
-        cout << "\\n3. لا توجد مادة برمجة (العمود الثاني غير موجود)" << endl;
+        Cout << "\nNo programming subject (the second column does not exist)" << endl;
     }
-    
     // 4. طباعة معدلات كل طالب
-    cout << "\\n4. معدلات الطلاب:" << endl;
+    cout << "\nStudents' average:" << endl;
     for (int i = 0; i < n; i++) {
         float sum = 0;
         for (int j = 0; j < m; j++) {
             sum += grades[i][j];
         }
         float avg = sum / m;
-        cout << "الطالب " << i + 1 << ": " << avg << endl;
+        cout << "Student " << i + 1 << ": " << avg << endl;
     }
-    
     return 0;
 }
 \`\`\``,
@@ -968,10 +1115,26 @@ int main() {
             "تأكد من التعامل مع ترقيم المصفوفة الذي يبدأ من 0 عند إدخال رقم الطالب",
             "يمكنك حساب المعدل بجمع علامات الطالب وقسمتها على عدد المواد"
         ],
-        requiresInput: true,
-        sampleInput: "3\n4\n90 85 95 92\n75 80 70 85\n95 90 88 92\n2",
-        inputDescription:
-            "عدد الطلاب، عدد المواد، علامات كل طالب في كل مادة، رقم الطالب المراد عرض علاماته"
+        testCases: [
+            {
+                description: "ثلاثة طلاب بأربع مواد",
+                input: "3\n4\n90 85 95 92\n75 80 70 85\n95 90 88 92\n2",
+                expectedOutput:
+                    "Students' marks:\n\tSubject 1\tSubject 2\tSubject 3\tSubject 4\tAverage\nStudent 1\t90\t\t85\t\t95\t\t92\t\t90.5\nStudent 2\t75\t\t80\t\t70\t\t85\t\t77.5\nStudent 3\t95\t\t90\t\t88\t\t92\t\t91.25\nStudent's marks ID 2: 75 80 70 85\nThe last student's marks: 95 90 88 92\nThe heighest mark in Programming: 90 (Student ID 3)\nStudents' average:\nStudent 1: 90.5\nStudent 2: 77.5\nStudent 3: 91.25"
+            },
+            {
+                description: "طالبان بثلاث مواد",
+                input: "2\n3\n88 92 78\n94 85 90\n1",
+                expectedOutput:
+                    "Students' marks:\n\tSubject 1\tSubject 2\tSubject 3\tAverage\nStudent 1\t88\t\t92\t\t78\t\t86\nStudent 2\t94\t\t85\t\t90\t\t89.67\nStudent's marks ID 1: 88 92 78\nThe last student's marks: 94 85 90\nThe heighest mark in Programming: 92 (Student ID 1)\nStudents' average:\nStudent 1: 86\nStudent 2: 89.67"
+            },
+            {
+                description: "طالب واحد بمادتين",
+                input: "1\n2\n75 80\n1",
+                expectedOutput:
+                    "Students' marks:\n\tSubject 1\tSubject 2\tAverage\nStudent 1\t75\t\t80\t\t77.5\nStudent's marks ID 1: 75 80\nThe last student's marks: 75 80\nThe heighest mark in Programming: 80 (Student ID 1)\nStudents' average:\nStudent 1: 77.5"
+            }
+        ]
     },
     {
         id: 13,
@@ -994,37 +1157,32 @@ using namespace std;
 
 int main() {
     int n;
-    cout << "أدخل حجم المصفوفة المربعة: ";
+    Cout << "Enter the square array size: ";
     cin >> n;
-    
     // تعريف المصفوفة
     int matrix[50][50]; // بافتراض أن الحد الأقصى هو 50×50
-    
     // إدخال عناصر المصفوفة
-    cout << "أدخل عناصر المصفوفة:" << endl;
+    Cout << "Enter array items:" << endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cout << "العنصر [" << i << "][" << j << "]: ";
+            cout << "Item [" << i << "][" << j << "]: ";
             cin >> matrix[i][j];
         }
     }
-    
     // طباعة المصفوفة
-    cout << "\\nالمصفوفة المدخلة:" << endl;
+    cout << "\nThe entered array:" << endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cout << matrix[i][j] << "\\t";
         }
         cout << endl;
     }
-    
     // طباعة عناصر القطر الثانوي
-    cout << "\\nعناصر القطر الثانوي: ";
+    Cout << "\nSecondary diameter items: ";
     for (int i = 0; i < n; i++) {
         cout << matrix[i][n - 1 - i] << " ";
     }
     cout << endl;
-    
     return 0;
 }
 \`\`\``,
@@ -1038,9 +1196,26 @@ int main() {
             "العناصر في القطر الثانوي لها العلاقة i + j = n - 1 أو j = n - 1 - i",
             "تأكد من أن المصفوفة مربعة (عدد الصفوف = عدد الأعمدة)"
         ],
-        requiresInput: true,
-        sampleInput: "3\n1 2 3\n4 5 6\n7 8 9",
-        inputDescription: "حجم المصفوفة المربعة، عناصر المصفوفة"
+        testCases: [
+            {
+                description: "مصفوفة مربعة 3×3",
+                input: "3\n1 2 3\n4 5 6\n7 8 9",
+                expectedOutput:
+                    "The entered array:\n1\t2\t3\t\n4\t5\t6\t\n7\t8\t9\t\nSecondary diameter items: 3 5 7"
+            },
+            {
+                description: "مصفوفة مربعة 4×4",
+                input: "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
+                expectedOutput:
+                    "The entered array:\n1\t2\t3\t4\t\n5\t6\t7\t8\t\n9\t10\t11\t12\t\n13\t14\t15\t16\t\nSecondary diameter items: 4 7 10 13"
+            },
+            {
+                description: "مصفوفة مربعة 2×2",
+                input: "2\n10 20\n30 40",
+                expectedOutput:
+                    "The entered array:\n10\t20\t\n30\t40\t\nSecondary diameter items: 20 30"
+            }
+        ]
     },
     {
         id: 14,
@@ -1084,9 +1259,13 @@ int main() {
             "تذكر أن ترسل سطراً جديداً بعد طباعة النجوم",
             "التابع من نوع void لأنه لا يحتاج لإرجاع قيمة"
         ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
+        testCases: [
+            {
+                description: "التحقق من طباعة 10 نجوم",
+                input: "",
+                expectedOutput: "**********\n"
+            }
+        ]
     },
     {
         id: 15,
@@ -1105,15 +1284,11 @@ using namespace std;
 int main() {
     char c;
     int count;
-    
-    cout << "ادخل المحرف: ";
+    cout << "Enter the char: ";
     cin >> c;
-    
-    cout << "ادخل عدد مرات الطباعة: ";
+    cout << "Enter the number of prints: ";
     cin >> count;
-    
     printChar(c, count);
-    
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -1126,19 +1301,14 @@ void printChar(char c, int count) {
     }
     cout << endl;
 }
-
 int main() {
     char c;
     int count;
-    
-    cout << "ادخل المحرف: ";
+    cout << "Enter the char: ";
     cin >> c;
-    
-    cout << "ادخل عدد مرات الطباعة: ";
+    cout << "Enter the number of prints: ";
     cin >> count;
-    
     printChar(c, count);
-    
     return 0;
 }
 \`\`\``,
@@ -1151,9 +1321,23 @@ int main() {
             "استخدم حلقة for للتكرار بعدد المرات المطلوبة",
             "تأكد من تمرير الوسائط بالترتيب الصحيح عند استدعاء التابع"
         ],
-        requiresInput: true,
-        sampleInput: "$ 5",
-        inputDescription: "المحرف المراد طباعته، ثم عدد مرات الطباعة"
+        testCases: [
+            {
+                description: "طباعة محرف $ خمس مرات",
+                input: "$ 5",
+                expectedOutput: "$$$$$\n"
+            },
+            {
+                description: "طباعة محرف * ثلاث مرات",
+                input: "* 3",
+                expectedOutput: "***\n"
+            },
+            {
+                description: "طباعة محرف A عشر مرات",
+                input: "A 10",
+                expectedOutput: "AAAAAAAAAA\n"
+            }
+        ]
     },
     {
         id: 16,
@@ -1171,8 +1355,7 @@ using namespace std;
 // اكتب التابع isPrime هنا
 
 int main() {
-    cout << "الأعداد الأولية بين 2 و 100:" << endl;
-    
+    cout << "Prime numbers between 2 and 100:" << endl;
     // أكمل الكود هنا
     
     return 0;
@@ -1186,33 +1369,27 @@ bool isPrime(int num) {
     if (num <= 1) {
         return false;
     }
-    
     if (num <= 3) {
         return true;
     }
-    
     if (num % 2 == 0 || num % 3 == 0) {
         return false;
     }
-    
     for (int i = 5; i * i <= num; i += 6) {
         if (num % i == 0 || num % (i + 2) == 0) {
             return false;
         }
     }
-    
     return true;
 }
 
 int main() {
-    cout << "الأعداد الأولية بين 2 و 100:" << endl;
-    
+    cout << "Prime numbers between 2 and 100:" << endl;
     for (int i = 2; i <= 100; i++) {
         if (isPrime(i)) {
             cout << i << " ";
         }
     }
-    
     return 0;
 }
 \`\`\``,
@@ -1227,9 +1404,14 @@ int main() {
             "يمكنك تحسين الأداء بالتحقق فقط حتى الجذر التربيعي للعدد",
             "استخدم حلقة في main() لفحص كل الأعداد من 2 إلى 100"
         ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
+        testCases: [
+            {
+                description: "التحقق من عرض الأعداد الأولية بين 2 و 20",
+                input: "",
+                expectedOutput:
+                    "Prime numbers between 2 and 100:\n2 3 5 7 11 13 17 19 "
+            }
+        ]
     },
     {
         id: 17,
@@ -1246,8 +1428,7 @@ using namespace std;
 // اكتب التابع printDivisors هنا
 
 int main() {
-    cout << "قواسم الأعداد من 10 إلى 30:" << endl;
-    
+    cout << "Divisors of numbers from 10 to 30:" << endl;
     // أكمل الكود هنا
     
     return 0;
@@ -1257,24 +1438,20 @@ int main() {
 using namespace std;
 
 void printDivisors(int num) {
-    cout << num << " قواسمه: ";
-    
+    cout << num << "Its Divisors: ";
     for (int i = 1; i <= num; i++) {
         if (num % i == 0) {
             cout << i << " ";
         }
     }
-    
     cout << endl;
 }
 
 int main() {
-    cout << "قواسم الأعداد من 10 إلى 30:" << endl;
-    
+    cout << "Divisors of numbers from 10 to 30:" << endl;
     for (int i = 10; i <= 30; i++) {
         printDivisors(i);
     }
-    
     return 0;
 }
 \`\`\``,
@@ -1290,9 +1467,18 @@ int main() {
             "استخدم عامل باقي القسمة % للتحقق من كون الرقم قاسماً",
             "تذكر أن تطبع كل عدد وقواسمه على سطر منفصل"
         ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
+        testCases: [
+            {
+                description: "التحقق من عرض قواسم العدد 12",
+                input: "",
+                expectedOutput: "12Its Divisors: 1 2 3 4 6 12 "
+            },
+            {
+                description: "التحقق من عرض قواسم العدد 16",
+                input: "",
+                expectedOutput: "16Its Divisors: 1 2 4 8 16 "
+            }
+        ]
     },
     {
         id: 18,
@@ -1310,11 +1496,9 @@ using namespace std;
 
 int main() {
     int n;
-    cout << "أدخل عدداً صحيحاً موجباً: ";
+    cout << "Enter a positive integer: ";
     cin >> n;
-    
-    cout << "فاكتوريال " << n << " هو: " << factorial(n) << endl;
-    
+    cout << "Factorial " << n << " is " << factorial(n) << endl;
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -1332,15 +1516,11 @@ unsigned long long factorial(int n) {
 
 int main() {
     int n;
-    cout << "أدخل عدداً صحيحاً موجباً: ";
+    cout << "Enter a positive integer: ";
     cin >> n;
-    
-    if (n < 0) {
-        cout << "لا يمكن حساب الفاكتوريال لعدد سالب!" << endl;
-    } else {
-        cout << "فاكتوريال " << n << " هو: " << factorial(n) << endl;
+    if (n >= 0) {
+        cout << "Factorial " << n << " is " << factorial(n) << endl;
     }
-    
     return 0;
 }
 \`\`\``,
@@ -1355,9 +1535,23 @@ int main() {
             "الحالة الأساسية للفاكتوريال هي: 0! = 1! = 1",
             "استخدم نوع بيانات كبير مثل unsigned long long لتجنب المشاكل عند الأعداد الكبيرة"
         ],
-        requiresInput: true,
-        sampleInput: "5",
-        inputDescription: "عدد صحيح موجب لحساب فاكتورياله"
+        testCases: [
+            {
+                description: "حساب فاكتوريال 5",
+                input: "5",
+                expectedOutput: "Factorial 5 is 120"
+            },
+            {
+                description: "حساب فاكتوريال 0",
+                input: "0",
+                expectedOutput: "Factorial 0 is 1"
+            },
+            {
+                description: "حساب فاكتوريال عدد كبير",
+                input: "10",
+                expectedOutput: "Factorial 10 is 3628800"
+            }
+        ]
     },
     {
         id: 19,
@@ -1375,11 +1569,9 @@ using namespace std;
 
 int main() {
     int n;
-    cout << "أدخل رقم العنصر في سلسلة فيبوناتشي: ";
+    cout << "Enter the item number in the Fibonacci sequence: ";
     cin >> n;
-    
-    cout << "العنصر رقم " << n << " في سلسلة فيبوناتشي هو: " << fibonacci(n) << endl;
-    
+    cout << "Item number " << n << " in Fibonacci sequence is " << fibonacci(n) << endl;
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -1394,29 +1586,23 @@ int fibonacci(int n) {
     if (n == 1) {
         return 1;
     }
-    
     // الحالة العودية
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
 int main() {
     int n;
-    cout << "أدخل رقم العنصر في سلسلة فيبوناتشي: ";
+    cout << "Enter the item number in the Fibonacci series: ";
     cin >> n;
-    
-    if (n < 0) {
-        cout << "يرجى إدخال عدد غير سالب!" << endl;
-    } else {
-        cout << "العنصر رقم " << n << " في سلسلة فيبوناتشي هو: " << fibonacci(n) << endl;
-        
+    if (n >= 0) {
+        cout << "Item number " << n << " in Fibonacci sequence is " << fibonacci(n) << endl;
         // عرض السلسلة حتى الرقم n
-        cout << "سلسلة فيبوناتشي حتى العنصر " << n << ": ";
+        Cout << "Fibonacci sequence up to the item " << n << ": ";
         for (int i = 0; i <= n; i++) {
             cout << fibonacci(i) << " ";
         }
         cout << endl;
     }
-    
     return 0;
 }
 \`\`\``,
@@ -1432,9 +1618,23 @@ int main() {
             "الحالات الأساسية هي: F(0) = 0 و F(1) = 1",
             "هذا التنفيذ العودي البسيط ليس فعالاً للأعداد الكبيرة، يمكن تحسينه باستخدام تقنية التخزين المؤقت (memoization)"
         ],
-        requiresInput: true,
-        sampleInput: "8",
-        inputDescription: "رقم العنصر في سلسلة فيبوناتشي"
+        testCases: [
+            {
+                description: "حساب الرقم الثامن في سلسلة فيبوناتشي",
+                input: "8",
+                expectedOutput: "Item number 8 in Fibonacci sequence is 21"
+            },
+            {
+                description: "حساب الرقم صفر في سلسلة فيبوناتشي",
+                input: "0",
+                expectedOutput: "Item number 0 in Fibonacci sequence is 0"
+            },
+            {
+                description: "حساب الرقم الخامس في سلسلة فيبوناتشي",
+                input: "5",
+                expectedOutput: "Item number 5 in Fibonacci sequence is 5"
+            }
+        ]
     },
     {
         id: 20,
@@ -1453,19 +1653,15 @@ using namespace std;
 int main() {
     const int size = 10;
     int arr[size] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
-    
     int target;
-    cout << "أدخل العدد المراد البحث عنه: ";
+    Cout << "Enter the number you want to search for: ";
     cin >> target;
-    
     int result = binarySearch(arr, 0, size - 1, target);
-    
     if (result == -1) {
-        cout << "العنصر غير موجود في المصفوفة." << endl;
+        Cout << "The item is not found in the array." << endl;
     } else {
-        cout << "العنصر موجود في الموضع: " << result << endl;
+        Cout << "The item is in the index: " << result << endl;
     }
-    
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -1477,46 +1673,31 @@ int binarySearch(int arr[], int left, int right, int target) {
     if (left > right) {
         return -1;
     }
-    
     // حساب منتصف النطاق
     int mid = left + (right - left) / 2;
-    
     // إذا وجد العنصر في المنتصف
     if (arr[mid] == target) {
         return mid;
     }
-    
     // إذا كان العنصر أصغر من قيمة المنتصف، ابحث في النصف الأيسر
     if (arr[mid] > target) {
         return binarySearch(arr, left, mid - 1, target);
     }
-    
     // وإلا، ابحث في النصف الأيمن
     return binarySearch(arr, mid + 1, right, target);
 }
-
 int main() {
     const int size = 10;
     int arr[size] = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
-    
-    cout << "المصفوفة: ";
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-    
     int target;
-    cout << "أدخل العدد المراد البحث عنه: ";
+    Cout << "Enter the number you want to search for: ";
     cin >> target;
-    
     int result = binarySearch(arr, 0, size - 1, target);
-    
     if (result == -1) {
-        cout << "العنصر غير موجود في المصفوفة." << endl;
+        Cout << "The item is not found in the array." << endl;
     } else {
-        cout << "العنصر موجود في الموضع: " << result << endl;
+        Cout << "The item is in the index: " << result << endl;
     }
-    
     return 0;
 }
 \`\`\``,
@@ -1534,9 +1715,23 @@ int main() {
             "استخدم left + (right - left) / 2 لحساب المنتصف بدلاً من (left + right) / 2 لتجنب الفيضان العددي",
             "شرط التوقف هو عندما يصبح المؤشر الأيسر أكبر من المؤشر الأيمن"
         ],
-        requiresInput: true,
-        sampleInput: "23",
-        inputDescription: "العدد المراد البحث عنه في المصفوفة المرتبة"
+        testCases: [
+            {
+                description: "البحث عن عنصر موجود في المصفوفة",
+                input: "23",
+                expectedOutput: "The item is in the index: 5"
+            },
+            {
+                description: "البحث عن عنصر غير موجود في المصفوفة",
+                input: "50",
+                expectedOutput: "The item is not found in the array."
+            },
+            {
+                description: "البحث عن العنصر الأول في المصفوفة",
+                input: "2",
+                expectedOutput: "The item is in the index: 0"
+            }
+        ]
     },
     {
         id: 21,
@@ -1555,15 +1750,11 @@ using namespace std;
 int main() {
     double base;
     int exponent;
-    
-    cout << "أدخل الأساس: ";
+    cout << "Enter base: ";
     cin >> base;
-    
-    cout << "أدخل الأس: ";
+    cout << "Enter exponent: ";
     cin >> exponent;
-    
-    cout << base << " مرفوع للقوة " << exponent << " يساوي: " << power(base, exponent) << endl;
-    
+    cout << base << "power up" << exponent << ": " << power(base, exponent) << endl;
     return 0;
 }`,
         solution: `\`\`\`cpp
@@ -1575,34 +1766,26 @@ double power(double x, int n) {
     if (n == 0) {
         return 1;
     }
-    
     // للأسس السالبة
     if (n < 0) {
         return 1 / power(x, -n);
     }
-    
     // إذا كان الأس فردياً
     if (n % 2 == 1) {
         return x * power(x, n - 1);
     }
-    
     // إذا كان الأس زوجياً، استخدم الرفع السريع
     double half_pow = power(x, n / 2);
     return half_pow * half_pow;
 }
-
 int main() {
     double base;
     int exponent;
-    
-    cout << "أدخل الأساس: ";
+    cout << "Enter base: ";
     cin >> base;
-    
-    cout << "أدخل الأس: ";
+    cout << "Enter exponent: ";
     cin >> exponent;
-    
-    cout << base << " مرفوع للقوة " << exponent << " يساوي: " << power(base, exponent) << endl;
-    
+    cout << base << "power up" << exponent << ": " << power(base, exponent) << endl;
     return 0;
 }
 \`\`\``,
@@ -1618,9 +1801,23 @@ int main() {
             "تعامل مع الحالات الخاصة: الأس صفر، والأسس السالبة، والأسس الفردية",
             "هذه الخوارزمية تقلل التعقيد الزمني من O(n) إلى O(log n)"
         ],
-        requiresInput: true,
-        sampleInput: "2 10",
-        inputDescription: "أدخل الأساس ثم الأس"
+        testCases: [
+            {
+                description: "حساب قوة عدد موجب بأس موجب",
+                input: "2 10",
+                expectedOutput: "2power up10: 1024"
+            },
+            {
+                description: "حساب قوة عدد بأس سالب",
+                input: "2 -2",
+                expectedOutput: "2power up-2: 0.25"
+            },
+            {
+                description: "حساب قوة عدد بأس صفر",
+                input: "5 0",
+                expectedOutput: "5power up0: 1"
+            }
+        ]
     },
     {
         id: 22,
@@ -1661,16 +1858,15 @@ int main() {
     Student student1;
     
     // تعبئة بيانات الطالب
-    student1.name = "أحمد";
+    student1.name = "Ahmed";
     student1.age = 20;
     student1.gpa = 3.75;
     
     // طباعة معلومات الطالب
-    cout << "معلومات الطالب:" << endl;
-    cout << "الاسم: " << student1.name << endl;
-    cout << "العمر: " << student1.age << endl;
-    cout << "المعدل: " << student1.gpa << endl;
-    
+    cout << "Student information:" << endl;
+    cout << "Name: " << student1.name << endl;
+    cout << "Age: " << student1.age << endl; 
+    cout << "Average: " << student1.gpa << endl;
     return 0;
 }
 \`\`\``,
@@ -1683,9 +1879,27 @@ int main() {
             "يمكنك الوصول إلى حقول السجل باستخدام النقطة (.)",
             "لتخزين الاسم، استخدم نوع string من مكتبة <string>"
         ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
+        testCases: [
+            {
+                description: "تعريف سجل الطالب وطباعة المعلومات الأساسية",
+                input: "",
+                expectedOutput:
+                    "Student information:\nName: Ahmed\nAge: 20\nAverage: 3.75"
+            },
+            {
+                description: "تعريف سجل الطالب مع بيانات مختلفة",
+                input: "",
+                expectedOutput:
+                    "Student information:\nName: Ahmed\nAge: 20\nAverage: 3.75"
+            },
+            {
+                description:
+                    "تأكد من تعريف جميع حقول السجل (الاسم، العمر، المعدل)",
+                input: "",
+                expectedOutput:
+                    "Student information:\nName: Ahmed\nAge: 20\nAverage: 3.75"
+            }
+        ]
     },
     {
         id: 23,
@@ -1732,20 +1946,16 @@ double distance(Point p1, Point p2) {
 int main() {
     // إنشاء نقطتين
     Point point1, point2;
-    
     // تعيين قيم للنقطة الأولى
     point1.x = 3.0;
     point1.y = 4.0;
-    
     // تعيين قيم للنقطة الثانية
     point2.x = 6.0;
     point2.y = 8.0;
-    
     // حساب وطباعة المسافة
-    cout << "النقطة الأولى: (" << point1.x << ", " << point1.y << ")" << endl;
-    cout << "النقطة الثانية: (" << point2.x << ", " << point2.y << ")" << endl;
-    cout << "المسافة بين النقطتين: " << distance(point1, point2) << endl;
-    
+    cout << "First point: (" << point1.x << ", " << point1.y << ")" << endl; 
+    cout << "Second point: (" << point2.x <<", " << point2.y << ")" << endl; 
+    cout << "The distance between the two points: " << distance(point1, point2) << endl;
     return 0;
 }
 \`\`\``,
@@ -1758,105 +1968,30 @@ int main() {
             "استخدم دالة sqrt() من مكتبة cmath لحساب الجذر التربيعي",
             "يمكنك تمرير السجلات كمعاملات للدالة مثل أي نوع بيانات آخر"
         ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
+        testCases: [
+            {
+                description: "حساب المسافة بين النقطة (3,4) والنقطة (6,8)",
+                input: "",
+                expectedOutput:
+                    "First point: (3, 4)\nSecond point: (6, 8)\nThe distance between the two points: 5"
+            },
+            {
+                description: "حساب المسافة بين نقطتين على نفس المستقيم الأفقي",
+                input: "",
+                expectedOutput:
+                    "First point: (3, 4)\nSecond point: (6, 8)\nThe distance between the two points: 5"
+            },
+            {
+                description:
+                    "التأكد من استخدام معادلة المسافة الإقليدية الصحيحة",
+                input: "",
+                expectedOutput:
+                    "First point: (3, 4)\nSecond point: (6, 8)\nThe distance between the two points: 5"
+            }
+        ]
     },
     {
         id: 24,
-        lessonId: 8,
-        title: "إدارة مكتبة صغيرة",
-        description:
-            "قم بإنشاء نظام بسيط لإدارة مكتبة، حيث يتم تعريف سجل للكتاب يحتوي على معلومات مثل العنوان، المؤلف، سنة النشر، ومتوفر أم لا. ثم قم بإنشاء مصفوفة من الكتب وعرض معلوماتها.",
-        difficultyId: 2,
-        difficulty: "متوسط",
-        language: "cpp",
-        startingCode: `#include <iostream>
-#include <string>
-using namespace std;
-
-// قم بتعريف سجل الكتاب هنا
-
-// قم بكتابة دالة لعرض معلومات كتاب
-
-int main() {
-    // قم بإنشاء مصفوفة من الكتب
-
-    // عبء بيانات بعض الكتب
-
-    // اعرض معلومات جميع الكتب
-    
-    // ابحث عن الكتب المتاحة واعرض معلوماتها
-
-    return 0;
-}`,
-        solution: `\`\`\`cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-// تعريف سجل الكتاب
-struct Book {
-    string title;
-    string author;
-    int year;
-    bool available;
-};
-
-// دالة لعرض معلومات كتاب
-void displayBook(const Book& book) {
-    cout << "العنوان: " << book.title << endl;
-    cout << "المؤلف: " << book.author << endl;
-    cout << "سنة النشر: " << book.year << endl;
-    cout << "الحالة: " << (book.available ? "متاح" : "غير متاح") << endl;
-    cout << "-------------------" << endl;
-}
-
-int main() {
-    // إنشاء مصفوفة من الكتب
-    const int MAX_BOOKS = 3;
-    Book library[MAX_BOOKS];
-    
-    // تعبئة بيانات الكتب
-    library[0] = {"البؤساء", "فيكتور هوغو", 1862, true};
-    library[1] = {"الأمير الصغير", "أنطوان دو سانت إكزوبيري", 1943, false};
-    library[2] = {"الشيخ والبحر", "إرنست همنغواي", 1952, true};
-    
-    // عرض معلومات جميع الكتب
-    cout << "قائمة الكتب في المكتبة:" << endl;
-    cout << "====================" << endl;
-    for (int i = 0; i < MAX_BOOKS; i++) {
-        displayBook(library[i]);
-    }
-    
-    // عرض الكتب المتاحة فقط
-    cout << "الكتب المتاحة:" << endl;
-    cout << "====================" << endl;
-    for (int i = 0; i < MAX_BOOKS; i++) {
-        if (library[i].available) {
-            displayBook(library[i]);
-        }
-    }
-    
-    return 0;
-}
-\`\`\``,
-        algorithm: `1. تعريف سجل (struct) للكتاب يحتوي على: العنوان، المؤلف، سنة النشر، وحالة التوفر
-2. كتابة دالة لعرض معلومات كتاب واحد
-3. إنشاء مصفوفة من الكتب وتعبئة بياناتها
-4. استخدام حلقة تكرارية لعرض معلومات جميع الكتب
-5. استخدام حلقة تكرارية أخرى مع شرط لعرض معلومات الكتب المتاحة فقط`,
-        hints: [
-            "يمكنك استخدام المعامل العنواني (&) لتمرير السجل بالمرجع لتجنب نسخ البيانات",
-            "استخدم المشغل الشرطي (? :) للتحويل بين القيمة المنطقية والنص المناسب",
-            "يمكنك تهيئة السجل مباشرة باستخدام القوائم المتعاقبة {}"
-        ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
-    },
-    {
-        id: 25,
         lessonId: 8,
         title: "حساب مساحة ومحيط الأشكال",
         description:
@@ -1936,22 +2071,19 @@ double trianglePerimeter(const Triangle& tri) {
 int main() {
     // إنشاء مستطيل
     Rectangle rect = {5.0, 3.0};
-    cout << "المستطيل (الطول = " << rect.length << ", العرض = " << rect.width << "):" << endl;
-    cout << "المساحة = " << rectangleArea(rect) << endl;
-    cout << "المحيط = " << rectanglePerimeter(rect) << endl << endl;
-    
+    cout << "Rectangle (length = " << rect.length << ", width = " << rect.width << "):" << endl;
+    cout << "Area = " << rectangleArea(rect) << endl;
+    cout << "Perimeter = " << rectanglePerimeter(rect) << endl << endl;
     // إنشاء دائرة
     Circle circle = {4.0};
-    cout << "الدائرة (نصف القطر = " << circle.radius << "):" << endl;
-    cout << "المساحة = " << circleArea(circle) << endl;
-    cout << "المحيط = " << circlePerimeter(circle) << endl << endl;
-    
+    cout << "Circle (radius = " << circle.radius << "):" << endl;
+    cout << "Area = " << circleArea(circle) << endl;
+    cout << "Perimeter = " << circlePerimeter(circle) << endl << endl;
     // إنشاء مثلث
     Triangle triangle = {3.0, 4.0, 5.0};
-    cout << "المثلث (الأضلاع = " << triangle.a << ", " << triangle.b << ", " << triangle.c << "):" << endl;
-    cout << "المساحة = " << triangleArea(triangle) << endl;
-    cout << "المحيط = " << trianglePerimeter(triangle) << endl;
-    
+    cout << "Triangle (sides = " << triangle.a << ", " << triangle.b << ", " << triangle.c << "):" << endl;
+    cout << "Area = " << triangleArea(triangle) << endl;
+    cout << "Perimeter = " << trianglePerimeter(triangle) << endl;
     return 0;
 }
 \`\`\``,
@@ -1970,294 +2102,26 @@ int main() {
             "تذكر أن استخدام المعامل العنواني (&) عند تمرير السجلات كمعاملات للدوال يحسن الأداء",
             "يمكنك تعريف قيمة π كثابت في البرنامج: const double PI = 3.14159265359"
         ],
-        requiresInput: false,
-        sampleInput: "",
-        inputDescription: ""
-    },
-    {
-        id: 26,
-        lessonId: 8,
-        title: "إدارة سجلات الموظفين",
-        description:
-            "قم بإنشاء نظام لإدارة سجلات الموظفين في شركة، حيث يتم تخزين معلومات كل موظف في سجل. قم بتنفيذ عمليات إضافة موظف جديد، عرض معلومات الموظفين، البحث عن موظف، وتعديل بيانات موظف.",
-        difficultyId: 3,
-        difficulty: "متقدم",
-        language: "cpp",
-        startingCode: `#include <iostream>
-#include <string>
-using namespace std;
-
-// قم بتعريف سجل الموظف هنا
-
-// قم بتعريف سجل لقائمة الموظفين
-
-// قم بكتابة دوال لإدارة الموظفين (إضافة، عرض، بحث، تعديل)
-
-int main() {
-    // قم بإنشاء قائمة الموظفين
-
-    int choice;
-    do {
-        // قم بإنشاء قائمة خيارات للمستخدم
-        
-        // قم بتنفيذ الخيار المحدد
-
-    } while (choice != 0);
-
-    return 0;
-}`,
-        solution: `\`\`\`cpp
-#include <iostream>
-#include <string>
-using namespace std;
-
-// تعريف سجل الموظف
-struct Employee {
-    int id;
-    string name;
-    string position;
-    double salary;
-    int startYear;
-};
-
-// تعريف سجل لقائمة الموظفين
-struct EmployeeList {
-    static const int MAX_EMPLOYEES = 100;
-    Employee employees[MAX_EMPLOYEES];
-    int count;
-};
-
-// دالة لإضافة موظف جديد
-bool addEmployee(EmployeeList& list, const Employee& emp) {
-    if (list.count >= list.MAX_EMPLOYEES) {
-        cout << "خطأ: القائمة ممتلئة!" << endl;
-        return false;
-    }
-    
-    // التحقق من عدم تكرار رقم التعريف
-    for (int i = 0; i < list.count; i++) {
-        if (list.employees[i].id == emp.id) {
-            cout << "خطأ: رقم التعريف موجود مسبقاً!" << endl;
-            return false;
-        }
-    }
-    
-    list.employees[list.count] = emp;
-    list.count++;
-    return true;
-}
-
-// دالة لعرض معلومات موظف واحد
-void displayEmployee(const Employee& emp) {
-    cout << "رقم التعريف: " << emp.id << endl;
-    cout << "الاسم: " << emp.name << endl;
-    cout << "المنصب: " << emp.position << endl;
-    cout << "الراتب: " << emp.salary << endl;
-    cout << "سنة بدء العمل: " << emp.startYear << endl;
-    cout << "------------------------" << endl;
-}
-
-// دالة لعرض جميع الموظفين
-void displayAllEmployees(const EmployeeList& list) {
-    if (list.count == 0) {
-        cout << "لا يوجد موظفين في القائمة." << endl;
-        return;
-    }
-    
-    cout << "قائمة الموظفين (" << list.count << " موظف):" << endl;
-    cout << "========================" << endl;
-    for (int i = 0; i < list.count; i++) {
-        displayEmployee(list.employees[i]);
-    }
-}
-
-// دالة للبحث عن موظف بالرقم التعريفي
-int findEmployee(const EmployeeList& list, int id) {
-    for (int i = 0; i < list.count; i++) {
-        if (list.employees[i].id == id) {
-            return i;  // إرجاع موقع الموظف في المصفوفة
-        }
-    }
-    return -1;  // الموظف غير موجود
-}
-
-// دالة لتعديل بيانات موظف
-bool updateEmployee(EmployeeList& list, int id, const Employee& newData) {
-    int index = findEmployee(list, id);
-    if (index == -1) {
-        cout << "خطأ: الموظف غير موجود!" << endl;
-        return false;
-    }
-    
-    // الاحتفاظ برقم التعريف الأصلي
-    list.employees[index] = newData;
-    list.employees[index].id = id;  // للتأكد من عدم تغيير رقم التعريف
-    return true;
-}
-
-// دالة لحذف موظف
-bool deleteEmployee(EmployeeList& list, int id) {
-    int index = findEmployee(list, id);
-    if (index == -1) {
-        cout << "خطأ: الموظف غير موجود!" << endl;
-        return false;
-    }
-    
-    // نقل جميع العناصر بعد الموظف المحذوف خطوة للخلف
-    for (int i = index; i < list.count - 1; i++) {
-        list.employees[i] = list.employees[i + 1];
-    }
-    
-    list.count--;
-    return true;
-}
-
-// دالة لعرض قائمة الخيارات
-void displayMenu() {
-    cout << "\nنظام إدارة الموظفين" << endl;
-    cout << "===================" << endl;
-    cout << "1. إضافة موظف جديد" << endl;
-    cout << "2. عرض جميع الموظفين" << endl;
-    cout << "3. البحث عن موظف" << endl;
-    cout << "4. تعديل بيانات موظف" << endl;
-    cout << "5. حذف موظف" << endl;
-    cout << "0. خروج" << endl;
-    cout << "اختر عملية: ";
-}
-
-int main() {
-    // إنشاء قائمة الموظفين
-    EmployeeList companyEmployees = {.count = 0};
-    
-    // إضافة بعض الموظفين للاختبار
-    Employee emp1 = {101, "خالد أحمد", "مطور برمجيات", 5000.0, 2020};
-    Employee emp2 = {102, "فاطمة محمد", "محلل نظم", 5500.0, 2019};
-    Employee emp3 = {103, "عمر علي", "مدير مشروع", 7000.0, 2018};
-    
-    addEmployee(companyEmployees, emp1);
-    addEmployee(companyEmployees, emp2);
-    addEmployee(companyEmployees, emp3);
-    
-    int choice;
-    do {
-        displayMenu();
-        cin >> choice;
-        
-        switch (choice) {
-            case 1: {  // إضافة موظف جديد
-                Employee newEmp;
-                cout << "\nإدخال بيانات الموظف الجديد:" << endl;
-                cout << "رقم التعريف: ";
-                cin >> newEmp.id;
-                cout << "الاسم: ";
-                cin.ignore();  // تجاهل السطر الجديد المتبقي من الإدخال السابق
-                getline(cin, newEmp.name);
-                cout << "المنصب: ";
-                getline(cin, newEmp.position);
-                cout << "الراتب: ";
-                cin >> newEmp.salary;
-                cout << "سنة بدء العمل: ";
-                cin >> newEmp.startYear;
-                
-                if (addEmployee(companyEmployees, newEmp)) {
-                    cout << "تمت إضافة الموظف بنجاح!" << endl;
-                }
-                break;
+        testCases: [
+            {
+                description: "حساب مساحة ومحيط المستطيل والدائرة والمثلث",
+                input: "",
+                expectedOutput:
+                    "Rectangle (length = 5, width = 3):\nArea = 15\nPerimeter = 16\n\nCircle (radius = 4):\nArea = 50.2655\nPerimeter = 25.1327\n\nTriangle (sides = 3, 4, 5):\nArea = 6\nPerimeter = 12"
+            },
+            {
+                description: "التحقق من حساب مساحة المثلث باستخدام صيغة هيرون",
+                input: "",
+                expectedOutput:
+                    "Triangle (sides = 3, 4, 5):\nArea = 6\nPerimeter = 12"
+            },
+            {
+                description:
+                    "التأكد من تعريف جميع السجلات والدوال الضرورية للأشكال الثلاثة",
+                input: "",
+                expectedOutput:
+                    "Rectangle (length = 5, width = 3):\nArea = 15\nPerimeter = 16\n\nCircle (radius = 4):\nArea = 50.2655\nPerimeter = 25.1327\n\nTriangle (sides = 3, 4, 5):\nArea = 6\nPerimeter = 12"
             }
-            
-            case 2:  // عرض جميع الموظفين
-                displayAllEmployees(companyEmployees);
-                break;
-                
-            case 3: {  // البحث عن موظف
-                int searchId;
-                cout << "أدخل رقم تعريف الموظف للبحث: ";
-                cin >> searchId;
-                
-                int index = findEmployee(companyEmployees, searchId);
-                if (index != -1) {
-                    cout << "\nالموظف موجود:" << endl;
-                    displayEmployee(companyEmployees.employees[index]);
-                } else {
-                    cout << "الموظف غير موجود في القائمة!" << endl;
-                }
-                break;
-            }
-            
-            case 4: {  // تعديل بيانات موظف
-                int updateId;
-                cout << "أدخل رقم تعريف الموظف المراد تعديله: ";
-                cin >> updateId;
-                
-                int index = findEmployee(companyEmployees, updateId);
-                if (index != -1) {
-                    Employee updatedEmp;
-                    updatedEmp.id = updateId;  // الاحتفاظ بنفس رقم التعريف
-                    
-                    cout << "\nإدخال البيانات الجديدة:" << endl;
-                    cout << "الاسم: ";
-                    cin.ignore();
-                    getline(cin, updatedEmp.name);
-                    cout << "المنصب: ";
-                    getline(cin, updatedEmp.position);
-                    cout << "الراتب: ";
-                    cin >> updatedEmp.salary;
-                    cout << "سنة بدء العمل: ";
-                    cin >> updatedEmp.startYear;
-                    
-                    if (updateEmployee(companyEmployees, updateId, updatedEmp)) {
-                        cout << "تم تحديث بيانات الموظف بنجاح!" << endl;
-                    }
-                } else {
-                    cout << "الموظف غير موجود في القائمة!" << endl;
-                }
-                break;
-            }
-            
-            case 5: {  // حذف موظف
-                int deleteId;
-                cout << "أدخل رقم تعريف الموظف المراد حذفه: ";
-                cin >> deleteId;
-                
-                if (deleteEmployee(companyEmployees, deleteId)) {
-                    cout << "تم حذف الموظف بنجاح!" << endl;
-                }
-                break;
-            }
-            
-            case 0:  // خروج
-                cout << "شكراً لاستخدام نظام إدارة الموظفين!" << endl;
-                break;
-                
-            default:
-                cout << "خيار غير صالح، الرجاء المحاولة مرة أخرى." << endl;
-        }
-        
-    } while (choice != 0);
-    
-    return 0;
-}
-\`\`\``,
-        algorithm: `1. تعريف سجل (struct) للموظف يحتوي على: رقم التعريف، الاسم، المنصب، الراتب، سنة بدء العمل
-2. تعريف سجل لقائمة الموظفين يحتوي على مصفوفة من الموظفين وعدد الموظفين الحالي
-3. كتابة دوال لإدارة الموظفين:
-   - إضافة موظف جديد (مع التحقق من تكرار الهوية)
-   - عرض معلومات موظف
-   - عرض جميع الموظفين
-   - البحث عن موظف عن طريق رقم التعريف
-   - تعديل بيانات موظف
-   - حذف موظف
-4. كتابة دالة لعرض قائمة الخيارات
-5. تنفيذ حلقة رئيسية للتعامل مع خيارات المستخدم باستخدام switch-case`,
-        hints: [
-            "استخدم هيكل بيانات مناسب لتخزين مجموعة من السجلات، مثل المصفوفة",
-            "تحقق دائماً من حالات الخطأ المحتملة مثل القائمة الممتلئة أو الموظف غير الموجود",
-            "استخدم cin.ignore() قبل getline() عند القراءة بعد cin لتجنب مشاكل الإدخال"
-        ],
-        requiresInput: true,
-        sampleInput:
-            "2\n3\n101\n4\n101\nمحمد أحمد\nمهندس برمجيات\n5500\n2021\n2\n0\n",
-        inputDescription:
-            "الأرقام التي تمثل اختيارات المستخدم في القائمة، متبوعة بالبيانات المطلوبة لكل عملية"
+        ]
     }
 ];

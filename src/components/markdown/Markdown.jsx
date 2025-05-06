@@ -48,7 +48,7 @@ const BlockquoteRender = ({ node, children }) => {
     return <blockquote>{children}</blockquote>;
 };
 
-const MarkdownRender = ({ content }) => {
+const Markdown = ({ content }) => {
     return (
         <section className="markdown-content">
             <ReactMarkdown
@@ -71,4 +71,4 @@ const MarkdownRender = ({ content }) => {
     );
 };
 
-export default MarkdownRender;
+export default Markdown;

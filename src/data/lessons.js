@@ -2,6 +2,7 @@ export const lessons = [
     {
         id: 1,
         title: "مدخل إلى البرمجة والخوارزميات",
+        hasExercises: false,
         content: `
 ## أنواع الآلات
 ---
@@ -260,6 +261,7 @@ while (x ≤ 100)
     {
         id: 2,
         title: "أساسيات لغة ++C",
+        hasExercises: true,
         content: `
 ## مراحل تنفيذ برنامج ++C
 ---
@@ -483,6 +485,7 @@ cout << y;
     {
         id: 3,
         title: "بنى التحكم",
+        hasExercises: true,
         content: `
 ## بنى التحكم الشرطية
 ---
@@ -810,6 +813,7 @@ int main() {
     {
         id: 4,
         title: "المصفوفات",
+        hasExercises: true,
         content: `
 ## المصفوفات الأحادية
 ---
@@ -1139,6 +1143,7 @@ for (int i = 0; i < n; i++) {
     {
         id: 5,
         title: "التوابع ١",
+        hasExercises: true,
         content: `
 ## ما هو التابع؟
 ---
@@ -1366,6 +1371,7 @@ int main() {
     {
         id: 6,
         title: "التوابع ٢",
+        hasExercises: true,
         content: `
 ## الوسطاء الافتراضية
 ---
@@ -1595,6 +1601,7 @@ printMatrix(grid, 2);
     {
         id: 7,
         title: "التوابع العودية",
+        hasExercises: true,
         content: `
 ## ما هي التوابع العودية؟
 ---
@@ -1783,6 +1790,7 @@ GCD for 5 and 8 is 4
     {
         id: 8,
         title: "السجلات",
+        hasExercises: true,
         content: `
 ## مفهوم السجلات:
 ---

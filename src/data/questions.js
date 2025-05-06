@@ -59,7 +59,7 @@ export const questions = [
         ],
         correctAnswer: 1
     },
-    {
+ /*   {
         id: 6,
         lessonId: 1,
         text: "أي من اللغات التالية تنتمي إلى الجيل الثاني من لغات البرمجة؟",
@@ -259,6 +259,7 @@ export const questions = [
         ],
         correctAnswer: 1
     },
+  */
     {
         id: 26,
         lessonId: 2,
@@ -283,6 +284,7 @@ export const questions = [
         ],
         correctAnswer: 1
     },
+/*
     {
         id: 28,
         lessonId: 2,
@@ -553,6 +555,7 @@ cout << "\\\\";
         options: ["int", "float", "double", "char"],
         correctAnswer: 2
     },
+*/
     {
         id: 51,
         lessonId: 3,
