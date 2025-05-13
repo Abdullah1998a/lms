@@ -1,4 +1,4 @@
-/* import AceEditor from "react-ace";
+import AceEditor from "react-ace";
 import { Play, RotateCcw, Loader } from "lucide-react";
 import "ace-builds/src-noconflict/ace";
 import "ace-builds/src-noconflict/mode-c_cpp";
@@ -89,4 +89,3 @@ const CodeEditor = ({ code, onChange, language, onReset, onRun, isRunning }) => 
 };
 
 export default CodeEditor;
-*/

@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import {
     Home,
+    Statistics,
     Navbar,
     Lesson,
     Lessons,
@@ -17,6 +18,7 @@ function App() {
             <main className="w-full p-4 sm:px-6 lg:px-8 flex items-center overflow-hidden">
                 <Routes>
                     <Route index element={<Home />} />
+                    <Route path="/statistics" element={<Statistics />} />
                     <Route path="/lessons">
                         <Route index element={<Lessons />} />
                         <Route path=":lessonId">

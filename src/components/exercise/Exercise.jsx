@@ -6,7 +6,7 @@ import { useProgress } from "../../hooks/useProgress";
 import {
     Header,
     Description,
-    // CodeEditor,
+    CodeEditor,
     FeedbackMsg,
     HelpButtons,
     SolutionDisplay,
@@ -139,7 +139,6 @@ const Exercise = () => {
     };
 
     const goToNextExercise = () => {
-        // Only allow navigation if exercise is completed
         if (!exerciseCompleted) {
             setFeedbackType("error");
             setFeedbackMessage(
@@ -161,23 +160,18 @@ const Exercise = () => {
             !currentExercise.testCases ||
             currentExercise.testCases.length === 0
         ) {
-            runCode(); // Fallback to regular execution if no test cases
+            runCode();
             return;
         }
-
         setIsTestRunning(true);
         setTestResults([]);
         setFeedbackMessage("");
         setFeedbackType("");
-
         const results = [];
         let allTestsPassed = true;
-
         for (let i = 0; i < currentExercise.testCases.length; i++) {
             const testCase = currentExercise.testCases[i];
-
             try {
-                // Create a promise to handle the test case execution
                 const testResult = await new Promise(resolve => {
                     executeCode({
                         code,
@@ -189,15 +183,12 @@ const Exercise = () => {
                         }
                     });
                 });
-
                 const isPassed = testResult.result === "accepted";
-
                 results.push({
                     status: isPassed ? "passed" : "failed",
                     output: testResult.output,
                     error: testResult.error
                 });
-
                 if (!isPassed) {
                     allTestsPassed = false;
                 }
@@ -209,13 +200,9 @@ const Exercise = () => {
                 });
                 allTestsPassed = false;
             }
-
-            // Update results after each test case
             setTestResults([...results]);
         }
-
         setIsTestRunning(false);
-
         if (allTestsPassed) {
             if (!exerciseCompleted) {
                 completeExercise(parsedLessonId, currentExercise.id);
@@ -230,14 +217,10 @@ const Exercise = () => {
             );
         }
     };
-
     const runCode = () => {
         if (!hasExercises) return;
-
-        // Since we always have test cases, we should always run tests
         runTests();
     };
-
     const getHint = () => {
         if (!hasExercises) return;
         if (remainingHints > 0) {
@@ -257,7 +240,6 @@ const Exercise = () => {
             setFeedbackMessage("لقد استخدمت جميع التلميحات المتاحة!");
         }
     };
-
     const resetExercise = () => {
         if (!hasExercises) return;
         setCode(currentExercise.startingCode || "");
@@ -299,7 +281,6 @@ const Exercise = () => {
                 difficultyId={currentExercise.difficultyId}
                 completed={exerciseCompleted}
             />
-            {/*
             <CodeEditor
                 code={code}
                 onChange={setCode}
@@ -308,7 +289,6 @@ const Exercise = () => {
                 onRun={runCode}
                 isRunning={isRunning || isTestRunning}
             />
-            */}
             <TestCases
                 testCases={currentExercise.testCases}
                 results={testResults}

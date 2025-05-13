@@ -77,11 +77,9 @@ const Lesson = () => {
             <LessonProgress progress={progressStats} hasExercises={lesson.hasExercises}/>
 
             <Markdown content={lesson.content} />
-
-            <div className="flex gap-2 my-4">
                 <Link
                     to="quiz"
-                    className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 font-medium rounded-md transition-colors"
+                    className="px-4 py-2 my-4 bg-blue-600 text-white hover:bg-blue-700 font-medium rounded-md transition-colors"
                 >
                     اختبر نفسك
                     {lessonStatus.quizCompleted && (
@@ -90,29 +88,6 @@ const Lesson = () => {
                         </span>
                     )}
                 </Link>
-                {lesson.hasExercises && (
-                    <Link
-                        to="exercises"
-                        className="px-4 py-2 bg-white border border-blue-500 text-blue-600 hover:bg-blue-50 font-medium rounded-md transition-colors flex items-center"
-                    >
-                        <span>تمرّن</span>
-                        {lessonStatus.exercisesCompleted?.length > 0 && (
-                            <span className="mr-2 text-sm bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">
-                                {lessonStatus.exercisesCompleted.length}
-                                {exercises.filter(
-                                    ex => ex.lessonId === parsedLessonId
-                                ).length > 0 &&
-                                    `/${
-                                        exercises.filter(
-                                            ex => ex.lessonId === parsedLessonId
-                                        ).length
-                                    }`}
-                            </span>
-                        )}
-                    </Link>
-                )}
-            </div>
-
             {lessonStatus.completed && (
                 <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
                     <p className="text-green-700 font-medium">

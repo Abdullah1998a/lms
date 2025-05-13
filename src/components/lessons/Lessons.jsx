@@ -8,9 +8,7 @@ const Lessons = () => {
     const {
         isLessonUnlocked,
         getLessonStatus,
-        getLessonProgressStats,
-        resetAllProgress,
-        progress
+        resetAllProgress
     } = useProgress();
     const [showResetButton, setShowResetButton] = useState(false);
 
@@ -19,7 +17,7 @@ const Lessons = () => {
     }, []);
 
     return (
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto self-start">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">الدروس</h1>
                 {showResetButton && (
@@ -36,7 +34,6 @@ const Lessons = () => {
                 {lessons.map(lesson => {
                     const unlocked = isLessonUnlocked(lesson.id);
                     const status = getLessonStatus(lesson.id);
-                    const stats = getLessonProgressStats(lesson.id);
                     return (
                         <div
                             key={lesson.id}
@@ -79,11 +76,6 @@ const Lessons = () => {
                                             <Check className="w-3 h-3 ml-1" />
                                             مكتمل
                                         </div>
-                                    ) : unlocked &&
-                                      stats.overallProgress > 0 ? (
-                                        <div className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full h-fit">
-                                            {stats.overallProgress}%
-                                        </div>
                                     ) : !unlocked ? (
                                         <div className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full flex items-center h-fit">
                                             <Lock className="w-3 h-3 ml-1" />
@@ -91,81 +83,6 @@ const Lessons = () => {
                                         </div>
                                     ) : null}
                                 </div>
-                                {unlocked && (
-                                    <div className="mt-4">
-                                        <div className="flex justify-between text-xs mb-1.5">
-                                            <span>تقدم الدرس</span>
-                                            <span>
-                                                {stats.overallProgress}%
-                                            </span>
-                                        </div>
-                                        <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
-                                            <div
-                                                className="bg-blue-600 h-2 rounded-full"
-                                                style={{
-                                                    width: `${stats.overallProgress}%`
-                                                }}
-                                            ></div>
-                                        </div>
-
-                                        <div
-                                            className={`${
-                                                lesson.hasExercises
-                                                    ? "grid grid-cols-2 gap-3"
-                                                    : ""
-                                            }`}
-                                        >
-                                            <div>
-                                                <div className="flex justify-between text-xs mb-1.5">
-                                                    <span>الاختبار</span>
-                                                    <span>
-                                                        {stats.quizProgress}%
-                                                    </span>
-                                                </div>
-                                                <div className="w-full bg-gray-200 rounded-full h-1.5">
-                                                    <div
-                                                        className={`h-1.5 rounded-full ${
-                                                            stats.quizProgress >=
-                                                            85
-                                                                ? "bg-green-500"
-                                                                : "bg-yellow-500"
-                                                        }`}
-                                                        style={{
-                                                            width: `${stats.quizProgress}%`
-                                                        }}
-                                                    ></div>
-                                                </div>
-                                            </div>
-
-                                            {lesson.hasExercises && (
-                                                <div>
-                                                    <div className="flex justify-between text-xs mb-1">
-                                                        <span>التمارين</span>
-                                                        <span>
-                                                            {
-                                                                stats.exercisesProgress
-                                                            }
-                                                            %
-                                                        </span>
-                                                    </div>
-                                                    <div className="w-full bg-gray-200 rounded-full h-1.5">
-                                                        <div
-                                                            className={`h-1.5 rounded-full ${
-                                                                stats.exercisesProgress ===
-                                                                100
-                                                                    ? "bg-green-500"
-                                                                    : "bg-yellow-500"
-                                                            }`}
-                                                            style={{
-                                                                width: `${stats.exercisesProgress}%`
-                                                            }}
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
 
                                 {!unlocked && (
                                     <div className="mt-4 text-sm text-gray-500">
@@ -174,7 +91,7 @@ const Lessons = () => {
                                     </div>
                                 )}
 
-                                <div className="mt-6 space-y-2">
+                                <div className="mt-6">
                                     {unlocked ? (
                                         <Link
                                             to={`/lessons/${lesson.id}`}
@@ -191,52 +108,6 @@ const Lessons = () => {
                                         >
                                             مغلق
                                         </button>
-                                    )}
-
-                                    {unlocked && (
-                                        <div
-                                            className={`${
-                                                lesson.hasExercises
-                                                    ? "grid grid-cols-2"
-                                                    : ""
-                                            } gap-2`}
-                                        >
-                                            <Link
-                                                to={`/lessons/${lesson.id}/quiz`}
-                                                className={`text-center py-2 px-3 rounded text-sm transition ${
-                                                    status.quizCompleted &&
-                                                    status.quizScore >= 85
-                                                        ? "bg-green-100 text-green-800 hover:bg-green-200"
-                                                        : "bg-gray-100 hover:bg-gray-200 text-gray-800"
-                                                }`}
-                                            >
-                                                {status.quizCompleted
-                                                    ? status.quizScore >= 85
-                                                        ? "الاختبار ✓"
-                                                        : "إعادة الاختبار"
-                                                    : "بدء الاختبار"}
-                                            </Link>
-
-                                            {lesson.hasExercises && (
-                                                <Link
-                                                    to={`/lessons/${lesson.id}/exercises`}
-                                                    className={`text-center py-2 px-3 rounded text-sm transition ${
-                                                        stats.exercisesProgress ===
-                                                        100
-                                                            ? "bg-green-100 text-green-800 hover:bg-green-200"
-                                                            : "bg-gray-100 hover:bg-gray-200 text-gray-800"
-                                                    }`}
-                                                >
-                                                    {stats.exercisesProgress ===
-                                                    100
-                                                        ? "التمارين ✓"
-                                                        : stats.exercisesProgress >
-                                                          0
-                                                        ? "إكمال التمارين"
-                                                        : "بدء التمارين"}
-                                                </Link>
-                                            )}
-                                        </div>
                                     )}
                                 </div>
                             </div>

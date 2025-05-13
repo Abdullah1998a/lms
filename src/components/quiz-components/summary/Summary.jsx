@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getScoreColor, getGrade } from "../../../utils/helpers.js";
 import { useProgress } from "../../../hooks/useProgress";
-import { lessons } from "../../../data/lessons"; // Import the lessons data
+import { lessons } from "../../../data/lessons";
 
 const Summary = ({
     score,
@@ -14,26 +14,20 @@ const Summary = ({
     const parsedLessonId = parseInt(lessonId);
     const { saveQuizResult, getLessonStatus } = useProgress();
     const lessonStatus = getLessonStatus(parsedLessonId);
-    
     const scorePercentage = Math.round(
         (score / shuffledQuestions.length) * 100
     );
     const passThreshold = 60;
     const passed = scorePercentage >= passThreshold;
-    
-    // Save quiz result to progress - only run once when component mounts
     useEffect(() => {
-        // Create a local function that doesn't change between renders
         const savingQuizResult = () => {
             saveQuizResult(parsedLessonId, score, shuffledQuestions.length);
         };
-        
-        // Call it once
         savingQuizResult();
-        
-        // Empty dependency array means this only runs once
-    }, []); // Remove saveQuizResult from dependencies array
-
+    }, []);
+    const hasExercises = lessons.find(
+        lesson => lesson.id === parsedLessonId
+    )?.hasExercises;
     return (
         <div className="w-full bg-white max-w-xl mx-auto">
             <h2 className="text-2xl font-bold mb-4 text-center">
@@ -69,16 +63,17 @@ const Summary = ({
                     التقدير: {getGrade(scorePercentage)}
                 </p>
             </div>
-            
+
             {passed && lessonStatus.completed && (
                 <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-md">
                     <p className="text-green-700 text-center">
                         لقد أكملت هذا الدرس بنجاح!
-                        {parsedLessonId < lessons.length && " يمكنك الانتقال إلى الدرس التالي."}
+                        {parsedLessonId < lessons.length &&
+                            " يمكنك الانتقال إلى الدرس التالي."}
                     </p>
                 </div>
             )}
-            
+
             <div className="flex flex-col gap-2">
                 <button
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-4 rounded w-full"
@@ -98,21 +93,24 @@ const Summary = ({
                 >
                     الرجوع للدرس
                 </Link>
+                {hasExercises &&
                 <Link
                     to={`/lessons/${lessonId}/exercises`}
                     className="border border-blue-500 text-blue-500 hover:bg-blue-50 font-bold py-2.5 px-4 rounded w-full text-center"
                 >
                     تمارين
                 </Link>
-                
-                {passed && lessonStatus.completed && parsedLessonId < lessons.length && (
-                    <Link
-                        to={`/lessons/${parsedLessonId + 1}`}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded w-full text-center"
-                    >
-                        الانتقال للدرس التالي
-                    </Link>
-                )}
+                }
+                {passed &&
+                    lessonStatus.completed &&
+                    parsedLessonId < lessons.length && (
+                        <Link
+                            to={`/lessons/${parsedLessonId + 1}`}
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded w-full text-center"
+                        >
+                            الانتقال للدرس التالي
+                        </Link>
+                    )}
             </div>
         </div>
     );

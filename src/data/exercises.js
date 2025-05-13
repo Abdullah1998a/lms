@@ -1,4 +1,5 @@
 export const exercises = [
+  /*
     {
         id: 1,
         lessonId: 2,
@@ -41,6 +42,7 @@ int main() {
             }
         ]
     },
+  */
     {
         id: 2,
         lessonId: 2,
