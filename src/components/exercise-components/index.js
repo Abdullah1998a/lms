@@ -1,4 +1,4 @@
-// import { CodeEditor } from "./code-editor";
+import { CodeEditor } from "./code-editor";
 import { Description } from "./description";
 import { FeedbackMsg } from "./feedback-msg";
 import { Header } from "./header";
@@ -12,7 +12,7 @@ import { TestCases } from "./test-cases";
 export {
     Header,
     Description,
-    // CodeEditor,
+    CodeEditor,
     FeedbackMsg,
     HelpButtons,
     NavigationButtons,

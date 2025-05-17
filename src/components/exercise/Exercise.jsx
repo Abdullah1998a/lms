@@ -6,7 +6,7 @@ import { useProgress } from "../../hooks/useProgress";
 import {
     Header,
     Description,
-    // CodeEditor,
+    CodeEditor,
     FeedbackMsg,
     HelpButtons,
     SolutionDisplay,
@@ -281,7 +281,6 @@ const Exercise = () => {
                 difficultyId={currentExercise.difficultyId}
                 completed={exerciseCompleted}
             />
-            {/*
             <CodeEditor
                 code={code}
                 onChange={setCode}
@@ -290,14 +289,12 @@ const Exercise = () => {
                 onRun={runCode}
                 isRunning={isRunning || isTestRunning}
             />
-            */}
             <TestCases
                 testCases={currentExercise.testCases}
                 results={testResults}
                 isRunning={isTestRunning}
             />
             <FeedbackMsg message={feedbackMessage} type={feedbackType} />
-
             <HelpButtons
                 onGetHint={getHint}
                 onToggleAlgorithm={toggleAlgorithm}
