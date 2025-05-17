@@ -1,9 +1,8 @@
 import { BarChart, ChevronRight } from "lucide-react";
 
-const LessonProgress = ({ progress }) => {
+const LessonProgress = ({ progress, hasExercises }) => {
     const {
         quizProgress = 0,
-        hasExercises = false,
         exercisesProgress = 0,
         overallProgress = 0
     } = progress || {};

@@ -1,29 +1,29 @@
-const HelpButtons = ({ 
-    onGetHint, 
-    onToggleAlgorithm, 
-    onToggleSolution, 
-    remainingHints, 
-    showAlgorithm, 
-    showSolution 
+const HelpButtons = ({
+    onGetHint,
+    onToggleAlgorithm,
+    onToggleSolution,
+    remainingHints,
+    showAlgorithm,
+    showSolution
 }) => {
     return (
         <div className="flex flex-col gap-3">
             <button
-                className="px-4 py-2.5 text-blue-600 border border-blue-600 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors"
+                className="px-4 py-2.5 text-blue-600 border border-blue-600 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors w-full max-w-md mx-auto"
                 onClick={onGetHint}
                 disabled={remainingHints <= 0}
             >
                 تلميح ({remainingHints} متبقية)
             </button>
             <button
-                className="px-4 py-2.5 text-blue-600 border border-blue-300 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors"
+                className="px-4 py-2.5 text-blue-600 border border-blue-300 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors w-full max-w-md mx-auto"
                 onClick={onToggleAlgorithm}
                 disabled={remainingHints > 0 || showSolution}
             >
                 {showAlgorithm ? "إخفاء" : "عرض"} خوارزمية الحلّ
             </button>
             <button
-                className="px-4 py-2.5 text-blue-600 border border-blue-300 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors"
+                className="px-4 py-2.5 text-blue-600 border border-blue-300 rounded-md disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200 hover:bg-blue-50 transition-colors w-full max-w-md mx-auto"
                 onClick={onToggleSolution}
                 disabled={remainingHints > 0 || showAlgorithm}
             >

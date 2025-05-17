@@ -6,7 +6,7 @@ import { useProgress } from "../../hooks/useProgress";
 import {
     Header,
     Description,
-    CodeEditor,
+    // CodeEditor,
     FeedbackMsg,
     HelpButtons,
     SolutionDisplay,
@@ -266,7 +266,7 @@ const Exercise = () => {
         return <Navigate to="/lessons" replace />;
     }
     return (
-        <div className="grid gap-4 w-full h-full max-w-xl mx-auto">
+        <div className="grid gap-4 h-full w-full max-w-4xl mx-auto">
             <Header
                 lessonId={lessonId}
                 currentIndex={currentExerciseIndex}
@@ -281,6 +281,7 @@ const Exercise = () => {
                 difficultyId={currentExercise.difficultyId}
                 completed={exerciseCompleted}
             />
+            {/*
             <CodeEditor
                 code={code}
                 onChange={setCode}
@@ -289,6 +290,7 @@ const Exercise = () => {
                 onRun={runCode}
                 isRunning={isRunning || isTestRunning}
             />
+            */}
             <TestCases
                 testCases={currentExercise.testCases}
                 results={testResults}

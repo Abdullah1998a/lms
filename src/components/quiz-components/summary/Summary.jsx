@@ -29,7 +29,7 @@ const Summary = ({
         lesson => lesson.id === parsedLessonId
     )?.hasExercises;
     return (
-        <div className="w-full bg-white max-w-xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold mb-4 text-center">
                 انتهى الاختبار!
             </h2>
@@ -76,37 +76,37 @@ const Summary = ({
 
             <div className="flex flex-col gap-2">
                 <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-4 rounded w-full"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2.5 px-4 rounded w-full max-w-md mx-auto"
                     onClick={showDetailedResults}
                 >
                     عرض التفاصيل
                 </button>
                 <button
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 px-4 rounded w-full"
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 px-4 rounded w-full max-w-md mx-auto"
                     onClick={resetQuiz}
                 >
                     إعادة الاختبار
                 </button>
                 <Link
                     to={`/lessons/${lessonId}`}
-                    className="border border-blue-500 text-blue-500 hover:bg-blue-50 font-bold py-2.5 px-4 rounded w-full text-center"
+                    className="border border-blue-500 text-blue-500 hover:bg-blue-50 font-bold py-2.5 px-4 rounded w-full text-center max-w-md mx-auto"
                 >
                     الرجوع للدرس
                 </Link>
-                {hasExercises &&
-                <Link
-                    to={`/lessons/${lessonId}/exercises`}
-                    className="border border-blue-500 text-blue-500 hover:bg-blue-50 font-bold py-2.5 px-4 rounded w-full text-center"
-                >
-                    تمارين
-                </Link>
-                }
+                {hasExercises && (
+                    <Link
+                        to={`/lessons/${lessonId}/exercises`}
+                        className="border border-blue-500 text-blue-500 hover:bg-blue-50 font-bold py-2.5 px-4 rounded w-full text-center max-w-md mx-auto"
+                    >
+                        تمارين
+                    </Link>
+                )}
                 {passed &&
                     lessonStatus.completed &&
                     parsedLessonId < lessons.length && (
                         <Link
                             to={`/lessons/${parsedLessonId + 1}`}
-                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded w-full text-center"
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded w-full text-center max-w-md mx-auto"
                         >
                             الانتقال للدرس التالي
                         </Link>

@@ -3,7 +3,7 @@ import { Info } from "lucide-react";
 
 const NoQuestions = ({ lessonId }) => {
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto">
             <div className="bg-blue-50 border border-blue-200 text-blue-800 p-5 rounded-md text-center">
                 <Info className="h-12 w-12 mx-auto mb-4 text-blue-600" />
                 <h2 className="text-2xl font-bold mb-3">

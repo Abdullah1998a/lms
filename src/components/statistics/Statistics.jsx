@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { useProgress } from "../../hooks/useProgress";
 import { lessons } from "../../data/lessons";
+import { 
+  BarChart3, 
+  Check, 
+  Trophy, 
+  CheckCircle2, 
+  Unlock, 
+  Lock 
+} from "lucide-react";
 
 const Statistics = () => {
     const { getLessonStatus, getLessonProgressStats, loading } = useProgress();
@@ -44,13 +52,13 @@ const Statistics = () => {
         return (
             <div className="flex justify-center items-center h-64">
                 <div className="text-xl font-semibold text-gray-600">
-                    Loading statistics...
+                    جارٍ تحميل الإحصائيات...
                 </div>
             </div>
         );
     }
     return (
-        <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="w-full max-w-4xl mx-auto bg-white rounded-lg overflow-hidden">
             <div className="p-6 bg-blue-600 text-white">
                 <h2 className="text-2xl font-bold mb-2">إحصائيات الطالب</h2>
                 <p className="text-blue-100">راقب تقدمك في كل الدروس</p>
@@ -60,17 +68,17 @@ const Statistics = () => {
                 <StatCard
                     title="التقدم الكلي"
                     value={`${overallProgress}%`}
-                    icon={<ChartIcon />}
+                    icon={<BarChart3 className="text-blue-500" size={24} />}
                 />
                 <StatCard
                     title="الدروس المكتملة"
                     value={`${completedLessons} / ${lessons.length}`}
-                    icon={<CheckIcon />}
+                    icon={<Check className="text-blue-500" size={24} />}
                 />
                 <StatCard
                     title="أعلى درجة أختبار"
                     value={`${highestScore}%`}
-                    icon={<TrophyIcon />}
+                    icon={<Trophy className="text-blue-500" size={24} />}
                 />
             </div>
 
@@ -94,11 +102,11 @@ const Statistics = () => {
                                         }`}
                                     >
                                         {lesson.completed ? (
-                                            <CheckCircleIcon />
+                                            <CheckCircle2 size={16} />
                                         ) : lesson.unlocked ? (
-                                            <UnlockIcon />
+                                            <Unlock size={16} />
                                         ) : (
-                                            <LockIcon />
+                                            <Lock size={16} />
                                         )}
                                     </div>
                                     <h4 className="font-medium">
@@ -157,136 +165,10 @@ const StatCard = ({ title, value, icon }) => (
     <div className="bg-white p-6 rounded-lg shadow">
         <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-700">{title}</h3>
-            <div className="text-blue-500">{icon}</div>
+            {icon}
         </div>
         <p className="text-3xl font-bold text-gray-900">{value}</p>
     </div>
-);
-
-// Icons (simple SVG icons)
-const ChartIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <line x1="18" y1="20" x2="18" y2="10"></line>
-        <line x1="12" y1="20" x2="12" y2="4"></line>
-        <line x1="6" y1="20" x2="6" y2="14"></line>
-    </svg>
-);
-
-const CheckIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-);
-
-const TrophyIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <path d="M8 21h8"></path>
-        <path d="M12 17v4"></path>
-        <path d="M17 8c0 4-2.667 8-5 8s-5-4-5-8"></path>
-        <path d="M7 8c0-1.333.5-3 2-4"></path>
-        <path d="M17 8c0-1.333-.5-3-2-4"></path>
-        <path d="M8 4h8"></path>
-    </svg>
-);
-
-const CheckCircleIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-    </svg>
-);
-
-const UnlockIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-        <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-    </svg>
-);
-
-const LockIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-    </svg>
-);
-
-const ExerciseIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    >
-        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-        <polyline points="14 2 14 8 20 8"></polyline>
-        <path d="M9 13h6"></path>
-        <path d="M9 17h3"></path>
-    </svg>
 );
 
 export default Statistics;

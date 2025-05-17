@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, CircleCheck, CircleAlert } from "lucide-react";
 import { Markdown } from "../../markdown";
 import { Option } from "../option";
-import { FeedbackMsg }from "../feedback-msg";
+import { FeedbackMsg } from "../feedback-msg";
 
 const Question = ({
     currentQuestion,
@@ -18,8 +18,7 @@ const Question = ({
     lessonId
 }) => {
     return (
-        <div className="w-full bg-white max-w-xl mx-auto">
-            {/* Header with navigation and question counter */}
+        <div className="w-full max-w-4xl mx-auto">
             <div className="flex justify-between items-center mb-4">
                 <Link
                     to={`/lessons/${lessonId}`}

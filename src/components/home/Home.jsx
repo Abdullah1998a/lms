@@ -10,7 +10,7 @@ const Home = () => {
         });
     }, []);
     return (
-        <div className="w-full max-w-xl mx-auto overflow-hidden">
+        <div className="w-full max-w-4xl mx-auto overflow-hidden">
             <div className="border-b border-gray-100">
                 <h1 className="text-4xl md:text-5xl text-blue-700 font-bold mb-4 leading-tight">
                     محاضرات مكثفة وتمارين عمليّة في لغات برمجية متعددة

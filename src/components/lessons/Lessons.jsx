@@ -1,43 +1,23 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Book, Lock, Check, Clock } from "lucide-react";
 import { lessons } from "../../data/lessons";
 import { useProgress } from "../../hooks/useProgress";
 
 const Lessons = () => {
-    const {
-        isLessonUnlocked,
-        getLessonStatus,
-        resetAllProgress
-    } = useProgress();
-    const [showResetButton, setShowResetButton] = useState(false);
-
-    useEffect(() => {
-        setShowResetButton(process.env.NODE_ENV === "development");
-    }, []);
+    const { isLessonUnlocked, getLessonStatus, resetAllProgress } =
+        useProgress();
 
     return (
         <div className="w-full max-w-4xl mx-auto self-start">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">الدروس</h1>
-                {showResetButton && (
-                    <button
-                        onClick={resetAllProgress}
-                        className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded hover:bg-red-200"
-                    >
-                        إعادة ضبط التقدم (للتطوير فقط)
-                    </button>
-                )}
-            </div>
-
-            <div className="grid grid-cols-1 gap-6">
+            <h1 className="text-2xl font-bold mb-4">الدروس</h1>
+            <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
                 {lessons.map(lesson => {
                     const unlocked = isLessonUnlocked(lesson.id);
                     const status = getLessonStatus(lesson.id);
                     return (
                         <div
                             key={lesson.id}
-                            className={`bg-white rounded-lg shadow-md overflow-hidden ${
+                            className={`bg-white rounded-lg shadow overflow-hidden ${
                                 !unlocked ? "opacity-70" : ""
                             }`}
                         >
@@ -95,7 +75,11 @@ const Lessons = () => {
                                     {unlocked ? (
                                         <Link
                                             to={`/lessons/${lesson.id}`}
-                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded text-center block transition"
+                                            className={`w-full border border-blue-600 font-medium py-2 px-4 rounded text-center block transition ${
+                                                status.completed
+                                                    ? "bg-white text-blue-600 hover:text-white hover:bg-blue-700"
+                                                    : "bg-blue-600 text-white hover:bg-blue-700"
+                                            }`}
                                         >
                                             {status.completed
                                                 ? "مراجعة الدرس"

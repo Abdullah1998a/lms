@@ -69,17 +69,21 @@ const Lesson = () => {
         return <Navigate to="/lessons" replace />;
     }
     return (
-        <div className="w-full max-w-xl mx-auto self-start lesson">
+        <div className="w-full max-w-4xl mx-auto self-start lesson">
             <h1 className="text-3xl text-blue-600 font-bold my-4">
                 {lesson.title}
             </h1>
 
-            <LessonProgress progress={progressStats} hasExercises={lesson.hasExercises}/>
+            <LessonProgress
+                progress={progressStats}
+                hasExercises={lesson.hasExercises}
+            />
 
             <Markdown content={lesson.content} />
+            <div className="flex gap-2 items-center">
                 <Link
                     to="quiz"
-                    className="px-4 py-2 my-4 bg-blue-600 text-white hover:bg-blue-700 font-medium rounded-md transition-colors"
+                    className="px-4 py-2 my-4 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 font-medium rounded-md transition-colors"
                 >
                     اختبر نفسك
                     {lessonStatus.quizCompleted && (
@@ -88,6 +92,15 @@ const Lesson = () => {
                         </span>
                     )}
                 </Link>
+                {lesson.hasExercises && lessonStatus.quizCompleted && (
+                    <Link
+                        to="exercises"
+                        className="px-4 py-2 my-4 bg-white border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-medium rounded-md transition-colors"
+                    >
+                        التمارين
+                    </Link>
+                )}
+            </div>
             {lessonStatus.completed && (
                 <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
                     <p className="text-green-700 font-medium">
