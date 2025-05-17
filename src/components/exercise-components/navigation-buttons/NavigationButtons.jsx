@@ -29,11 +29,7 @@ const NavigationButtons = ({
                 <button
                     onClick={onNext}
                     disabled={isNextDisabled}
-                    className={`flex items-center gap-2 px-4 py-2 font-medium rounded-md transition-colors ${
-                        isNextDisabled
-                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                            : "bg-blue-600 text-white hover:bg-blue-700"
-                    }`}
+                    className="flex items-center gap-2 px-4 py-2 font-medium rounded-md transition-colors bg-blue-600 text-white hover:bg-blue-700 disabled:border-gray-300 disabled:text-gray-500 disabled:bg-gray-200"
                 >
                     <span>التمرين التالي</span>
                     <ArrowLeftCircle className="h-5 w-5" />
