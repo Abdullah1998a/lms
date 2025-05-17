@@ -84,12 +84,7 @@ int main() {
     // تعريف المتغيرات
     double a, b, c, perimeter, s, area;
     // قراءة أطوال الأضلاع من المستخدم
-    cout << "Enter the length of the first side of the triangle: ";
-    cin >> a;
-    cout << "Enter the length of the second side of the triangle: ";
-    cin >> b;
-    cout << "Enter the length of the third side of the triangle: ";
-    cin >> c;
+    cin >> a >> b >> c;
     // التحقق أن أطوال الأضلاع تشكل مثلثاً
     if (a + b > c && a + c > b && b + c > a) {
         // حساب المحيط
@@ -179,20 +174,13 @@ using namespace std;
 int main() {
     double temp, result;
     int choice;
-    
-    cout << "Choose the conversion process" << endl;
-    cout << "1. Celsius to Fahrenheit." << endl;
-    cout << "2. Fahrenheit to Celsius." << endl;
-    cout << "Choose (1 or 2): ";
     cin >> choice;
     if (choice == 1) {
-        cout << "Enter the temperature in Celsius: ";
         cin >> temp;
         result = (temp * 9/5) + 32;
         cout << temp << " Celsius = " << result << " Fahrenheit" << endl;
     } 
     else if (choice == 2) {
-        cout << "Enter the temperature in Fahrenheit: ";
         cin >> temp;
         result = (temp - 32) * 5/9;
         cout << temp << " Fahrenheit = " << result << " Celsius" << endl;
@@ -269,7 +257,6 @@ int main() {
     double num1, num2, num3;
     double mean, variance, stdDev;
     // قراءة الأرقام من المستخدم
-    cout << "Enter three numbers separated by space: ";
     cin >> num1 >> num2 >> num3;
     // حساب المتوسط الحسابي
     mean = (num1 + num2 + num3) / 3;
@@ -345,9 +332,7 @@ using namespace std;
 int main() {
     double distance, fuel, kmPerLiter, litersPer100km;
     // قراءة المدخلات من المستخدم
-    cout << "Enter the distance traveled in kilometers: ";
     cin >> distance;
-    cout << "Enter the amount of fuel consumed in liters: ";
     cin >> fuel;
     // التحقق من صحة المدخلات
     if (distance > 0 && fuel > 0) {
