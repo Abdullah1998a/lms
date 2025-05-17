@@ -37,7 +37,8 @@ export const useJudge0 = () => {
         }
     };
 
-    const handleJudge0Result = (result, statusId, onResult) => {
+    // Fixed: Added onSuccess parameter to the function
+    const handleJudge0Result = (result, statusId, onResult, onSuccess) => {
         const statusMap = {
             3: "Accepted",
             4: "Wrong Answer",
@@ -155,6 +156,7 @@ export const useJudge0 = () => {
                 statusId = result.status?.id;
             }
 
+            // Properly pass onSuccess to handleJudge0Result
             handleJudge0Result(result, statusId, onResult, onSuccess);
             
             // Check if output matches expected output for test cases
@@ -170,15 +172,14 @@ Expected: ${expected}`);
                     if (typeof onResult === 'function') {
                         onResult("wrong_answer", actualOutput, null);
                     }
+                    
+                    // Fixed: Don't call onSuccess if output doesn't match expected
                     return;
                 }
             }
             
-            // If we got here and status is 3, then it's a success
-            if (statusId === 3 && typeof onSuccess === 'function') {
-                onSuccess();
-            }
-            
+            // Fixed: This duplicate onSuccess call is redundant and has been removed
+            // as it's already called in handleJudge0Result if statusId === 3
         } catch (err) {
             console.error("Judge0 API error:", err);
             const errorMsg = `API Error: ${err.response?.data?.error || err.message}`;

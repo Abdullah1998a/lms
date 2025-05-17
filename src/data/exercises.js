@@ -60,7 +60,6 @@ int main() {
     // عرّف المتغيرات اللازمة
     
     //أقرأ أطوال أضلاع المثلث من المستخدمa, b, c
-    //أقرأ أطوال أضلاع المثلث من المستخدمa, b, c
     
     // التحقق أن أطوال الأضلاع تشكل مثلثاً
     if (a + b > c && a + c > b && b + c > a) {
@@ -86,12 +85,7 @@ int main() {
     // تعريف المتغيرات
     double a, b, c, perimeter, s, area;
     // قراءة أطوال الأضلاع من المستخدم
-    cout << "Enter the length of the first side of the triangle: ";
-    cin >> a;
-    cout << "Enter the length of the second side of the triangle: ";
-    cin >> b;
-    cout << "Enter the length of the third side of the triangle: ";
-    cin >> c;
+    cin >> a >> b >> c;
     // التحقق أن أطوال الأضلاع تشكل مثلثاً
     if (a + b > c && a + c > b && b + c > a) {
         // حساب المحيط
