@@ -29,7 +29,7 @@ const NavigationButtons = ({
                 <button
                     onClick={onNext}
                     disabled={isNextDisabled}
-                    className={`flex items-center gap-2 px-4 py-2 font-medium rounded-md transition-colors ${
+                    className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
                         isNextDisabled
                             ? "text-gray-500 bg-gray-200"
                             : "bg-blue-600 text-white hover:bg-blue-700"
@@ -42,7 +42,7 @@ const NavigationButtons = ({
                 hasNextLesson && (
                     <Link
                         to={`/lessons/${parseInt(lessonId) + 1}`}
-                        className={`flex items-center gap-2 px-4 py-2 font-medium rounded-md transition-colors ${
+                        className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
                             !completed
                                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                                 : "bg-blue-600 text-white hover:bg-blue-700"

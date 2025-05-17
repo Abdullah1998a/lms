@@ -43,7 +43,6 @@ export const useProgress = () => {
     const isLessonUnlocked = lessonId => {
         const id = parseInt(lessonId);
         if (id === 1) return true;
-        /* if (loading) return false; */
         return Boolean(progress[id]?.unlocked);
     };
 
