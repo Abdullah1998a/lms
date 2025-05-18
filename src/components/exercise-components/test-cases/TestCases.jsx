@@ -44,7 +44,7 @@ const TestCases = ({ testCases, results, isRunning }) => {
                                             <span className="font-medium text-gray-600">
                                                 المدخلات:
                                             </span>
-                                            <pre className="text-left mt-1 p-2 bg-gray-100 rounded-md overflow-auto text-sm whitespace-pre-wrap">
+                                            <pre className="text-left mt-1 p-2 bg-gray-100 rounded-md overflow-auto text-sm whitespace-pre-wrap" dir="ltr">
                                                 {testCase.input || "No inputs"}
                                             </pre>
                                         </div>
@@ -53,7 +53,7 @@ const TestCases = ({ testCases, results, isRunning }) => {
                                             <span className="font-medium text-gray-600">
                                                 المخرجات المتوقعة:
                                             </span>
-                                            <pre className="mt-1 p-2 bg-gray-100 rounded-md overflow-auto text-sm whitespace-pre-wrap text-left">
+                                            <pre className="mt-1 p-2 bg-gray-100 rounded-md overflow-auto text-sm whitespace-pre-wrap text-left" dir="ltr">
                                                 {testCase.expectedOutput ||
                                                     "No outputs"}
                                             </pre>
