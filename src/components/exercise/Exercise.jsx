@@ -265,6 +265,15 @@ const Exercise = () => {
     if (!isLessonUnlocked(lessonId) && !loading) {
         return <Navigate to="/lessons" replace />;
     }
+    // Add this useEffect to track Judge0 output
+useEffect(() => {
+    if (output) {
+        console.log('Judge0 output:', output);
+    }
+    if (error) {
+        console.error('Judge0 error:', error);
+    }
+}, [output, error]);
     return (
         <div className="grid gap-4 h-full w-full max-w-4xl mx-auto">
             <Header

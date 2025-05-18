@@ -16,7 +16,6 @@ const TestCases = ({ testCases, results, isRunning }) => {
                     const isPassed = result?.status === "passed";
                     const isFailed = result?.status === "failed";
                     const isPending = !result || isRunning;
-
                     return (
                         <div
                             key={index}
