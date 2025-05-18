@@ -851,19 +851,19 @@ int main() {
         testCases: [
             {
                 description: "مصفوفة متناظرة مع عمليات البحث والإضافة والحذف",
-                input: "5\n10 20 30 20 10\n30\n2\n40 2",
+                input: "5\n10 20 30 20 10\n30\n2\n2 40",
                 expectedOutput:
                     "The entered items : 10 20 30 20 10\nSumation: 90, Average: 18.0\nThe largest item : 30\nThe smallest item: 10\nInverse array: 10 20 30 20 10\nThe item 30 is in index: 2\nArray after deletion: 10 20 20 10\nArray after addition: 10 20 40 20 10\nArray is symmetric"
             },
             {
                 description: "مصفوفة غير متناظرة مع عناصر متكررة",
-                input: "4\n5 10 15 20\n10\n1\n25 2",
+                input: "4\n20 15 10 5\n10\n1\n2 25",
                 expectedOutput:
-                    "The entered items : 5 10 15 20\nSumation: 50, Average: 12.5\nThe largest item : 20\nThe smallest item: 5\nInverse array: 20 15 10 5\nThe item 10 is in index: 1\nArray after deletion: 5 15 20\nArray after addition: 5 15 25 20\nArray is asymmetric"
+                    "The entered items : 20 15 10 5\nSumation: 50, Average: 12.5\nThe largest item : 20\nThe smallest item: 5\nInverse array: 5 10 15 20\nThe item 10 is in index: 2\nArray after deletion: 20 10 5\nArray after addition: 20 10 25 5\nArray is asymmetric"
             },
             {
                 description: "مصفوفة بعنصر واحد",
-                input: "1\n42\n42\n0\n99 0",
+                input: "1\n42\n42\n0\n0 99",
                 expectedOutput:
                     "The entered items : 42\nSumation: 42, Average: 42.0\nThe largest item : 42\nThe smallest item: 42\nInverse array: 42\nThe item 42 is in index: 0\nArray after deletion: \nArray after addition: 99\nArray is symmetric"
             }
