@@ -725,7 +725,6 @@ int main() {
         solution: `\`\`\`cpp
 #include <iostream>
 using namespace std;
-
 int main() {
     int arr[100]; // تعريف مصفوفة بحد أقصى 100 عنصر
     int n, i;
@@ -805,6 +804,7 @@ int main() {
         int newElem, addPos;
         cin >> newElem >> addPos;
         if (addPos >= 0 && addPos <= n && n < 100) {
+            // Shift elements to make room
             for (i = n; i > addPos; i--) {
                 arr[i] = arr[i - 1];
             }
