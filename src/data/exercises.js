@@ -618,94 +618,6 @@ int main() {
     {
         id: 9,
         lessonId: 3,
-        title: "لعبة تخمين الرقم",
-        description:
-            "اكتب برنامج للعبة تخمين الرقم حيث يفكر البرنامج برقم عشوائي بين 1 و 100، ويطلب من المستخدم تخمين هذا الرقم. بعد كل تخمين، يخبر البرنامج المستخدم ما إذا كان تخمينه أكبر أو أصغر من الرقم المطلوب. تستمر اللعبة حتى يخمن المستخدم الرقم الصحيح، ثم يخبره البرنامج بعدد المحاولات التي استغرقها.",
-        difficultyId: 2,
-        difficulty: "متوسط",
-        language: "cpp",
-        startingCode: `#include <iostream>
-#include <cstdlib>
-#include <ctime>
-using namespace std;
-
-int main() {
-    // تعريف المتغيرات اللازمة
-    int secretNumber;
-    // تهيئة مولد الأرقام العشوائية
-    srand(time(0));
-    // توليد رقم عشوائي بين 1 و 100
-    secretNumber = rand() % 100 + 1;
-    // اكتب الكود اللازم هنا
-    
-    return 0;
-}`,
-        solution: `\`\`\`cpp
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-using namespace std;
-
-int main() {
-    int secretNumber, guess, attempts = 0;
-    
-    // تهيئة مولد الأرقام العشوائية
-    srand(time(0));
-    
-    // توليد رقم عشوائي بين 1 و 100
-    secretNumber = rand() % 100 + 1;
-    cout << "Welcome to the number guessing game!" << endl;
-    cout << "I've thought of a number between 1 and 100. Try to guess it!" << endl; 
-    do {
-        cin >> guess;
-        attempts++;
-        if (guess > secretNumber) {
-            cout << "Your guess is larger than my number. Try again." << endl;
-        } else if (guess < secretNumber) {
-            cout << "Your guess is smaller than my number. Try again." << endl;
-        } else {
-            cout << "Congratulations! You have correctly guessed the correct number, which is " << secretNumber << "!" << endl;
-            cout << "Number of attempts: " << attempts << endl;
-        }
-    } while (guess != secretNumber);
-    return 0;
-}
-\`\`\``,
-        algorithm: `1. تهيئة مولد الأرقام العشوائية باستخدام الوقت الحالي.
-2. توليد رقم عشوائي بين 1 و 100.
-3. استخدام حلقة do-while للسماح للمستخدم بتخمين الرقم:
-   a. طلب تخمين من المستخدم وزيادة عداد المحاولات.
-   b. مقارنة التخمين بالرقم المطلوب وإعطاء المستخدم تلميحات.
-   c. الاستمرار حتى يخمن المستخدم الرقم الصحيح.
-4. طباعة رسالة تهنئة وعدد المحاولات المستغرقة.`,
-        hints: [
-            "استخدم حلقة do-while لضمان تنفيذ جسم الحلقة مرة واحدة على الأقل.",
-            "لا تنسَ زيادة عداد المحاولات مع كل تخمين."
-        ],
-        testCases: [
-            {
-                description: "اختبار تخمين مباشر للرقم",
-                input: "42",
-                expectedOutput:
-                    "Welcome to the number guessing game!\nI've thought of a number between 1 and 100. Try to guess it!\nCongratulations! You have correctly guessed the correct number, which is 42!\nNumber of attempts: 1"
-            },
-            {
-                description: "اختبار تخمين بعد عدة محاولات",
-                input: "50\n75\n62\n68\n65\n67\n66",
-                expectedOutput:
-                    "Welcome to the number guessing game!\nI've thought of a number between 1 and 100. Try to guess it!\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nCongratulations! You have correctly guessed the correct number, which is 66!\nNumber of attempts: 7"
-            },
-            {
-                description: "اختبار تخمين من أعلى وأسفل",
-                input: "1\n100\n50",
-                expectedOutput:
-                    "Welcome to the number guessing game!\nI've thought of a number between 1 and 100. Try to guess it!\nYour guess is smaller than my number. Try again.\nYour guess is larger than my number. Try again.\nCongratulations! You have correctly guessed the correct number, which is 50!\nNumber of attempts: 3"
-            }
-        ]
-    },
-    {
-        id: 10,
-        lessonId: 3,
         title: "رسم مثلث باستخدام النجوم",
         description:
             "اكتب برنامج يطلب من المستخدم إدخال عدد صحيح موجب n، ثم يقوم برسم مثلث باستخدام النجوم (*) بحيث يكون ارتفاع المثلث هو n سطر، ويزيد عدد النجوم في كل سطر بمقدار 2 عن السطر السابق، ويكون أول سطر به نجمة واحدة في المنتصف.",
@@ -774,7 +686,7 @@ int main() {
         ]
     },
     {
-        id: 11,
+        id: 10,
         lessonId: 4,
         title: "عمليات على مصفوفة أحادية",
         description:
@@ -958,7 +870,7 @@ int main() {
         ]
     },
     {
-        id: 12,
+        id: 11,
         lessonId: 4,
         title: "إدارة علامات الطلاب",
         description:
@@ -1102,7 +1014,7 @@ int main() {
         ]
     },
     {
-        id: 13,
+        id: 12,
         lessonId: 4,
         title: "طباعة عناصر القطر الثانوي",
         description: "كتابة برنامج لطباعة عناصر القطر الثانوي في مصفوفة مربعة",
@@ -1181,7 +1093,7 @@ int main() {
         ]
     },
     {
-        id: 14,
+        id: 13,
         lessonId: 5,
         title: "طباعة نجوم",
         description: "اكتب تابع يقوم بطباعة 10 نجوم على سطر واحد.",
@@ -1231,7 +1143,7 @@ int main() {
         ]
     },
     {
-        id: 15,
+        id: 14,
         lessonId: 5,
         title: "طباعة محرف عدة مرات",
         description:
@@ -1297,7 +1209,7 @@ int main() {
         ]
     },
     {
-        id: 16,
+        id: 15,
         lessonId: 6,
         title: "اختبار العدد الأولي",
         description:
@@ -1371,7 +1283,7 @@ int main() {
         ]
     },
     {
-        id: 17,
+        id: 16,
         lessonId: 6,
         title: "طباعة قواسم الأعداد",
         description:
@@ -1438,7 +1350,7 @@ int main() {
         ]
     },
     {
-        id: 18,
+        id: 17,
         lessonId: 7,
         title: "حساب العدد التراكمي (الفاكتوريال)",
         description:
@@ -1509,7 +1421,7 @@ int main() {
         ]
     },
     {
-        id: 19,
+        id: 18,
         lessonId: 7,
         title: "حساب أرقام سلسلة فيبوناتشي",
         description:
@@ -1590,7 +1502,7 @@ int main() {
         ]
     },
     {
-        id: 20,
+        id: 19,
         lessonId: 7,
         title: "البحث الثنائي العودي",
         description:
@@ -1685,7 +1597,7 @@ int main() {
         ]
     },
     {
-        id: 21,
+        id: 20,
         lessonId: 7,
         title: "حساب القوة باستخدام الرفع السريع",
         description:
@@ -1765,7 +1677,7 @@ int main() {
         ]
     },
     {
-        id: 22,
+        id: 21,
         lessonId: 8,
         title: "إنشاء سجل طالب",
         description:
@@ -1834,7 +1746,7 @@ int main() {
         ]
     },
     {
-        id: 23,
+        id: 22,
         lessonId: 8,
         title: "حساب المسافة بين نقطتين",
         description:
@@ -1910,7 +1822,7 @@ int main() {
         ]
     },
     {
-        id: 24,
+        id: 23,
         lessonId: 8,
         title: "حساب مساحة ومحيط الأشكال",
         description:
