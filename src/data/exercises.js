@@ -851,7 +851,7 @@ int main() {
         testCases: [
             {
                 description: "مصفوفة متناظرة مع عمليات البحث والإضافة والحذف",
-                input: "5\n10 20 30 20 10\n30\n2\n40 3",
+                input: "5\n10 20 30 20 10\n30\n2\n40 2",
                 expectedOutput:
                     "The entered items : 10 20 30 20 10\nSumation: 90, Average: 18.0\nThe largest item : 30\nThe smallest item: 10\nInverse array: 10 20 30 20 10\nThe item 30 is in index: 2\nArray after deletion: 10 20 20 10\nArray after addition: 10 20 40 20 10\nArray is symmetric"
             },
