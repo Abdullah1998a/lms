@@ -16,7 +16,7 @@ const NavigationButtons = ({
             {hasPrevious ? (
                 <button
                     onClick={onPrevious}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-blue-500 text-blue-600 hover:bg-blue-50 font-medium rounded-md transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-white border border-blue-500 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
                 >
                     <ArrowRightCircle className="h-5 w-5" />
                     <span>التمرين السابق</span>
