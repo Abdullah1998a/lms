@@ -748,12 +748,7 @@ int main() {
             sum += arr[i];
         }
         float avg = (float)sum / n;
-        // Format average without decimal if it's a whole number
-        if (avg == (int)avg) {
-            cout << "Sumation: " << sum << ", Average: " << (int)avg << endl;
-        } else {
-            cout << "Sumation: " << sum << ", Average: " << avg << endl;
-        }
+        cout << "Sumation: " << sum << ", Average: " << avg << endl;
         // 3. إيجاد وطباعة أكبر عنصر في المصفوفة
         int max = arr[0];
         for (i = 1; i < n; i++) {
