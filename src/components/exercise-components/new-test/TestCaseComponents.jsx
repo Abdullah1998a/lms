@@ -19,7 +19,7 @@ export const TestCaseOutput = ({ output, error, status }) => {
             {status === "running" ? (
                 <div className="flex items-center">
                     <svg
-                        className="animate-spin h-5 w-5 mr-2"
+                        className="animate-spin h-5 w-5 ml-2"
                         viewBox="0 0 24 24"
                     >
                         <circle
@@ -43,8 +43,8 @@ export const TestCaseOutput = ({ output, error, status }) => {
                     {status && (
                         <div className="font-bold mb-2">
                             {status === "passed"
-                                ? "✅ تم اجتياز الاختبار"
-                                : "❌ فشل الاختبار"}
+                                ? "تم اجتياز الاختبار"
+                                : "فشل الاختبار"}
                         </div>
                     )}
 
@@ -52,7 +52,7 @@ export const TestCaseOutput = ({ output, error, status }) => {
                     {output && (
                         <div className="mb-2">
                             <h4 className="font-bold text-sm mb-1">النتيجة:</h4>
-                            <pre className="bg-gray-800 text-white p-2 rounded overflow-x-auto rtl:text-right whitespace-pre-wrap max-h-36">
+                            <pre className="bg-gray-800 text-white p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36" dir="ltr">
                                 {output}
                             </pre>
                         </div>
@@ -62,7 +62,7 @@ export const TestCaseOutput = ({ output, error, status }) => {
                             <h4 className="font-bold text-sm mb-1 text-red-600">
                                 الخطأ:
                             </h4>
-                            <pre className="bg-red-50 text-red-800 p-2 rounded overflow-x-auto rtl:text-right whitespace-pre-wrap max-h-36">
+                            <pre className="bg-red-50 text-red-800 p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36" dir="ltr">
                                 {error}
                             </pre>
                         </div>
@@ -76,15 +76,12 @@ export const DetailedTestCases = ({ testCases, results, isRunning }) => {
     if (!testCases || testCases.length === 0) {
         return null;
     }
-
     return (
         <div className="border rounded-md p-4 bg-white shadow">
             <h3 className="text-lg font-bold mb-4">حالات الاختبار</h3>
-
             {testCases.map((testCase, index) => {
                 const testResult = results[index];
                 const isTestRunning = isRunning && !testResult;
-
                 return (
                     <div
                         key={index}
@@ -98,17 +95,17 @@ export const DetailedTestCases = ({ testCases, results, isRunning }) => {
                                 <h5 className="font-semibold text-sm mb-1">
                                     المدخلات:
                                 </h5>
-                                <pre className="bg-gray-100 p-2 rounded overflow-x-auto rtl:text-right">
-                                    {testCase.input || "(لا توجد مدخلات)"}
+                                <pre className="bg-gray-100 p-2 rounded overflow-x-auto" dir="ltr">
+                                    {testCase.input || "(No inputs)"}
                                 </pre>
                             </div>
                             <div>
                                 <h5 className="font-semibold text-sm mb-1">
                                     النتيجة المتوقعة:
                                 </h5>
-                                <pre className="bg-gray-100 p-2 rounded overflow-x-auto rtl:text-right">
+                                <pre className="bg-gray-100 p-2 rounded overflow-x-auto" dir="ltr">
                                     {testCase.expectedOutput ||
-                                        "(لا توجد نتيجة متوقعة)"}
+                                        ""}
                                 </pre>
                             </div>
                         </div>

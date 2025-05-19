@@ -107,12 +107,12 @@ const Exercise = () => {
     // Track Judge0 output
     useEffect(() => {
         if (output && !isTestRunning) {
-            console.log('Judge0 output:', output);
+            console.log("Judge0 output:", output);
             setFeedbackType("success");
             setFeedbackMessage("تم تنفيذ الكود بنجاح.");
         }
         if (error && !isTestRunning) {
-            console.error('Judge0 error:', error);
+            console.error("Judge0 error:", error);
             setFeedbackType("error");
             setFeedbackMessage(error);
         }
@@ -177,15 +177,15 @@ const Exercise = () => {
             runSingleCode();
             return;
         }
-        
+
         setIsTestRunning(true);
         setTestResults([]);
         setFeedbackMessage("");
         setFeedbackType("");
-        
+
         const results = [];
         let allTestsPassed = true;
-        
+
         for (let i = 0; i < currentExercise.testCases.length; i++) {
             const testCase = currentExercise.testCases[i];
             try {
@@ -200,14 +200,14 @@ const Exercise = () => {
                         }
                     });
                 });
-                
+
                 const isPassed = testResult.result === "accepted";
                 results.push({
                     status: isPassed ? "passed" : "failed",
                     output: testResult.output,
                     error: testResult.error
                 });
-                
+
                 if (!isPassed) {
                     allTestsPassed = false;
                 }
@@ -219,13 +219,13 @@ const Exercise = () => {
                 });
                 allTestsPassed = false;
             }
-            
+
             // Update results after each test to show progress
             setTestResults([...results]);
         }
-        
+
         setIsTestRunning(false);
-        
+
         if (allTestsPassed) {
             if (!exerciseCompleted) {
                 completeExercise(parsedLessonId, currentExercise.id);
@@ -245,7 +245,7 @@ const Exercise = () => {
     const runSingleCode = () => {
         setFeedbackMessage("");
         setFeedbackType("");
-        
+
         executeCode({
             code,
             language: currentExercise.language,
@@ -309,7 +309,7 @@ const Exercise = () => {
     if (!hasExercises) {
         return <NoExercises lessonId={lessonId} />;
     }
-    
+
     if (!isLessonUnlocked(lessonId) && !loading) {
         return <Navigate to="/lessons" replace />;
     }
@@ -339,7 +339,6 @@ const Exercise = () => {
                 onRun={runCode}
                 isRunning={isRunning || isTestRunning}
             />
-            <p>Replace TestCases with our new DetailedTestCases component</p>
             <TestCaseComponents
                 testCases={currentExercise.testCases}
                 results={testResults}
@@ -365,7 +364,7 @@ const Exercise = () => {
             )}
 
             <FeedbackMsg message={feedbackMessage} type={feedbackType} />
-            
+
             <HelpButtons
                 onGetHint={getHint}
                 onToggleAlgorithm={toggleAlgorithm}
@@ -382,7 +381,7 @@ const Exercise = () => {
             {showSolution && (
                 <SolutionDisplay solution={currentExercise.solution} />
             )}
-            
+
             <NavigationButtons
                 hasPrevious={hasPreviousExercise}
                 hasNext={hasNextExercise}
