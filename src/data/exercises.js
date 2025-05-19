@@ -1002,13 +1002,13 @@ int main() {
             },
             {
                 description: "طالبان بثلاث مواد",
-                input: "2\n3\n88 92 78\n94 85 90\n1",
+                input: "2 3\n88 92 78\n94 85 90\n1",
                 expectedOutput:
                     "Students' marks:\nSubject 1 Subject 2 Subject 3 Average\nStudent 1 88  92  78  86\nStudent 2 94  85  90  89.6667\nStudent's marks ID 1: 88 92 78\nThe last student's marks: 94 85 90\nThe heighest mark in Programming: 92 (Student ID 1)\nStudents' average:\nStudent 1: 86\nStudent 2: 89.6667"
             },
             {
                 description: "طالب واحد بمادتين",
-                input: "1\n2\n75 80\n1",
+                input: "1 2\n75 80\n1",
                 expectedOutput:
                     "Students' marks:\nSubject 1 Subject 2 Average\nStudent 1 75  80  77.5\nStudent's marks ID 1: 75 80\nThe last student's marks: 75 80\nThe heighest mark in Programming: 80 (Student ID 1)\nStudents' average:\nStudent 1: 77.5"
             }
