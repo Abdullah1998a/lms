@@ -1274,10 +1274,10 @@ int main() {
         ],
         testCases: [
             {
-                description: "التحقق من عرض الأعداد الأولية بين 2 و 20",
+                description: "التحقق من عرض الأعداد الأولية بين 2 و 100",
                 input: "",
                 expectedOutput:
-                    "Prime numbers between 2 and 100:\n2 3 5 7 11 13 17 19 "
+                    "Prime numbers between 2 and 100:\n2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97"
             }
         ]
     },
