@@ -47,22 +47,26 @@ export const TestCaseOutput = ({ output, error, status }) => {
                                 : "فشل الاختبار"}
                         </div>
                     )}
-
-                    {/* Output section */}
                     {output && (
                         <div className="mb-2">
-                            <h4 className="font-bold text-sm mb-1">النتيجة:</h4>
-                            <pre className="bg-gray-800 text-white p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36" dir="ltr">
+                            <h4 className="font-bold mb-2">النتيجة:</h4>
+                            <pre
+                                className="bg-gray-800 text-sm text-white p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36"
+                                dir="ltr"
+                            >
                                 {output}
                             </pre>
                         </div>
                     )}
                     {error && (
                         <div>
-                            <h4 className="font-bold text-sm mb-1 text-red-600">
+                            <h4 className="font-bold mb-2 text-red-600">
                                 الخطأ:
                             </h4>
-                            <pre className="bg-red-50 text-red-800 p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36" dir="ltr">
+                            <pre
+                                className="bg-red-50 text-sm text-red-800 p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36"
+                                dir="ltr"
+                            >
                                 {error}
                             </pre>
                         </div>
@@ -78,7 +82,7 @@ export const DetailedTestCases = ({ testCases, results, isRunning }) => {
     }
     return (
         <div className="border rounded-md p-4 bg-white shadow">
-            <h3 className="text-lg font-bold mb-4">حالات الاختبار</h3>
+            <h3 className="text-md font-bold mb-4">حالات الاختبار</h3>
             {testCases.map((testCase, index) => {
                 const testResult = results[index];
                 const isTestRunning = isRunning && !testResult;
@@ -92,20 +96,25 @@ export const DetailedTestCases = ({ testCases, results, isRunning }) => {
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                             <div>
-                                <h5 className="font-semibold text-sm mb-1">
+                                <h5 className="font-semibold mb-2">
                                     المدخلات:
                                 </h5>
-                                <pre className="bg-gray-100 p-2 rounded overflow-x-auto" dir="ltr">
+                                <pre
+                                    className="bg-gray-100 p-2 rounded text-sm overflow-x-auto"
+                                    dir="ltr"
+                                >
                                     {testCase.input || "(No inputs)"}
                                 </pre>
                             </div>
                             <div>
-                                <h5 className="font-semibold text-sm mb-1">
+                                <h5 className="font-semibold mb-2">
                                     النتيجة المتوقعة:
                                 </h5>
-                                <pre className="bg-gray-100 p-2 rounded overflow-x-auto" dir="ltr">
-                                    {testCase.expectedOutput ||
-                                        ""}
+                                <pre
+                                    className="bg-gray-100 p-2 rounded text-sm overflow-x-auto"
+                                    dir="ltr"
+                                >
+                                    {testCase.expectedOutput || ""}
                                 </pre>
                             </div>
                         </div>
