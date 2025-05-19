@@ -7,7 +7,7 @@ import { NavigationButtons } from "./navigation-buttons";
 import { NoExercises } from "./no-exercises";
 import { SolutionDisplay } from "./solution-display";
 import { AlgorithmDisplay } from "./algorithm-display";
-import { TestCaseComponents } from "./new-test";
+import { TestCases } from "./test-cases";
 
 export {
     Header,
@@ -19,5 +19,5 @@ export {
     NoExercises,
     SolutionDisplay,
     AlgorithmDisplay,
-    TestCaseComponents
+    TestCases
 };

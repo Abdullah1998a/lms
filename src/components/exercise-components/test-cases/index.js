@@ -1,1 +1,1 @@
-export {default as TestCases } from "./TestCases"
+export { default as TestCases } from "./TestCases";

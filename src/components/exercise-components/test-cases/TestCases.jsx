@@ -1,89 +1,135 @@
 import { CheckCircle, XCircle, AlertCircle } from "lucide-react";
 
-const TestCases = ({ testCases, results, isRunning }) => {
+export const TestCaseOutput = ({ output, error, status }) => {
+    const getStatusClass = () => {
+        switch (status) {
+            case "passed":
+                return "bg-green-100 border-green-500 text-green-800";
+            case "failed":
+                return "bg-red-100 border-red-500 text-red-800";
+            case "running":
+                return "bg-blue-100 border-blue-500 text-blue-800";
+            default:
+                return "bg-gray-100 border-gray-500 text-gray-800";
+        }
+    };
+
+    return (
+        <div className={`border-r-4 p-4 mb-2 rounded ${getStatusClass()}`}>
+            {status === "running" ? (
+                <div className="flex items-center">
+                    <svg
+                        className="animate-spin h-5 w-5 ml-2"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                        ></circle>
+                        <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                    </svg>
+                    <span>جارِ التنفيذ...</span>
+                </div>
+            ) : (
+                <>
+                    {status && (
+                        <div className="font-bold mb-2">
+                            {status === "passed"
+                                ? "تم اجتياز الاختبار"
+                                : "فشل الاختبار"}
+                        </div>
+                    )}
+                    {output && (
+                        <div className="mb-2">
+                            <h4 className="font-bold mb-2">النتيجة:</h4>
+                            <pre
+                                className="bg-gray-800 text-sm text-white p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36"
+                                dir="ltr"
+                            >
+                                {output}
+                            </pre>
+                        </div>
+                    )}
+                    {error && (
+                        <div>
+                            <h4 className="font-bold mb-2 text-red-600">
+                                الخطأ:
+                            </h4>
+                            <pre
+                                className="bg-red-50 text-sm text-red-800 p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36"
+                                dir="ltr"
+                            >
+                                {error}
+                            </pre>
+                        </div>
+                    )}
+                </>
+            )}
+        </div>
+    );
+};
+export const TestCases = ({ testCases, results, isRunning }) => {
     if (!testCases || testCases.length === 0) {
         return null;
     }
-
     return (
-        <div className="border border-gray-200 rounded-lg p-4 mt-4">
-            <h3 className="text-lg font-medium text-gray-800 mb-3">
-                حالات الاختبار
-            </h3>
-            <div className="space-y-3">
-                {testCases.map((testCase, index) => {
-                    const result = results?.[index];
-                    const isPassed = result?.status === "passed";
-                    const isFailed = result?.status === "failed";
-                    const isPending = !result || isRunning;
-                    return (
-                        <div
-                            key={index}
-                            className={`border rounded-md p-3 pr-8 ${
-                                isPassed
-                                    ? "bg-green-50 border-green-200"
-                                    : isFailed
-                                    ? "bg-red-50 border-red-200"
-                                    : "bg-gray-50 border-gray-200"
-                            }`}
-                        >
-                            <div className="relative">
-                                <div>
-                                    <div className="flex items-center">
-                                        <span className="font-medium text-gray-700">
-                                            حالة اختبار {index + 1}:
-                                        </span>
-                                        <span className="mr-2 text-gray-600 text-sm">
-                                            {testCase.description}
-                                        </span>
-                                    </div>
-
-                                    <div className="mt-2 grid grid-cols-1 gap-2 text-sm">
-                                        <div>
-                                            <span className="font-medium text-gray-600">
-                                                المدخلات:
-                                            </span>
-                                            <pre className="text-left mt-1 p-2 bg-gray-100 rounded-md overflow-auto text-sm whitespace-pre-wrap" dir="ltr">
-                                                {testCase.input || "No inputs"}
-                                            </pre>
-                                        </div>
-
-                                        <div>
-                                            <span className="font-medium text-gray-600">
-                                                المخرجات المتوقعة:
-                                            </span>
-                                            <pre className="mt-1 p-2 bg-gray-100 rounded-md overflow-auto text-sm whitespace-pre-wrap text-left" dir="ltr">
-                                                {testCase.expectedOutput ||
-                                                    "No outputs"}
-                                            </pre>
-                                        </div>
-
-                                        {isFailed && result.output && (
-                                            <div>
-                                                <span className="font-medium text-red-600">
-                                                    المخرجات الفعلية:
-                                                </span>
-                                                <pre className="mt-1 p-2 bg-red-50 border border-red-200 rounded-md overflow-auto text-sm whitespace-pre-wrap text-left">
-                                                    {result.output}
-                                                </pre>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="absolute top-0 -right-7 flex items-center">
-                                    {isPassed ? (
-                                        <CheckCircle className="h-6 w-6 text-green-500" />
-                                    ) : isFailed ? (
-                                        <XCircle className="h-6 w-6 text-red-500" />
-                                    ) : (
-                                        <AlertCircle className="h-6 w-6 text-gray-400" />
-                                    )}
-                                </div>
+        <div className="border rounded-md p-4 bg-white shadow">
+            <h3 className="text-md font-bold mb-4">حالات الاختبار</h3>
+            {testCases.map((testCase, index) => {
+                const testResult = results[index];
+                const isTestRunning = isRunning && !testResult;
+                return (
+                    <div
+                        key={index}
+                        className="mb-6 border-b pb-6 last:border-b-0 last:pb-0"
+                    >
+                        <h4 className="font-bold text-md mb-2">
+                            الاختبار {index + 1}
+                        </h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <h5 className="font-semibold mb-2">
+                                    المدخلات:
+                                </h5>
+                                <pre
+                                    className="bg-gray-100 p-2 rounded text-sm overflow-x-auto"
+                                    dir="ltr"
+                                >
+                                    {testCase.input || "(no inputs)"}
+                                </pre>
+                            </div>
+                            <div>
+                                <h5 className="font-semibold mb-2">
+                                    النتيجة المتوقعة:
+                                </h5>
+                                <pre
+                                    className="bg-gray-100 p-2 rounded text-sm overflow-x-auto"
+                                    dir="ltr"
+                                >
+                                    {testCase.expectedOutput || ""}
+                                </pre>
                             </div>
                         </div>
-                    );
-                })}
-            </div>
+                        {isTestRunning ? (
+                            <TestCaseOutput status="running" />
+                        ) : testResult ? (
+                            <TestCaseOutput
+                                status={testResult.status}
+                                output={testResult.output}
+                                error={testResult.error}
+                            />
+                        ) : null}
+                    </div>
+                );
+            })}
         </div>
     );
 };

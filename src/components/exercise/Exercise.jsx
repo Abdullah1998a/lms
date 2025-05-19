@@ -13,7 +13,7 @@ import {
     AlgorithmDisplay,
     NavigationButtons,
     NoExercises,
-    TestCaseComponents
+    testCases
 } from "../exercise-components";
 import { useJudge0 } from "../../hooks/useJudge0";
 
@@ -315,35 +315,11 @@ const Exercise = () => {
                 onRun={runCode}
                 isRunning={isRunning || isTestRunning}
             />
-            <TestCaseComponents
+            <TestCases
                 testCases={currentExercise.testCases}
                 results={testResults}
                 isRunning={isTestRunning}
             />
-            {/*
-            {!isTestRunning && output && !error && (
-                <div className="border rounded-md p-4 bg-white shadow">
-                    <h3 className="text-lg font-bold mb-2">النتيجة</h3>
-                    <pre
-                        className="bg-gray-800 text-white p-3 rounded overflow-x-auto whitespace-pre-wrap"
-                        dir="ltr"
-                    >
-                        {output}
-                    </pre>
-                </div>
-            )}
-            {!isTestRunning && error && (
-                <div className="border border-red-300 rounded-md p-4 bg-red-50 shadow">
-                    <h3 className="text-lg font-bold mb-2 text-red-700">خطأ</h3>
-                    <pre
-                        className="bg-red-100 text-red-800 p-3 rounded overflow-x-auto whitespace-pre-wrap"
-                        dir="ltr"
-                    >
-                        {error}
-                    </pre>
-                </div>
-            )}
-            */}
             <FeedbackMsg message={feedbackMessage} type={feedbackType} />
 
             <HelpButtons
