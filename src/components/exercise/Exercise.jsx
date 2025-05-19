@@ -103,21 +103,6 @@ const Exercise = () => {
             saveCode();
         }
     }, [code, currentExercise.id, hasExercises]);
-
-    // Track Judge0 output
-    useEffect(() => {
-        if (output && !isTestRunning) {
-            console.log("Judge0 output:", output);
-            setFeedbackType("success");
-            setFeedbackMessage("تم تنفيذ الكود بنجاح.");
-        }
-        if (error && !isTestRunning) {
-            console.error("Judge0 error:", error);
-            setFeedbackType("error");
-            setFeedbackMessage(error);
-        }
-    }, [output, error, isTestRunning]);
-
     const resetExerciseState = () => {
         setCode(currentExercise.startingCode || "");
         setFeedbackMessage("");
@@ -219,13 +204,9 @@ const Exercise = () => {
                 });
                 allTestsPassed = false;
             }
-
-            // Update results after each test to show progress
             setTestResults([...results]);
         }
-
         setIsTestRunning(false);
-
         if (allTestsPassed) {
             if (!exerciseCompleted) {
                 completeExercise(parsedLessonId, currentExercise.id);
@@ -240,19 +221,15 @@ const Exercise = () => {
             );
         }
     };
-
-    // Run code without tests
     const runSingleCode = () => {
         setFeedbackMessage("");
         setFeedbackType("");
-
         executeCode({
             code,
             language: currentExercise.language,
             input: "",
             onResult: (result, output, error) => {
                 if (result === "accepted") {
-                    // If this is a simple run without tests, mark as completed
                     if (!exerciseCompleted) {
                         completeExercise(parsedLessonId, currentExercise.id);
                         setExerciseCompleted(true);
@@ -347,17 +324,21 @@ const Exercise = () => {
             {!isTestRunning && output && !error && (
                 <div className="border rounded-md p-4 bg-white shadow">
                     <h3 className="text-lg font-bold mb-2">النتيجة</h3>
-                    <pre className="bg-gray-800 text-white p-3 rounded overflow-x-auto rtl:text-right whitespace-pre-wrap">
+                    <pre
+                        className="bg-gray-800 text-white p-3 rounded overflow-x-auto whitespace-pre-wrap"
+                        dir="ltr"
+                    >
                         {output}
                     </pre>
                 </div>
             )}
-
-            {/* Show general error when not running tests */}
             {!isTestRunning && error && (
                 <div className="border border-red-300 rounded-md p-4 bg-red-50 shadow">
                     <h3 className="text-lg font-bold mb-2 text-red-700">خطأ</h3>
-                    <pre className="bg-red-100 text-red-800 p-3 rounded overflow-x-auto rtl:text-right whitespace-pre-wrap">
+                    <pre
+                        className="bg-red-100 text-red-800 p-3 rounded overflow-x-auto whitespace-pre-wrap"
+                        dir="ltr"
+                    >
                         {error}
                     </pre>
                 </div>
