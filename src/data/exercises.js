@@ -1035,7 +1035,6 @@ using namespace std;
 
 int main() {
     int n;
-    Cout << "Enter the square array size: ";
     cin >> n;
     // تعريف المصفوفة
     int matrix[50][50]; // بافتراض أن الحد الأقصى هو 50×50
@@ -1046,19 +1045,18 @@ int main() {
         }
     }
     // طباعة المصفوفة
-    cout << "\nThe entered array:" << endl;
+    cout << "The entered array:" << endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cout << matrix[i][j] << "\t";
+            cout << matrix[i][j] << " ";
         }
         cout << endl;
     }
     // طباعة عناصر القطر الثانوي
-    Cout << "\nSecondary diameter items: ";
+    cout << "Secondary diameter items: ";
     for (int i = 0; i < n; i++) {
         cout << matrix[i][n - 1 - i] << " ";
     }
-    cout << endl;
     return 0;
 }
 \`\`\``,
@@ -1077,19 +1075,19 @@ int main() {
                 description: "مصفوفة مربعة 3×3",
                 input: "3\n1 2 3\n4 5 6\n7 8 9",
                 expectedOutput:
-                    "The entered array:\n1\t2\t3\t\n4\t5\t6\t\n7\t8\t9\t\nSecondary diameter items: 3 5 7"
+                    "The entered array:\n1 2 3\n4 5 6\n7 8 9\nSecondary diameter items: 3 5 7"
             },
             {
                 description: "مصفوفة مربعة 4×4",
                 input: "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
                 expectedOutput:
-                    "The entered array:\n1\t2\t3\t4\t\n5\t6\t7\t8\t\n9\t10\t11\t12\t\n13\t14\t15\t16\t\nSecondary diameter items: 4 7 10 13"
+                    "The entered array:\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16\nSecondary diameter items: 4 7 10 13"
             },
             {
                 description: "مصفوفة مربعة 2×2",
                 input: "2\n10 20\n30 40",
                 expectedOutput:
-                    "The entered array:\n10\t20\t\n30\t40\t\nSecondary diameter items: 20 30"
+                    "The entered array:\n10 20\n30 40\nSecondary diameter items: 20 30"
             }
         ]
     },
