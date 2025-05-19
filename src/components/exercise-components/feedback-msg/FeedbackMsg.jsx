@@ -21,7 +21,7 @@ const FeedbackMsg = ({ message, type }) => {
         >
             <div className="flex items-center gap-2">
                 {icons[type] || icons.hint}
-                <span className="w-[calc(100%-3.25rem)]">{message}</span>
+                <span className="w-[calc(100%-34px)]">{message}</span>
             </div>
         </div>
     );
