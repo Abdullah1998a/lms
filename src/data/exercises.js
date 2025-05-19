@@ -1339,7 +1339,8 @@ int main() {
             {
                 description: "التحقق من عرض قواسم الأعداد من 10 إلى 30",
                 input: "",
-                expectedOutput: "Divisors of numbers from 10 to 30:\n10 Its Divisors: 1 2 5 10\n11 Its Divisors: 1 11\n12 Its Divisors: 1 2 3 4 6 12\n13 Its Divisors: 1 13\n14 Its Divisors: 1 2 7 14\n15 Its Divisors: 1 3 5 15\n16 Its Divisors: 1 2 4 8 16\n17 Its Divisors: 1 17\n18 Its Divisors: 1 2 3 6 9 18\n19 Its Divisors: 1 19\n20 Its Divisors: 1 2 4 5 10 20\n21 Its Divisors: 1 3 7 21\n22 Its Divisors: 1 2 11 22\n23 Its Divisors: 1 23\n24 Its Divisors: 1 2 3 4 6 8 12 24\n25 Its Divisors: 1 5 25\n26 Its Divisors: 1 2 13 26\n27 Its Divisors: 1 3 9 27\n28 Its Divisors: 1 2 4 7 14 28\n29 Its Divisors: 1 29\n 30 Its Divisors: 1 2 3 5 6 10 15 30"
+                expectedOutput:
+                    "Divisors of numbers from 10 to 30:\n10 Its Divisors: 1 2 5 10\n11 Its Divisors: 1 11\n12 Its Divisors: 1 2 3 4 6 12\n13 Its Divisors: 1 13\n14 Its Divisors: 1 2 7 14\n15 Its Divisors: 1 3 5 15\n16 Its Divisors: 1 2 4 8 16\n17 Its Divisors: 1 17\n18 Its Divisors: 1 2 3 6 9 18\n19 Its Divisors: 1 19\n20 Its Divisors: 1 2 4 5 10 20\n21 Its Divisors: 1 3 7 21\n22 Its Divisors: 1 2 11 22\n23 Its Divisors: 1 23\n24 Its Divisors: 1 2 3 4 6 8 12 24\n25 Its Divisors: 1 5 25\n26 Its Divisors: 1 2 13 26\n27 Its Divisors: 1 3 9 27\n28 Its Divisors: 1 2 4 7 14 28\n29 Its Divisors: 1 29\n30 Its Divisors: 1 2 3 5 6 10 15 30"
             }
         ]
     },
