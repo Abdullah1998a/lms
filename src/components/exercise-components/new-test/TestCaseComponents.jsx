@@ -15,7 +15,7 @@ export const TestCaseOutput = ({ output, error, status }) => {
     };
 
     return (
-        <div className={`border-l-4 p-4 mb-2 rounded ${getStatusClass()}`}>
+        <div className={`border-r-4 p-4 mb-2 rounded ${getStatusClass()}`}>
             {status === "running" ? (
                 <div className="flex items-center">
                     <svg

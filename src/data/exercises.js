@@ -917,18 +917,18 @@ int main() {
         }
     }
     // طباعة العلامات بشكل منسق
-    cout << "\nStudents' marks:" << endl;
+    cout << "Students' marks:" << endl;
     // طباعة أرقام المواد
     for (int j = 0; j < m; j++) {
-        cout << "Subject " << j + 1 << "\t";
+        cout << "Subject " << j + 1 << " ";
     }
     cout << "Average" << endl;
     // طباعة علامات كل طالب
     for (int i = 0; i < n; i++) {
-        cout << "Student " << i + 1 << "\t";
+        cout << "Student " << i + 1 << " ";
         float sum = 0;
         for (int j = 0; j < m; j++) {
-            cout << grades[i][j] << "\t\t";
+            cout << grades[i][j] << "  ";
             sum += grades[i][j];
         }
         float avg = sum / m;
@@ -940,16 +940,16 @@ int main() {
     if (studentId >= 1 && studentId <= n) {
         cout << "Student's marks ID " << studentId << ": ";
         for (int j = 0; j < m; j++) {
-            cout << grades[studentId - 1][j] << "\t";
+            cout << grades[studentId - 1][j] << " ";
         }
         cout << endl;
     } else {
         cout << "Student ID isn't correct!" << endl;
     }
     // 2. طباعة علامات الطالب الأخير
-    cout << "\nThe last student's marks: ";
+    cout << "The last student's marks: ";
     for (int j = 0; j < m; j++) {
-        cout << grades[n - 1][j] << "\t";
+        cout << grades[n - 1][j] << " ";
     }
     cout << endl;
     // 3. طباعة أعلى علامة في البرمجة (العمود الثاني)
@@ -962,13 +962,13 @@ int main() {
                 topStudent = i;
             }
         }
-        cout << "\nThe heighest mark in Programming: " << maxProgramming;
+        cout << "The heighest mark in Programming: " << maxProgramming;
         cout << " (Student ID " << topStudent + 1 << ")" << endl;
     } else {
-        cout << "\nNo programming subject (the second column does not exist)" << endl;
+        cout << "No programming subject (the second column does not exist)" << endl;
     }
     // 4. طباعة معدلات كل طالب
-    cout << "\nStudents' average:" << endl;
+    cout << "Students' average:" << endl;
     for (int i = 0; i < n; i++) {
         float sum = 0;
         for (int j = 0; j < m; j++) {
@@ -996,21 +996,21 @@ int main() {
         testCases: [
             {
                 description: "ثلاثة طلاب بأربع مواد",
-                input: "3\n4\n90 85 95 92\n75 80 70 85\n95 90 88 92\n2",
+                input: "3 4\n90 85 95 92\n75 80 70 85\n95 90 88 92\n2",
                 expectedOutput:
-                    "Students' marks:\n\tSubject 1\tSubject 2\tSubject 3\tSubject 4\tAverage\nStudent 1\t90\t\t85\t\t95\t\t92\t\t90.5\nStudent 2\t75\t\t80\t\t70\t\t85\t\t77.5\nStudent 3\t95\t\t90\t\t88\t\t92\t\t91.25\nStudent's marks ID 2: 75 80 70 85\nThe last student's marks: 95 90 88 92\nThe heighest mark in Programming: 90 (Student ID 3)\nStudents' average:\nStudent 1: 90.5\nStudent 2: 77.5\nStudent 3: 91.25"
+                    "Students' marks:\nSubject 1 Subject 2 Subject 3 Subject 4 Average\nStudent 1 90  85  95  92  90.5\nStudent 2 75  80  70  85  77.5\nStudent 3 95  90  88  92  91.25\nStudent's marks ID 2: 75 80 70 85\nThe last student's marks: 95 90 88 92\nThe heighest mark in Programming: 90 (Student ID 3)\nStudents' average:\nStudent 1: 90.5\nStudent 2: 77.5\nStudent 3: 91.25"
             },
             {
                 description: "طالبان بثلاث مواد",
                 input: "2\n3\n88 92 78\n94 85 90\n1",
                 expectedOutput:
-                    "Students' marks:\n\tSubject 1\tSubject 2\tSubject 3\tAverage\nStudent 1\t88\t\t92\t\t78\t\t86\nStudent 2\t94\t\t85\t\t90\t\t89.67\nStudent's marks ID 1: 88 92 78\nThe last student's marks: 94 85 90\nThe heighest mark in Programming: 92 (Student ID 1)\nStudents' average:\nStudent 1: 86\nStudent 2: 89.67"
+                    "Students' marks:\nSubject 1 Subject 2 Subject 3 Average\nStudent 1 88  92  78  86\nStudent 2 94  85  90  89.67\nStudent's marks ID 1: 88 92 78\nThe last student's marks: 94 85 90\nThe heighest mark in Programming: 92 (Student ID 1)\nStudents' average:\nStudent 1: 86\nStudent 2: 89.67"
             },
             {
                 description: "طالب واحد بمادتين",
                 input: "1\n2\n75 80\n1",
                 expectedOutput:
-                    "Students' marks:\n\tSubject 1\tSubject 2\tAverage\nStudent 1\t75\t\t80\t\t77.5\nStudent's marks ID 1: 75 80\nThe last student's marks: 75 80\nThe heighest mark in Programming: 80 (Student ID 1)\nStudents' average:\nStudent 1: 77.5"
+                    "Students' marks:\nSubject 1 Subject 2 Average\nStudent 1 75  80  77.5\nStudent's marks ID 1: 75 80\nThe last student's marks: 75 80\nThe heighest mark in Programming: 80 (Student ID 1)\nStudents' average:\nStudent 1: 77.5"
             }
         ]
     },
