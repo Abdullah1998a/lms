@@ -321,6 +321,7 @@ const Exercise = () => {
                 results={testResults}
                 isRunning={isTestRunning}
             />
+            {/*
             {!isTestRunning && output && !error && (
                 <div className="border rounded-md p-4 bg-white shadow">
                     <h3 className="text-lg font-bold mb-2">النتيجة</h3>
@@ -343,7 +344,7 @@ const Exercise = () => {
                     </pre>
                 </div>
             )}
-
+            */}
             <FeedbackMsg message={feedbackMessage} type={feedbackType} />
 
             <HelpButtons

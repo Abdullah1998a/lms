@@ -20,7 +20,7 @@ export const useProgress = () => {
                         quizCompleted: false,
                         quizScore: 0,
                         exercisesCompleted: [],
-                        completed: false
+                        completed: true // change it later to false
                     };
                 });
                 setProgress(initialProgress);
