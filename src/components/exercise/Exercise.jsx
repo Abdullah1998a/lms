@@ -13,7 +13,7 @@ import {
     AlgorithmDisplay,
     NavigationButtons,
     NoExercises,
-    DetailedTestCases
+    TestCaseComponents
 } from "../exercise-components";
 import { useJudge0 } from "../../hooks/useJudge0";
 
@@ -340,7 +340,7 @@ const Exercise = () => {
                 isRunning={isRunning || isTestRunning}
             />
             <p>Replace TestCases with our new DetailedTestCases component</p>
-            <DetailedTestCases
+            <TestCaseComponents
                 testCases={currentExercise.testCases}
                 results={testResults}
                 isRunning={isTestRunning}

@@ -128,7 +128,4 @@ export const DetailedTestCases = ({ testCases, results, isRunning }) => {
     );
 };
 
-export default {
-    TestCaseOutput,
-    DetailedTestCases
-};
+export default DetailedTestCases;
