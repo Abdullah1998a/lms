@@ -13,7 +13,7 @@ import {
     AlgorithmDisplay,
     NavigationButtons,
     NoExercises,
-    TestCases
+    DetailedTestCases
 } from "../exercise-components";
 import { useJudge0 } from "../../hooks/useJudge0";
 
@@ -104,6 +104,20 @@ const Exercise = () => {
         }
     }, [code, currentExercise.id, hasExercises]);
 
+    // Track Judge0 output
+    useEffect(() => {
+        if (output && !isTestRunning) {
+            console.log('Judge0 output:', output);
+            setFeedbackType("success");
+            setFeedbackMessage("تم تنفيذ الكود بنجاح.");
+        }
+        if (error && !isTestRunning) {
+            console.error('Judge0 error:', error);
+            setFeedbackType("error");
+            setFeedbackMessage(error);
+        }
+    }, [output, error, isTestRunning]);
+
     const resetExerciseState = () => {
         setCode(currentExercise.startingCode || "");
         setFeedbackMessage("");
@@ -160,15 +174,18 @@ const Exercise = () => {
             !currentExercise.testCases ||
             currentExercise.testCases.length === 0
         ) {
-            runCode();
+            runSingleCode();
             return;
         }
+        
         setIsTestRunning(true);
         setTestResults([]);
         setFeedbackMessage("");
         setFeedbackType("");
+        
         const results = [];
         let allTestsPassed = true;
+        
         for (let i = 0; i < currentExercise.testCases.length; i++) {
             const testCase = currentExercise.testCases[i];
             try {
@@ -183,12 +200,14 @@ const Exercise = () => {
                         }
                     });
                 });
+                
                 const isPassed = testResult.result === "accepted";
                 results.push({
                     status: isPassed ? "passed" : "failed",
                     output: testResult.output,
                     error: testResult.error
                 });
+                
                 if (!isPassed) {
                     allTestsPassed = false;
                 }
@@ -200,9 +219,13 @@ const Exercise = () => {
                 });
                 allTestsPassed = false;
             }
+            
+            // Update results after each test to show progress
             setTestResults([...results]);
         }
+        
         setIsTestRunning(false);
+        
         if (allTestsPassed) {
             if (!exerciseCompleted) {
                 completeExercise(parsedLessonId, currentExercise.id);
@@ -217,10 +240,33 @@ const Exercise = () => {
             );
         }
     };
+
+    // Run code without tests
+    const runSingleCode = () => {
+        setFeedbackMessage("");
+        setFeedbackType("");
+        
+        executeCode({
+            code,
+            language: currentExercise.language,
+            input: "",
+            onResult: (result, output, error) => {
+                if (result === "accepted") {
+                    // If this is a simple run without tests, mark as completed
+                    if (!exerciseCompleted) {
+                        completeExercise(parsedLessonId, currentExercise.id);
+                        setExerciseCompleted(true);
+                    }
+                }
+            }
+        });
+    };
+
     const runCode = () => {
         if (!hasExercises) return;
         runTests();
     };
+
     const getHint = () => {
         if (!hasExercises) return;
         if (remainingHints > 0) {
@@ -240,6 +286,7 @@ const Exercise = () => {
             setFeedbackMessage("لقد استخدمت جميع التلميحات المتاحة!");
         }
     };
+
     const resetExercise = () => {
         if (!hasExercises) return;
         setCode(currentExercise.startingCode || "");
@@ -262,18 +309,11 @@ const Exercise = () => {
     if (!hasExercises) {
         return <NoExercises lessonId={lessonId} />;
     }
+    
     if (!isLessonUnlocked(lessonId) && !loading) {
         return <Navigate to="/lessons" replace />;
     }
-    // Add this useEffect to track Judge0 output
-useEffect(() => {
-    if (output) {
-        console.log('Judge0 output:', output);
-    }
-    if (error) {
-        console.error('Judge0 error:', error);
-    }
-}, [output, error]);
+
     return (
         <div className="grid gap-4 h-full w-full max-w-4xl mx-auto">
             <Header
@@ -290,6 +330,7 @@ useEffect(() => {
                 difficultyId={currentExercise.difficultyId}
                 completed={exerciseCompleted}
             />
+
             <CodeEditor
                 code={code}
                 onChange={setCode}
@@ -298,12 +339,36 @@ useEffect(() => {
                 onRun={runCode}
                 isRunning={isRunning || isTestRunning}
             />
-            <TestCases
+
+            {/* Replace TestCases with our new DetailedTestCases component */}
+            <DetailedTestCases
                 testCases={currentExercise.testCases}
                 results={testResults}
                 isRunning={isTestRunning}
             />
+
+            {/* Show general output when not running tests */}
+            {!isTestRunning && output && !error && (
+                <div className="border rounded-md p-4 bg-white shadow">
+                    <h3 className="text-lg font-bold mb-2">النتيجة</h3>
+                    <pre className="bg-gray-800 text-white p-3 rounded overflow-x-auto rtl:text-right whitespace-pre-wrap">
+                        {output}
+                    </pre>
+                </div>
+            )}
+
+            {/* Show general error when not running tests */}
+            {!isTestRunning && error && (
+                <div className="border border-red-300 rounded-md p-4 bg-red-50 shadow">
+                    <h3 className="text-lg font-bold mb-2 text-red-700">خطأ</h3>
+                    <pre className="bg-red-100 text-red-800 p-3 rounded overflow-x-auto rtl:text-right whitespace-pre-wrap">
+                        {error}
+                    </pre>
+                </div>
+            )}
+
             <FeedbackMsg message={feedbackMessage} type={feedbackType} />
+            
             <HelpButtons
                 onGetHint={getHint}
                 onToggleAlgorithm={toggleAlgorithm}
@@ -320,6 +385,7 @@ useEffect(() => {
             {showSolution && (
                 <SolutionDisplay solution={currentExercise.solution} />
             )}
+            
             <NavigationButtons
                 hasPrevious={hasPreviousExercise}
                 hasNext={hasNextExercise}

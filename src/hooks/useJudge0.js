@@ -29,15 +29,24 @@ export const useJudge0 = () => {
     };
 
     const decodeBase64 = str => {
+        if (!str) return "";
+        
         try {
-            return decodeURIComponent(escape(atob(str || "")));
+            // First, check if the string is valid base64
+            const isBase64 = /^[A-Za-z0-9+/=]+$/.test(str.replace(/\s/g, ''));
+            
+            if (!isBase64) {
+                return str; // Return as is if not valid base64
+            }
+            
+            return decodeURIComponent(escape(atob(str)));
         } catch (e) {
             console.error("Base64 decoding error:", e);
-            return str || "";
+            // If there's an error in decoding, return the original string
+            return str;
         }
     };
 
-    // Fixed: Added onSuccess parameter to the function
     const handleJudge0Result = (result, statusId, onResult, onSuccess) => {
         const statusMap = {
             3: "Accepted",
@@ -58,23 +67,30 @@ export const useJudge0 = () => {
         let errorText = null;
         let resultStatus = "";
 
-        if (statusId === 3) {
-            outputText = decodeBase64(result.stdout) || "Code executed successfully (no output)";
+        // Handle stdout - could be base64 encoded or plain text
+        if (result.stdout) {
+            outputText = decodeBase64(result.stdout);
             setOutput(outputText);
+        } else {
+            outputText = "Code executed successfully (no output)";
+            setOutput(outputText);
+        }
+
+        if (statusId === 3) {
             resultStatus = "accepted";
         } else if (statusId === 6) {
-            errorText = `Compilation Error: ${decodeBase64(result.compile_output)}`;
+            errorText = `Compilation Error: ${decodeBase64(result.compile_output || "")}`;
             setError(errorText);
             resultStatus = "rejected";
         } else if (statusId >= 7 && statusId <= 12) {
             errorText = `Runtime Error (${statusMap[statusId]}): ${
-                decodeBase64(result.stderr) || ""
+                decodeBase64(result.stderr || "")
             }`;
             if (result.message) {
                 errorText += `\n${
                     typeof result.message === "string"
                         ? decodeBase64(result.message)
-                        : result.message
+                        : JSON.stringify(result.message)
                 }`;
             }
             setError(errorText);
@@ -156,13 +172,12 @@ export const useJudge0 = () => {
                 statusId = result.status?.id;
             }
 
-            // Properly pass onSuccess to handleJudge0Result
             handleJudge0Result(result, statusId, onResult, onSuccess);
             
             // Check if output matches expected output for test cases
             if (statusId === 3 && expectedOutput) {
-                const actualOutput = decodeBase64(result.stdout)?.trim() || "";
-                const expected = decodeBase64(expectedOutput)?.trim() || "";
+                const actualOutput = decodeBase64(result.stdout || "").trim();
+                const expected = decodeBase64(expectedOutput || "").trim();
                 
                 if (actualOutput !== expected) {
                     setError(`Output doesn't match expected result.
@@ -172,14 +187,8 @@ Expected: ${expected}`);
                     if (typeof onResult === 'function') {
                         onResult("wrong_answer", actualOutput, null);
                     }
-                    
-                    // Fixed: Don't call onSuccess if output doesn't match expected
-                    return;
                 }
             }
-            
-            // Fixed: This duplicate onSuccess call is redundant and has been removed
-            // as it's already called in handleJudge0Result if statusId === 3
         } catch (err) {
             console.error("Judge0 API error:", err);
             const errorMsg = `API Error: ${err.response?.data?.error || err.message}`;
