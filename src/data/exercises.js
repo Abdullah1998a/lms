@@ -1482,17 +1482,19 @@ int main() {
             {
                 description: "حساب الرقم الثامن في سلسلة فيبوناتشي",
                 input: "8",
-                expectedOutput: "Item number 8 in Fibonacci sequence is 21"
+                expectedOutput:
+                    "Item number 8 in Fibonacci sequence is 21\nFibonacci sequence up to the item 8: 0 1 1 2 3 5 8 13 21"
             },
             {
                 description: "حساب الرقم صفر في سلسلة فيبوناتشي",
                 input: "0",
-                expectedOutput: "Item number 0 in Fibonacci sequence is 0"
+                expectedOutput:
+                    "Item number 0 in Fibonacci sequence is 0\nFibonacci sequence up to the item 0: 0"
             },
             {
                 description: "حساب الرقم الخامس في سلسلة فيبوناتشي",
                 input: "5",
-                expectedOutput: "Item number 5 in Fibonacci sequence is 5"
+                expectedOutput: "Item number 5 in Fibonacci sequence is 5\nFibonacci sequence up to the item 5: 0 1 1 2 3 5"
             }
         ]
     },
