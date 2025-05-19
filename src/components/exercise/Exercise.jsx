@@ -339,15 +339,12 @@ const Exercise = () => {
                 onRun={runCode}
                 isRunning={isRunning || isTestRunning}
             />
-
-            {/* Replace TestCases with our new DetailedTestCases component */}
+            <p>Replace TestCases with our new DetailedTestCases component</p>
             <DetailedTestCases
                 testCases={currentExercise.testCases}
                 results={testResults}
                 isRunning={isTestRunning}
             />
-
-            {/* Show general output when not running tests */}
             {!isTestRunning && output && !error && (
                 <div className="border rounded-md p-4 bg-white shadow">
                     <h3 className="text-lg font-bold mb-2">النتيجة</h3>
