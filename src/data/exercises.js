@@ -854,7 +854,7 @@ int main() {
                 description: "مصفوفة متناظرة مع عمليات البحث والإضافة والحذف",
                 input: "5\n10 20 30 20 10\n30\n2\n40 2",
                 expectedOutput:
-                    "The entered items : 10 20 30 20 10\nSumation: 90, Average: 18.0\nThe largest item : 30\nThe smallest item: 10\nInverse array: 10 20 30 20 10\nThe item 30 is in index: 2\nArray after deletion: 10 20 20 10\nArray after addition: 10 20 40 20 10\nArray is symmetric"
+                    "The entered items : 10 20 30 20 10\nSumation: 90, Average: 18\nThe largest item : 30\nThe smallest item: 10\nInverse array: 10 20 30 20 10\nThe item 30 is in index: 2\nArray after deletion: 10 20 20 10\nArray after addition: 10 20 40 20 10\nArray is symmetric"
             },
             {
                 description: "مصفوفة غير متناظرة مع عناصر متكررة",
@@ -866,7 +866,7 @@ int main() {
                 description: "مصفوفة بعنصر واحد",
                 input: "1\n42\n42\n0\n99 0",
                 expectedOutput:
-                    "The entered items : 42\nSumation: 42, Average: 42.0\nThe largest item : 42\nThe smallest item: 42\nInverse array: 42\nThe item 42 is in index: 0\nArray after deletion: \nArray after addition: 99\nArray is symmetric"
+                    "The entered items : 42\nSumation: 42, Average: 42\nThe largest item : 42\nThe smallest item: 42\nInverse array: 42\nThe item 42 is in index: 0\nArray after deletion: \nArray after addition: 99\nArray is symmetric"
             }
         ]
     },
