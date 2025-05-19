@@ -1,5 +1,5 @@
 export const exercises = [
-    {
+   /* {
         id: 1,
         lessonId: 2,
         title: "طباعة رسالة بترتيب معكوس",
@@ -685,6 +685,7 @@ int main() {
             }
         ]
     },
+    */
     {
         id: 10,
         lessonId: 4,

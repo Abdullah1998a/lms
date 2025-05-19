@@ -11,6 +11,7 @@ export const questions = [
         ],
         correctAnswer: 1
     },
+    /*
     {
         id: 2,
         lessonId: 1,
@@ -259,6 +260,7 @@ export const questions = [
         ],
         correctAnswer: 1
     },
+    */
     {
         id: 26,
         lessonId: 2,
@@ -271,6 +273,7 @@ export const questions = [
         ],
         correctAnswer: 1
     },
+    /*
     {
         id: 27,
         lessonId: 2,
@@ -553,6 +556,7 @@ cout << "\\\\";
         options: ["int", "float", "double", "char"],
         correctAnswer: 2
     },
+    */
     {
         id: 51,
         lessonId: 3,
@@ -573,6 +577,7 @@ if (5 = 5) {
         ],
         correctAnswer: 2
     },
+    /*
     {
         id: 52,
         lessonId: 3,
@@ -814,6 +819,7 @@ for (int i = 0, j = 10; i < 3; i++, j--) {
         ],
         correctAnswer: 0
     },
+    */
     {
         id: 66,
         lessonId: 4,

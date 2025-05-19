@@ -307,7 +307,6 @@ const Exercise = () => {
                 difficultyId={currentExercise.difficultyId}
                 completed={exerciseCompleted}
             />
-
             <CodeEditor
                 code={code}
                 onChange={setCode}
