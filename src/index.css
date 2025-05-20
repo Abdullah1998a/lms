@@ -8,6 +8,12 @@
 a.active {
     @apply font-bold text-blue-600;
 }
+a.register {
+    @apply text-blue-600 mr-auto bg-blue-100 rounded-md py-1.5 px-4 font-bold;
+}
+a.register.active {
+    @apply text-white bg-blue-600;
+}
 .markdown-content {
     @apply w-full;
 }

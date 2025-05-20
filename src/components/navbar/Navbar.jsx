@@ -8,7 +8,7 @@ const Navbar = () => {
             <NavLink to="/statistics">الإحصائيات</NavLink>
             <NavLink
                 to="/register"
-                className="text-blue-600 mr-auto bg-blue-100 rounded-md py-1.5 px-4 font-bold"
+                className="register"
             >
                 تسجيل
             </NavLink>
