@@ -1,5 +1,5 @@
 export const exercises = [
-    /* {
+    {
         id: 1,
         lessonId: 2,
         title: "طباعة رسالة بترتيب معكوس",
@@ -43,6 +43,95 @@ int main() {
     },
     {
         id: 2,
+        lessonId: 2,
+        title: "تحويل درجة الحرارة",
+        description:
+            "اكتب برنامج يقوم بتحويل درجات الحرارة من درجة مئوية إلى فهرنهايت والعكس حسب اختيار المستخدم.",
+        difficultyId: 1,
+        difficulty: "مبتدئ",
+        language: "cpp",
+        startingCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // عرّف المتغيرات اللازمة
+    
+    // اسأل المستخدم عن العملية المطلوبة
+    
+    if (choice == 1) {
+        // نفذ عملية التحويل المناسبة
+    
+        // اطبع النتيجة
+        
+    } 
+    else if (choice == 2) {
+        // نفذ عملية التحويل المناسبة
+    
+        // اطبع النتيجة
+        
+    } 
+    else {
+        cout << "Your choice is incorrect!" << endl;
+    }
+    return 0;
+}`,
+        solution: `\`\`\`cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    double temp, result;
+    int choice;
+    cin >> choice;
+    if (choice == 1) {
+        cin >> temp;
+        result = (temp * 9/5) + 32;
+        cout << temp << " Celsius = " << result << " Fahrenheit" << endl;
+    } 
+    else if (choice == 2) {
+        cin >> temp;
+        result = (temp - 32) * 5/9;
+        cout << temp << " Fahrenheit = " << result << " Celsius" << endl;
+    } 
+    else {
+        cout << "Your choice is incorrect!" << endl;
+    }
+    return 0;
+}
+\`\`\``,
+        algorithm: `1. تعريف المتغيرات اللازمة.
+2. عرض خيارات التحويل للمستخدم.
+3. قراءة اختيار المستخدم.
+4. طلب درجة الحرارة المراد تحويلها من المستخدم.
+5. تطبيق معادلة التحويل المناسبة:
+   - من مئوية إلى فهرنهايت: F = (C * 9/5) + 32
+   - من فهرنهايت إلى مئوية: C = (F - 32) * 5/9
+6. طباعة النتيجة.`,
+        hints: [
+            "معادلة التحويل من مئوية إلى فهرنهايت: F = (C × 9/5) + 32",
+            "معادلة التحويل من فهرنهايت إلى مئوية: C = (F - 32) × 5/9",
+            "تأكد من تخزين النتيجة في متغير من نوع double للحفاظ على الدقة"
+        ],
+        testCases: [
+            {
+                description: "تحويل من مئوية إلى فهرنهايت (0 درجة مئوية)",
+                input: "1\n0",
+                expectedOutput: "0 Celsius = 32 Fahrenheit"
+            },
+            {
+                description: "تحويل من فهرنهايت إلى مئوية (32 درجة فهرنهايت)",
+                input: "2\n32",
+                expectedOutput: "32 Fahrenheit = 0 Celsius"
+            },
+            {
+                description: "اختبار إدخال خيار غير صحيح",
+                input: "3",
+                expectedOutput: "Your choice is incorrect!"
+            }
+        ]
+    },
+    {
+        id: 3,
         lessonId: 2,
         title: "حساب مساحة ومحيط المثلث",
         description:
@@ -134,102 +223,13 @@ int main() {
         ]
     },
     {
-        id: 3,
-        lessonId: 2,
-        title: "تحويل درجة الحرارة",
-        description:
-            "اكتب برنامج يقوم بتحويل درجات الحرارة من درجة مئوية إلى فهرنهايت والعكس حسب اختيار المستخدم.",
-        difficultyId: 1,
-        difficulty: "مبتدئ",
-        language: "cpp",
-        startingCode: `#include <iostream>
-using namespace std;
-
-int main() {
-    // عرّف المتغيرات اللازمة
-    
-    // اسأل المستخدم عن العملية المطلوبة
-    
-    if (choice == 1) {
-        // نفذ عملية التحويل المناسبة
-    
-        // اطبع النتيجة
-        
-    } 
-    else if (choice == 2) {
-        // نفذ عملية التحويل المناسبة
-    
-        // اطبع النتيجة
-        
-    } 
-    else {
-        cout << "Your choice is incorrect!" << endl;
-    }
-    return 0;
-}`,
-        solution: `\`\`\`cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    double temp, result;
-    int choice;
-    cin >> choice;
-    if (choice == 1) {
-        cin >> temp;
-        result = (temp * 9/5) + 32;
-        cout << temp << " Celsius = " << result << " Fahrenheit" << endl;
-    } 
-    else if (choice == 2) {
-        cin >> temp;
-        result = (temp - 32) * 5/9;
-        cout << temp << " Fahrenheit = " << result << " Celsius" << endl;
-    } 
-    else {
-        cout << "Your choice is incorrect!" << endl;
-    }
-    return 0;
-}
-\`\`\``,
-        algorithm: `1. تعريف المتغيرات اللازمة.
-2. عرض خيارات التحويل للمستخدم.
-3. قراءة اختيار المستخدم.
-4. طلب درجة الحرارة المراد تحويلها من المستخدم.
-5. تطبيق معادلة التحويل المناسبة:
-   - من مئوية إلى فهرنهايت: F = (C * 9/5) + 32
-   - من فهرنهايت إلى مئوية: C = (F - 32) * 5/9
-6. طباعة النتيجة.`,
-        hints: [
-            "معادلة التحويل من مئوية إلى فهرنهايت: F = (C × 9/5) + 32",
-            "معادلة التحويل من فهرنهايت إلى مئوية: C = (F - 32) × 5/9",
-            "تأكد من تخزين النتيجة في متغير من نوع double للحفاظ على الدقة"
-        ],
-        testCases: [
-            {
-                description: "تحويل من مئوية إلى فهرنهايت (0 درجة مئوية)",
-                input: "1\n0",
-                expectedOutput: "0 Celsius = 32 Fahrenheit"
-            },
-            {
-                description: "تحويل من فهرنهايت إلى مئوية (32 درجة فهرنهايت)",
-                input: "2\n32",
-                expectedOutput: "32 Fahrenheit = 0 Celsius"
-            },
-            {
-                description: "اختبار إدخال خيار غير صحيح",
-                input: "3",
-                expectedOutput: "Your choice is incorrect!"
-            }
-        ]
-    },
-    {
         id: 4,
         lessonId: 2,
         title: "حساب المتوسط والانحراف المعياري",
         description:
             "اكتب برنامج يقرأ ثلاثة أرقام من المستخدم ويحسب المتوسط الحسابي والانحراف المعياري لهذه الأرقام.",
-        difficultyId: 2,
-        difficulty: "متوسط",
+        difficultyId: 3,
+        difficulty: "متقدم",
         language: "cpp",
         startingCode: `#include <iostream>
 #include <cmath>
@@ -305,8 +305,8 @@ int main() {
         title: "حساب معدل استهلاك الوقود",
         description:
             "اكتب برنامج يحسب معدل استهلاك السيارة للوقود. يقرأ البرنامج المسافة المقطوعة بالكيلومترات وكمية الوقود المستهلكة باللترات، ثم يحسب معدل الاستهلاك بالليتر لكل 100 كم وبالكيلومتر لكل ليتر.",
-        difficultyId: 2,
-        difficulty: "متوسط",
+        difficultyId: 3,
+        difficulty: "متقدم",
         language: "cpp",
         startingCode: `#include <iostream>
 using namespace std;
@@ -685,7 +685,6 @@ int main() {
             }
         ]
     },
-    */
     {
         id: 10,
         lessonId: 4,
@@ -873,6 +872,83 @@ int main() {
     {
         id: 11,
         lessonId: 4,
+        title: "طباعة عناصر القطر الثانوي",
+        description: "كتابة برنامج لطباعة عناصر القطر الثانوي في مصفوفة مربعة",
+        difficultyId: 1,
+        difficulty: "مبتدئ",
+        language: "cpp",
+        startingCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // قم بتعريف المصفوفة وطباعة عناصر القطر الثانوي
+    return 0;
+}`,
+        solution: `\`\`\`cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    // تعريف المصفوفة
+    int matrix[50][50]; // بافتراض أن الحد الأقصى هو 50×50
+    // إدخال عناصر المصفوفة
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+    // طباعة المصفوفة
+    cout << "The entered array:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+    // طباعة عناصر القطر الثانوي
+    cout << "Secondary diameter items: ";
+    for (int i = 0; i < n; i++) {
+        cout << matrix[i][n - 1 - i] << " ";
+    }
+    return 0;
+}
+\`\`\``,
+        algorithm: `1. طلب إدخال حجم المصفوفة المربعة n
+2. تعريف مصفوفة مربعة بحجم n × n
+3. إدخال عناصر المصفوفة
+4. طباعة المصفوفة بشكل منسق
+5. طباعة عناصر القطر الثانوي باستخدام الصيغة matrix[i][n-1-i]`,
+        hints: [
+            "القطر الثانوي يمتد من أعلى اليمين إلى أسفل اليسار",
+            "العناصر في القطر الثانوي لها العلاقة i + j = n - 1 أو j = n - 1 - i",
+            "تأكد من أن المصفوفة مربعة (عدد الصفوف = عدد الأعمدة)"
+        ],
+        testCases: [
+            {
+                description: "مصفوفة مربعة 3×3",
+                input: "3\n1 2 3\n4 5 6\n7 8 9",
+                expectedOutput:
+                    "The entered array:\n1 2 3\n4 5 6\n7 8 9\nSecondary diameter items: 3 5 7"
+            },
+            {
+                description: "مصفوفة مربعة 4×4",
+                input: "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
+                expectedOutput:
+                    "The entered array:\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16\nSecondary diameter items: 4 7 10 13"
+            },
+            {
+                description: "مصفوفة مربعة 2×2",
+                input: "2\n10 20\n30 40",
+                expectedOutput:
+                    "The entered array:\n10 20\n30 40\nSecondary diameter items: 20 30"
+            }
+        ]
+    },
+    {
+        id: 12,
+        lessonId: 4,
         title: "إدارة علامات الطلاب",
         description:
             "كتابة برنامج للتعامل مع علامات مجموعة من الطلاب في عدة مواد باستخدام مصفوفة ثنائية",
@@ -1011,83 +1087,6 @@ int main() {
                 input: "1 2\n75 80\n1",
                 expectedOutput:
                     "Students' marks:\nSubject 1 Subject 2 Average\nStudent 1 75  80  77.5\nStudent's marks ID 1: 75 80\nThe last student's marks: 75 80\nThe heighest mark in Programming: 80 (Student ID 1)\nStudents' average:\nStudent 1: 77.5"
-            }
-        ]
-    },
-    {
-        id: 12,
-        lessonId: 4,
-        title: "طباعة عناصر القطر الثانوي",
-        description: "كتابة برنامج لطباعة عناصر القطر الثانوي في مصفوفة مربعة",
-        difficultyId: 1,
-        difficulty: "مبتدئ",
-        language: "cpp",
-        startingCode: `#include <iostream>
-using namespace std;
-
-int main() {
-    // قم بتعريف المصفوفة وطباعة عناصر القطر الثانوي
-    return 0;
-}`,
-        solution: `\`\`\`cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    int n;
-    cin >> n;
-    // تعريف المصفوفة
-    int matrix[50][50]; // بافتراض أن الحد الأقصى هو 50×50
-    // إدخال عناصر المصفوفة
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> matrix[i][j];
-        }
-    }
-    // طباعة المصفوفة
-    cout << "The entered array:" << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << matrix[i][j] << " ";
-        }
-        cout << endl;
-    }
-    // طباعة عناصر القطر الثانوي
-    cout << "Secondary diameter items: ";
-    for (int i = 0; i < n; i++) {
-        cout << matrix[i][n - 1 - i] << " ";
-    }
-    return 0;
-}
-\`\`\``,
-        algorithm: `1. طلب إدخال حجم المصفوفة المربعة n
-2. تعريف مصفوفة مربعة بحجم n × n
-3. إدخال عناصر المصفوفة
-4. طباعة المصفوفة بشكل منسق
-5. طباعة عناصر القطر الثانوي باستخدام الصيغة matrix[i][n-1-i]`,
-        hints: [
-            "القطر الثانوي يمتد من أعلى اليمين إلى أسفل اليسار",
-            "العناصر في القطر الثانوي لها العلاقة i + j = n - 1 أو j = n - 1 - i",
-            "تأكد من أن المصفوفة مربعة (عدد الصفوف = عدد الأعمدة)"
-        ],
-        testCases: [
-            {
-                description: "مصفوفة مربعة 3×3",
-                input: "3\n1 2 3\n4 5 6\n7 8 9",
-                expectedOutput:
-                    "The entered array:\n1 2 3\n4 5 6\n7 8 9\nSecondary diameter items: 3 5 7"
-            },
-            {
-                description: "مصفوفة مربعة 4×4",
-                input: "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
-                expectedOutput:
-                    "The entered array:\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16\nSecondary diameter items: 4 7 10 13"
-            },
-            {
-                description: "مصفوفة مربعة 2×2",
-                input: "2\n10 20\n30 40",
-                expectedOutput:
-                    "The entered array:\n10 20\n30 40\nSecondary diameter items: 20 30"
             }
         ]
     },

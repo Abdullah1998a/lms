@@ -8,7 +8,7 @@ export const TestCases = ({ testCases, results, isRunning }) => {
         <div className="border rounded-md p-4 bg-white shadow">
             <h3 className="text-md font-bold mb-4">حالات الاختبار</h3>
             {testCases.map((testCase, index) => {
-                const testResult = results[index];
+                const testResult = results && results[index];
                 const isTestRunning = isRunning && !testResult;
                 return (
                     <div
@@ -20,25 +20,23 @@ export const TestCases = ({ testCases, results, isRunning }) => {
                         </h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                             <div>
-                                <h5 className="font-semibold mb-2">
+                                <h3 className="font-semibold mb-2">
                                     المدخلات:
-                                </h5>
+                                </h3>
                                 <pre
-                                    className="bg-gray-100 p-2 rounded text-sm overflow-x-auto"
+                                    className="bg-gray-900 text-sm text-white p-3 rounded shadow-md overflow-x-auto whitespace-pre-wrap"
                                     dir="ltr"
                                 >
                                     {testCase.input || "(no inputs)"}
                                 </pre>
                             </div>
-                            <div>
-                                <h5 className="font-semibold mb-2">
-                                    النتيجة المتوقعة:
-                                </h5>
-                                <pre
-                                    className="bg-gray-100 p-2 rounded text-sm overflow-x-auto"
-                                    dir="ltr"
-                                >
-                                    {testCase.expectedOutput || ""}
+                            <div dir="ltr">
+                                <h3 className="bg-gray-800 font-bold text-white p-3 rounded rounded-b-none">
+                                    Output
+                                </h3>
+                                <pre className="bg-gray-900 text-sm text-white p-3 rounded rounded-t-none shadow-md overflow-x-auto whitespace-pre-wrap">
+                                    {testCase.expectedOutput ||
+                                        "(no expected outputs)"}
                                 </pre>
                             </div>
                         </div>

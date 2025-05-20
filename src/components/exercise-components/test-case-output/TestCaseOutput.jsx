@@ -20,8 +20,6 @@ const TestCaseOutput = ({ output, error, status }) => {
                 return <CheckCircle className="h-5 w-5 ml-2" />;
             case "failed":
                 return <XCircle className="h-5 w-5 ml-2" />;
-            case "running":
-                return <Loader className="h-5 w-5 ml-2 animate-spin" />;
             default:
                 return <AlertCircle className="h-5 w-5 ml-2" />;
         }
@@ -45,21 +43,16 @@ const TestCaseOutput = ({ output, error, status }) => {
                         </div>
                     )}
                     {output && (
-                        <div className="mb-2">
-                            <h4 className="font-bold mb-2">النتيجة:</h4>
-                            <pre
-                                className="bg-gray-800 text-sm text-white p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36"
-                                dir="ltr"
-                            >
+                        <div className="mb-2" dir="ltr">
+                            <h3 className="bg-gray-800 text-white py-2 mb-2">Output</h3>
+                            <pre className="bg-gray-900 text-sm text-white p-2 rounded shadow-md overflow-x-auto whitespace-pre-wrap my-2">
                                 {output}
                             </pre>
                         </div>
                     )}
                     {error && (
                         <div>
-                            <h4 className="font-bold mb-2 text-red-600">
-                                الخطأ:
-                            </h4>
+                            <h4 className="mb-2 text-red-800">الخطأ:</h4>
                             <pre
                                 className="bg-red-50 text-sm text-red-800 p-2 rounded overflow-x-auto whitespace-pre-wrap max-h-36"
                                 dir="ltr"
