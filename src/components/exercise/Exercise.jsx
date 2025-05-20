@@ -13,7 +13,7 @@ import {
     AlgorithmDisplay,
     NavigationButtons,
     NoExercises,
-    testCases
+    TestCases
 } from "../exercise-components";
 import { useJudge0 } from "../../hooks/useJudge0";
 
