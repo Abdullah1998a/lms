@@ -1814,7 +1814,7 @@ int main() {
                 description: "حساب المسافة بين النقطة (3,4) والنقطة (6,8)",
                 input: "",
                 expectedOutput:
-                    "First point: (3.0, 4.0)\nSecond point: (6.0, 8.0)\nThe distance between the two points: 5"
+                    "First point: (3, 4)\nSecond point: (6, 8)\nThe distance between the two points: 5"
             }
         ]
     },
@@ -1935,7 +1935,7 @@ int main() {
                 description: "حساب مساحة ومحيط المستطيل والدائرة والمثلث",
                 input: "",
                 expectedOutput:
-                    "Rectangle (length = 5.0, width = 3.0):\nArea = 15\nPerimeter = 16\n\nCircle (radius = 4.0):\nArea = 50.2655\nPerimeter = 25.1327\n\nTriangle (sides = 3.0, 4.p, 5.0):\nArea = 6\nPerimeter = 12"
+                    "Rectangle (length = 5, width = 3):\nArea = 15\nPerimeter = 16\n\nCircle (radius = 4):\nArea = 50.2655\nPerimeter = 25.1327\n\nTriangle (sides = 3, 4, 5):\nArea = 6\nPerimeter = 12"
             }
         ]
     }

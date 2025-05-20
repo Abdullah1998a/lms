@@ -43,9 +43,12 @@ const TestCaseOutput = ({ output, error, status }) => {
                         </div>
                     )}
                     {output && (
-                        <div className="mb-2" dir="ltr">
-                            <h3 className="bg-gray-800 text-white py-2 mb-2">Output</h3>
-                            <pre className="bg-gray-900 text-sm text-white p-2 rounded shadow-md overflow-x-auto whitespace-pre-wrap my-2">
+                        <div className="mb-2">
+                            <h4 className="text-red-800 mb-2">الخرج:</h4>
+                            <pre
+                                className="bg-gray-900 text-sm text-white p-3 rounded shadow-md overflow-x-auto whitespace-pre-wrap my-2"
+                                dir="ltr"
+                            >
                                 {output}
                             </pre>
                         </div>
