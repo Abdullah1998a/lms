@@ -6,7 +6,7 @@ export const TestCases = ({ testCases, results, isRunning }) => {
     }
     return (
         <div className="border rounded-md p-4 bg-white shadow">
-            <h3 className="text-md font-bold mb-4">حالات الاختبار</h3>
+            <h3 className="text-lg font-bold mb-4">حالات الاختبار</h3>
             {testCases.map((testCase, index) => {
                 const testResult = results && results[index];
                 const isTestRunning = isRunning && !testResult;
@@ -34,7 +34,10 @@ export const TestCases = ({ testCases, results, isRunning }) => {
                                 <h3 className="font-semibold mb-2">
                                     الخرج المتوقع:
                                 </h3>
-                                <pre className="bg-gray-900 text-sm text-white p-3 rounded rounded-t-none shadow-md overflow-x-auto whitespace-pre-wrap" dir="ltr">
+                                <pre
+                                    className="bg-gray-900 text-sm text-white p-3 rounded shadow-md overflow-x-auto whitespace-pre-wrap"
+                                    dir="ltr"
+                                >
                                     {testCase.expectedOutput ||
                                         "(no expected outputs)"}
                                 </pre>
