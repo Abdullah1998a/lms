@@ -31,7 +31,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
-            <p className="p-4 text-white bg-neutral-800">حقوق الملكية محفوظة &copy;</p>
+            <p className="p-4 text-white text-center bg-neutral-800">حقوق الملكية محفوظة &copy;</p>
         </>
     );
 }

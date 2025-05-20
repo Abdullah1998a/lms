@@ -51,7 +51,7 @@ const Register = () => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto flex flex-col justify-center gap-6">
+        <div className="w-full max-w-4xl mx-auto flex flex-col justify-center gap-6 self-start">
             <div className="bg-neutral-100 rounded-md sm:mx-auto sm:w-full sm:max-w-md py-12 px-4">
                 <div className="flex justify-center">
                     <UserPlus className="h-12 w-12 text-blue-500" />
