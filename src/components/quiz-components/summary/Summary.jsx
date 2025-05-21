@@ -12,13 +12,12 @@ const Summary = ({
     lessonId
 }) => {
     const parsedLessonId = parseInt(lessonId);
-    const { saveQuizResult, getLessonStatus } = useProgress();
+    const { QUIZ_PASS_THRESHOLD, saveQuizResult, getLessonStatus } = useProgress();
     const lessonStatus = getLessonStatus(parsedLessonId);
     const scorePercentage = Math.round(
         (score / shuffledQuestions.length) * 100
     );
-    const passThreshold = 60;
-    const passed = scorePercentage >= passThreshold;
+    const passed = scorePercentage >= QUIZ_PASS_THRESHOLD;
     useEffect(() => {
         const savingQuizResult = () => {
             saveQuizResult(parsedLessonId, score, shuffledQuestions.length);

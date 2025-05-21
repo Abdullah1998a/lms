@@ -1,5 +1,5 @@
 export const questions = [
-    /*{
+    {
         id: 1,
         lessonId: 1,
         text: "ما هي الآلات ذات البرامج الثابتة؟",
@@ -259,7 +259,6 @@ export const questions = [
         ],
         correctAnswer: 1
     },
-    */
     {
         id: 26,
         lessonId: 2,

@@ -198,6 +198,7 @@ export const useProgress = () => {
         isExerciseCompleted,
         getLessonProgressStats,
         resetAllProgress,
-        loading
+        loading,
+        QUIZ_PASS_THRESHOLD
     };
 };

@@ -10,7 +10,7 @@ const Lessons = () => {
     return (
         <div className="w-full max-w-4xl mx-auto self-start">
             <h1 className="text-2xl font-bold mb-4 pb-4 border-b">الدروس</h1>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-4">
                 {lessons.map(lesson => {
                     const unlocked = isLessonUnlocked(lesson.id);
                     const status = getLessonStatus(lesson.id);
@@ -21,7 +21,7 @@ const Lessons = () => {
                                 !unlocked ? "opacity-70" : ""
                             }`}
                         >
-                            <div className="p-4 md:p-6">
+                            <div className="h-full p-4 flex flex-col">
                                 <div className="flex justify-between">
                                     <div className="flex items-center mb-2">
                                         <div
@@ -69,18 +69,24 @@ const Lessons = () => {
                                         يجب إكمال الدرس السابق أولاً للوصول إلى
                                         هذا الدرس
                                     </div>
+                                ) : status.completed ? (
+                                    <div className="mt-4 text-sm text-gray-600">
+                                        أحسنت، يمكنك الآن أن تراجع معلوماتك في
+                                        اي وقت تشاء.
+                                    </div>
                                 ) : (
                                     <div className="mt-4 text-sm text-gray-600">
                                         لإكمال هذا الدرس يجب تحقيق على الأقل ٧٥%
-                                        في الاختبار وحل جميع التمارين البرمجية.
+                                        في الاختبار وحل جميع التمارين البرمجية
+                                        إن وجدت.
                                     </div>
                                 )}
 
-                                <div className="mt-6">
+                                <div className="mt-auto">
                                     {unlocked ? (
                                         <Link
                                             to={`/lessons/${lesson.id}`}
-                                            className={`w-full border border-blue-600 font-medium py-2 px-4 rounded text-center block transition ${
+                                            className={`w-full border border-blue-600 font-medium mt-5 py-2 px-4 rounded text-center block transition ${
                                                 status.completed
                                                     ? "bg-white text-blue-600 hover:text-white hover:bg-blue-700"
                                                     : "bg-blue-600 text-white hover:bg-blue-700"
@@ -93,7 +99,7 @@ const Lessons = () => {
                                     ) : (
                                         <button
                                             disabled
-                                            className="w-full bg-gray-300 text-gray-500 font-medium py-2 px-4 rounded text-center block cursor-not-allowed"
+                                            className="w-full bg-gray-300 text-gray-500 font-medium mt-5 py-2 px-4 rounded text-center block cursor-not-allowed"
                                         >
                                             مغلق
                                         </button>
