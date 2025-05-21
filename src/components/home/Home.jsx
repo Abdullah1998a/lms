@@ -10,12 +10,12 @@ const Home = () => {
         });
     }, []);
     return (
-        <div className="w-full max-w-4xl mx-auto overflow-hidden">
+        <div className="w-full max-w-4xl mx-auto overflow-hidden py-8">
             <div className="border-b border-gray-100">
                 <h1 className="text-4xl md:text-5xl text-blue-700 font-bold mb-4 leading-tight">
                     محاضرات مكثفة وتمارين عمليّة في لغات برمجية متعددة
                 </h1>
-                <p className="text-md md:text-xl leading-relaxed text-gray-600 mb-4 text-right">
+                <p className="text-md md:text-xl leading-relaxed text-gray-600 mb-5 text-right">
                     مزيجٌ من المحاضرات المُحكمة والمنظمة والتدريبات العملية
                     لتعزيز خبرة المتعلمين، مع تركيز مكثف على التطبيق العملي
                     لضمان اكتساب مهارات قابلة للتنفيذ.
@@ -27,7 +27,7 @@ const Home = () => {
                     تصفح الدروس
                 </Link>
             </div>
-            <div className="grid md:grid-cols-3 gap-4 my-5">
+            <div className="grid md:grid-cols-3 gap-4 my-6">
                 <div className="bg-blue-50 rounded-xl p-6">
                     <div className="flex gap-4 items-center mb-4">
                         <div className="bg-blue-100 p-2 rounded-lg">
@@ -76,7 +76,8 @@ const Home = () => {
                     ابدأ رحلة التعلم اليوم
                 </h2>
                 <p className="mb-6 opacity-90">
-                    انضم الآن وانقل مهاراتك البرمجية إلى مستوى آخر حيث التميز والكفاءة.
+                    انضم الآن وانقل مهاراتك البرمجية إلى مستوى آخر حيث التميز
+                    والكفاءة.
                 </p>
                 <Link
                     to="/register"

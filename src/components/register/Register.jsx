@@ -52,15 +52,15 @@ const Register = () => {
 
     return (
         <div className="w-full max-w-4xl mx-auto flex flex-col justify-center gap-6 self-start">
-            <div className="bg-neutral-100 rounded-md sm:mx-auto sm:w-full sm:max-w-md py-12 px-4">
+            <div className="bg-neutral-50 rounded-md py-12 px-4">
                 <div className="flex justify-center">
-                    <UserPlus className="h-12 w-12 text-green-700" />
+                    <UserPlus className="h-12 w-12 text-blue-600" />
                 </div>
                 <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
                     التسجيل على مجموعة الواتساب
                 </h2>
             </div>
-            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <div>
                 <div className="bg-white sm:px-10">
                     {submitSuccess ? (
                         <div className="rounded-md bg-green-50 p-4 mb-4">
@@ -186,7 +186,7 @@ const Register = () => {
                             href={whatsappGroupLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full flex justify-center items-center py-3 px-2 border border-green-600 rounded-md shadow-sm text-sm font-medium text-green-700 bg-white hover:bg-green-50 outline-none"
+                            className="w-full  max-w-md mx-auto flex justify-center items-center py-3 px-2 border border-blue-600 rounded-md shadow-sm font-medium text-blue-600 bg-white hover:bg-blue-50 outline-none"
                         >
                             <ExternalLink className="h-5 w-5 ml-2" />
                             انضم إلى المجموعة مباشرة

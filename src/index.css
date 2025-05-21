@@ -5,14 +5,8 @@
     @apply grid min-h-[100dvh] container mx-auto;
     grid-template-rows: auto 1fr auto;
 }
-a.active {
-    @apply font-bold text-blue-600;
-}
-a.register {
-    @apply text-white bg-blue-600 mr-auto rounded-md py-1.5 px-4 font-bold;
-}
-a.register.active {
-    @apply text-blue-600 bg-blue-50;
+a.active:not(:last-child) {
+    @apply font-bold text-blue-600 bg-blue-50;
 }
 .markdown-content {
     @apply w-full;

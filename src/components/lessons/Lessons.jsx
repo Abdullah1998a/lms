@@ -9,7 +9,7 @@ const Lessons = () => {
 
     return (
         <div className="w-full max-w-4xl mx-auto self-start">
-            <h1 className="text-2xl font-bold mb-4">الدروس</h1>
+            <h1 className="text-2xl font-bold mb-4 pb-4 border-b">الدروس</h1>
             <div className="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
                 {lessons.map(lesson => {
                     const unlocked = isLessonUnlocked(lesson.id);

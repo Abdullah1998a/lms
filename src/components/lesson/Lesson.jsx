@@ -5,6 +5,7 @@ import { Info, ArrowUp, ChevronLeft } from "lucide-react";
 import { lessons } from "../../data/lessons";
 import { useProgress } from "../../hooks/useProgress";
 import { LessonProgress } from "../lesson-progress";
+import { NoLessons } from "../no-lessons";
 
 const Lesson = () => {
     const { lessonId } = useParams();
@@ -45,40 +46,20 @@ const Lesson = () => {
         handleScroll();
     }, [lessonId]);
     if (!lesson) {
-        return (
-            <div className="w-full max-w-4xl mx-auto">
-                <div className="bg-red-50 border border-red-200 p-5 rounded-md text-center">
-                    <Info className="h-12 w-12 mx-auto mb-4 text-red-600" />
-                    <h2 className="text-2xl font-bold mb-3 text-red-600">
-                        هذا الدرس غير موجود
-                    </h2>
-                    <p className="text-lg text-gray-700">
-                        قد يكون الدرس قد تم حذفه أو نقله.
-                    </p>
-                    <Link
-                        to="/lessons"
-                        className="mt-6 inline-block px-4 py-2 bg-white font-medium rounded-md border border-blue-600 text-blue-600 hover:bg-blue-700 hover:text-white"
-                    >
-                        الرجوع للدروس
-                    </Link>
-                </div>
-            </div>
-        );
+        return <NoLessons />;
     }
     if (!isUnlocked && !loading && parsedLessonId !== 1) {
         return <Navigate to="/lessons" replace />;
     }
     return (
         <div className="w-full max-w-4xl mx-auto self-start lesson">
-            <h1 className="text-3xl text-blue-600 font-bold my-4">
-                {lesson.title}
-            </h1>
-
             <LessonProgress
                 progress={progressStats}
                 hasExercises={lesson.hasExercises}
             />
-
+            <h1 className="text-3xl text-blue-600 font-bold my-4">
+                {lesson.title}
+            </h1>
             <Markdown content={lesson.content} />
             <div className="flex gap-2 items-center">
                 <Link

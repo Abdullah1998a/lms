@@ -1,4 +1,4 @@
-import { BarChart, ChevronRight } from "lucide-react";
+import { BarChart3, ChevronRight } from "lucide-react";
 
 const LessonProgress = ({ progress, hasExercises }) => {
     const {
@@ -11,7 +11,7 @@ const LessonProgress = ({ progress, hasExercises }) => {
         <div className="bg-white rounded-lg shadow-sm p-4 mb-4">
             <div className="flex items-center justify-between mb-2">
                 <h3 className="font-bold text-gray-700 flex items-center gap-2">
-                    <BarChart size={18} className="text-blue-600" />
+                    <BarChart3 size={18} className="text-blue-600" />
                     تقدمك في هذا الدرس
                 </h3>
                 <span className="text-sm font-medium text-gray-500">

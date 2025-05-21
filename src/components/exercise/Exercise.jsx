@@ -321,7 +321,6 @@ const Exercise = () => {
                 isRunning={isTestRunning}
             />
             <FeedbackMsg message={feedbackMessage} type={feedbackType} />
-
             <HelpButtons
                 onGetHint={getHint}
                 onToggleAlgorithm={toggleAlgorithm}
@@ -330,15 +329,12 @@ const Exercise = () => {
                 showAlgorithm={showAlgorithm}
                 showSolution={showSolution}
             />
-
             {showAlgorithm && (
                 <AlgorithmDisplay algorithm={currentExercise.algorithm} />
             )}
-
             {showSolution && (
                 <SolutionDisplay solution={currentExercise.solution} />
             )}
-
             <NavigationButtons
                 hasPrevious={hasPreviousExercise}
                 hasNext={hasNextExercise}

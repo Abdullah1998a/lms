@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useProgress } from "../../hooks/useProgress";
 import { lessons } from "../../data/lessons";
-import { 
-  BarChart3, 
-  Check, 
-  Trophy, 
-  CheckCircle2, 
-  Unlock, 
-  Lock 
+import {
+    BarChart3,
+    Check,
+    Trophy,
+    CheckCircle2,
+    Unlock,
+    Lock
 } from "lucide-react";
 
 const Statistics = () => {
@@ -64,7 +64,7 @@ const Statistics = () => {
                 <p className="text-blue-100">راقب تقدمك في كل الدروس</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-gray-50">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50">
                 <StatCard
                     title="التقدم الكلي"
                     value={`${overallProgress}%`}
@@ -81,10 +81,9 @@ const Statistics = () => {
                     icon={<Trophy className="text-blue-500" size={24} />}
                 />
             </div>
-
-            <div className="p-6">
+            <div className="p-4">
                 <h3 className="text-xl font-semibold mb-4">تقدم الدرس</h3>
-                <div className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-2">
                     {lessonStats.map(lesson => (
                         <div
                             key={lesson.id}
