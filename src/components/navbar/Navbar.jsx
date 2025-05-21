@@ -28,7 +28,7 @@ const Navbar = () => {
         <>
             <nav className="w-full flex items-center justify-between bg-neutral-100 p-4">
                 <img src={logo} alt="logo" className="w-9" />
-                <div className="hidden lg:flex items-center gap-4">
+                <div className="hidden md:flex items-center gap-4">
                     <NavLink
                         to="/"
                         className="p-2 hover:bg-neutral-50 rounded-md"
@@ -54,7 +54,7 @@ const Navbar = () => {
                         تسجيل
                     </NavLink>
                 </div>
-                <div className="lg:hidden flex items-center gap-2">
+                <div className="md:hidden flex items-center gap-2">
                     <button
                         onClick={toggleBar}
                         className="p-2 rounded-md hover:bg-neutral-200 transition-colors"
@@ -64,7 +64,7 @@ const Navbar = () => {
                 </div>
             </nav>
             <div
-                className={`lg:hidden fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transform transition-transform duration-200 ease-in-out z-50 ${
+                className={`md:hidden fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transform transition-transform duration-200 ease-in-out z-50 ${
                     show ? "translate-x-0" : "translate-x-full"
                 }`}
             >
