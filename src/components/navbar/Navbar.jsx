@@ -26,7 +26,7 @@ const Navbar = () => {
     }, [show]);
     return (
         <>
-            <nav className="w-full flex items-center justify-between bg-neutral-50 p-4">
+            <nav className="w-full flex items-center justify-between bg-neutral-100 p-4 rounded-b shadow">
                 <img src={logo} alt="logo" className="w-9" />
                 <div className="hidden md:flex items-center gap-4">
                     <NavLink
