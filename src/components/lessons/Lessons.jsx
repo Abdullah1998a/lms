@@ -64,10 +64,15 @@ const Lessons = () => {
                                     ) : null}
                                 </div>
 
-                                {!unlocked && (
+                                {!unlocked ? (
                                     <div className="mt-4 text-sm text-gray-500">
                                         يجب إكمال الدرس السابق أولاً للوصول إلى
                                         هذا الدرس
+                                    </div>
+                                ) : (
+                                    <div className="mt-4 text-sm text-gray-600">
+                                        لإكمال هذا الدرس يجب تحقيق على الأقل ٧٥%
+                                        في الاختبار وحل جميع التمارين البرمجية.
                                     </div>
                                 )}
 
