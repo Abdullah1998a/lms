@@ -5,12 +5,15 @@ import logo from "../../assets/logo.png";
 
 const Navbar = () => {
     const [show, setShow] = useState(false);
+
     const toggleBar = () => {
         setShow(!show);
     };
+
     const closeBar = () => {
         setShow(false);
     };
+
     useEffect(() => {
         if (show) {
             document.body.style.overflow = "hidden";
@@ -25,7 +28,33 @@ const Navbar = () => {
         <>
             <nav className="w-full flex items-center justify-between bg-neutral-100 p-4">
                 <img src={logo} alt="logo" className="w-9" />
-                <div className="flex items-center gap-2">
+                <div className="hidden lg:flex items-center gap-4">
+                    <NavLink
+                        to="/"
+                        className="p-2 hover:bg-neutral-50 rounded-md"
+                    >
+                        الصفحة الرئيسية
+                    </NavLink>
+                    <NavLink
+                        to="/lessons"
+                        className="p-2 hover:bg-neutral-50 rounded-md"
+                    >
+                        الدروس
+                    </NavLink>
+                    <NavLink
+                        to="/statistics"
+                        className="p-2 hover:bg-neutral-50 rounded-md"
+                    >
+                        الإحصائيات
+                    </NavLink>
+                    <NavLink
+                        to="/register"
+                        className="p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    >
+                        تسجيل
+                    </NavLink>
+                </div>
+                <div className="lg:hidden flex items-center gap-2">
                     <button
                         onClick={toggleBar}
                         className="p-2 rounded-md hover:bg-neutral-200 transition-colors"
@@ -35,7 +64,7 @@ const Navbar = () => {
                 </div>
             </nav>
             <div
-                className={`fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+                className={`lg:hidden fixed top-0 right-0 h-full w-3/4 bg-white shadow-lg transform transition-transform duration-200 ease-in-out z-50 ${
                     show ? "translate-x-0" : "translate-x-full"
                 }`}
             >
@@ -81,7 +110,7 @@ const Navbar = () => {
             </div>
             {show && (
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-75 z-40"
+                    className="md:hidden fixed inset-0 bg-black bg-opacity-75 z-40"
                     onClick={closeBar}
                 ></div>
             )}
