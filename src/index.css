@@ -144,7 +144,4 @@ a.active:not(:last-child) {
     .markdown-content td {
         @apply py-2 px-3;
     }
-    a.active:not(:last-child) {
-    @apply bg-transparent;
-}
 }
