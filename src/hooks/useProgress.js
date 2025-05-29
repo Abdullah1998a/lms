@@ -16,11 +16,11 @@ export const useProgress = () => {
                 const initialProgress = {};
                 lessons.forEach(lesson => {
                     initialProgress[lesson.id] = {
-                        unlocked: true || lesson.id === 1,
+                        unlocked: lesson.id === 1,
                         quizCompleted: false,
                         quizScore: 0,
                         exercisesCompleted: [],
-                        completed: true
+                        completed: false
                     };
                 });
                 setProgress(initialProgress);
