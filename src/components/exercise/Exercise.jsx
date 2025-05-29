@@ -299,7 +299,6 @@ const Exercise = () => {
                 totalExercises={lessonExercises.length}
                 exerciseCompleted={exerciseCompleted}
             />
-
             <Description
                 title={currentExercise.title}
                 description={currentExercise.description}

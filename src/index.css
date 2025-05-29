@@ -2,18 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 #root {
-    @apply grid min-h-[100dvh] container mx-auto;
+    @apply grid min-h-[100dvh] container mx-auto dark:bg-neutral-800;
     grid-template-rows: auto 1fr auto;
 }
 a.active:not(:last-child) {
-    @apply font-bold text-blue-600 bg-blue-50;
+    @apply font-bold text-blue-600 bg-blue-50 dark:text-blue-200 dark:bg-neutral-800;
 }
+
 .markdown-content {
     @apply w-full;
 }
 .markdown-content h2,
 .lesson h1 {
-    @apply w-fit text-2xl font-bold mt-6 mb-3 relative;
+    @apply w-fit text-2xl font-bold mt-6 mb-3 relative dark:text-neutral-100;
 }
 .markdown-content h2::after,
 .lesson h1::after {
@@ -21,14 +22,15 @@ a.active:not(:last-child) {
     @apply w-full h-1/2 absolute bottom-0 right-0 bg-blue-100 rounded-full;
     z-index: -1;
 }
+
 .lesson h1::after {
     @apply bg-yellow-200/65;
 }
 .markdown-content h3 {
-    @apply text-xl font-bold mt-4 mb-2;
+    @apply text-xl font-bold mt-4 mb-2 dark:text-neutral-100;
 }
 .markdown-content p {
-    @apply my-4 leading-relaxed;
+    @apply my-4 leading-relaxed dark:text-neutral-100;
 }
 .markdown-content ul {
     @apply list-disc pr-6 my-4;
@@ -37,51 +39,51 @@ a.active:not(:last-child) {
     @apply list-decimal pr-6 my-4;
 }
 .markdown-content li {
-    @apply mb-1;
+    @apply mb-1 dark:text-neutral-100;
 }
 .markdown-content blockquote {
-    @apply border-r-4 border-indigo-600 p-4 my-4 pr-9 bg-gradient-to-l from-indigo-50 to-gray-50 rounded-lg shadow-sm;
+    @apply border-r-4 border-indigo-600 dark:border-indigo-200 p-4 my-4 pr-9 bg-gradient-to-l from-indigo-50 to-gray-50 dark:from-neutral-700 dark:to-neutral-800 rounded-lg shadow-sm;
 }
 .markdown-content blockquote h3 {
-    @apply relative font-semibold text-indigo-800 flex items-center;
+    @apply relative font-semibold text-indigo-800 dark:text-indigo-200 flex items-center;
     @apply before:content-[''] before:w-5 before:h-5 before:absolute before:top-1/2 before:-right-7 before:-translate-y-1/2;
-    @apply before:bg-[url("./assets/info-circle.svg")] before:bg-contain before:bg-no-repeat;
+    @apply before:bg-[url("./assets/info-circle.svg")] before:dark:bg-[url("./assets/info-circle-dark.svg")] before:bg-contain before:bg-no-repeat;
 }
 .markdown-content blockquote ul,
 .markdown-content blockquote ol,
 .markdown-content blockquote p {
-    @apply text-indigo-700 pr-0;
+    @apply text-indigo-700 dark:text-indigo-100 pr-0;
 }
 .markdown-content blockquote.warning {
-    @apply border-amber-500 bg-gradient-to-l from-amber-50 to-gray-50;
+    @apply border-amber-500 dark:border-amber-200 bg-gradient-to-l from-amber-50 dark:from-neutral-700 to-gray-50 dark:to-neutral-800;
 }
 .markdown-content blockquote.warning h3 {
-    @apply text-amber-800;
-    @apply before:bg-[url("./assets/warning.svg")];
+    @apply text-amber-800 dark:text-amber-200;
+    @apply before:bg-[url("./assets/warning.svg")] before:dark:bg-[url("./assets/warning-dark.svg")];
 }
 .markdown-content blockquote.warning ul,
 .markdown-content blockquote.warning ol,
 .markdown-content blockquote.warning p {
-    @apply text-amber-700 pr-0;
+    @apply text-amber-700 pr-0 dark:text-amber-100;
 }
 .markdown-content blockquote.success {
-    @apply border-emerald-500 bg-gradient-to-l from-emerald-50 to-gray-50;
+    @apply border-emerald-500 dark:border-emerald-200 bg-gradient-to-l from-emerald-50 dark:from-neutral-700 to-gray-50 dark:to-neutral-800;
 }
 .markdown-content blockquote.success h3 {
-    @apply text-emerald-800;
-    @apply before:bg-[url("./assets/check-circle.svg")];
+    @apply text-emerald-800 dark:text-emerald-200;
+    @apply before:bg-[url("./assets/check-circle.svg")] before:dark:bg-[url("./assets/check-circle-dark.svg")];
 }
 .markdown-content blockquote.success ul,
 .markdown-content blockquote.success ol,
 .markdown-content blockquote.success p {
-    @apply text-emerald-700 pr-0;
+    @apply text-emerald-700 dark:text-emerald-100 pr-0;
 }
 .markdown-content div[dir="ltr"] {
-    @apply border-none p-0 my-4 bg-gray-900 rounded-lg shadow-md overflow-hidden;
+    @apply border-none p-0 my-4 bg-neutral-900 rounded-lg shadow-md overflow-hidden;
     line-height: 1.2;
 }
 .markdown-content div[dir="ltr"] h3 {
-    @apply bg-gray-800 text-white py-2 px-4 m-0 font-medium text-sm border-b border-gray-700;
+    @apply bg-neutral-700 text-white py-2 px-4 m-0 font-medium text-sm border-b border-neutral-700;
 }
 .markdown-content a {
     @apply text-blue-600 hover:underline;
@@ -100,19 +102,22 @@ a.active:not(:last-child) {
 }
 .markdown-content pre {
     direction: ltr;
-    @apply text-left bg-gray-50 p-2 rounded my-4 max-w-full overflow-x-auto;
+    @apply text-left bg-gray-50 dark:bg-neutral-700 p-2 rounded my-4 max-w-full overflow-x-auto;
 }
 .markdown-content pre code {
     direction: ltr;
-    @apply text-left bg-gray-50 text-sm block whitespace-pre-wrap break-words;
+    @apply text-left bg-gray-50 dark:bg-neutral-700 text-sm block whitespace-pre-wrap break-words;
 }
 .markdown-content code {
     direction: ltr;
-    @apply text-left bg-gray-100 rounded text-sm p-1.5 whitespace-pre-wrap break-words;
+    @apply text-left bg-gray-100 dark:bg-neutral-700 dark:text-white rounded text-sm p-1.5 whitespace-pre-wrap break-words;
 }
-
+.dark .solution .markdown-content pre,
+.dark .solution .markdown-content pre code {
+    @apply bg-neutral-800;
+}
 .markdown-content div[dir="ltr"] pre {
-    @apply m-0 p-0 w-full flex flex-col justify-center gap-2 bg-gray-900;
+    @apply m-0 p-0 w-full flex flex-col justify-center gap-2 bg-neutral-700;
 }
 
 .markdown-content div[dir="ltr"] code {
@@ -134,10 +139,10 @@ a.active:not(:last-child) {
     @apply py-3 px-4 text-right font-medium border border-gray-200;
 }
 .markdown-content tbody {
-    @apply divide-y divide-gray-200;
+    @apply divide-y divide-neutral-200;
 }
 .markdown-content td {
-    @apply py-3 px-4 text-gray-700 border border-gray-200;
+    @apply py-3 px-4 text-gray-700 dark:text-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-200;
 }
 @media (max-width: 640px) {
     .markdown-content th,

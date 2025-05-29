@@ -12,11 +12,11 @@ const NavigationButtons = ({
     completed = false
 }) => {
     return (
-        <div className="mt-auto bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center">
+        <div className="mt-auto bg-gray-50 dark:bg-neutral-700 p-4 rounded-lg border border-gray-200 dark:border-none flex justify-between items-center">
             {hasPrevious ? (
                 <button
                     onClick={onPrevious}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-blue-500 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-blue-200 border border-blue-500 dark:border-blue-200 text-blue-600 dark:text-black hover:bg-blue-50 dark:hover:bg-blue-300 rounded-md transition-colors"
                 >
                     <ArrowRightCircle className="h-5 w-5" />
                     <span>التمرين السابق</span>
@@ -31,8 +31,8 @@ const NavigationButtons = ({
                     disabled={isNextDisabled}
                     className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
                         isNextDisabled
-                            ? "text-gray-500 bg-gray-200"
-                            : "bg-blue-600 text-white hover:bg-blue-700"
+                            ? "text-neutral-500 dark:text-neutral-500 bg-gray-200 dark:bg-neutral-800"
+                            : "bg-blue-600 dark:bg-blue-200 text-white dark:text-black hover:bg-blue-700 dark:hover:bg-blue-300"
                     }`}
                 >
                     <span>التمرين التالي</span>
@@ -44,8 +44,8 @@ const NavigationButtons = ({
                         to={`/lessons/${parseInt(lessonId) + 1}`}
                         className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
                             !completed
-                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                                : "bg-blue-600 text-white hover:bg-blue-700"
+                                ? "text-neutral-500 dark:text-neutral-500 bg-gray-200 dark:bg-neutral-800"
+                                : "bg-blue-600 dark:bg-blue-200 text-white dark:text-black hover:bg-blue-700 dark:hover:bg-blue-300"
                         }`}
                         onClick={e => {
                             if (!completed) {
@@ -54,7 +54,6 @@ const NavigationButtons = ({
                         }}
                     >
                         <span>الدرس التالي</span>
-                        <ArrowLeft className="h-5 w-5 ml-2" />
                     </Link>
                 )
             )}

@@ -7,18 +7,18 @@ export const shuffleArray = array => {
     return shuffled;
 };
 export const getScoreColor = scorePercentage => {
-    if (scorePercentage >= 80) return "text-green-600";
-    if (scorePercentage >= 60) return "text-yellow-600";
-    return "text-red-600";
+    if (scorePercentage >= 80) return "text-green-600 dark:text-green-300";
+    if (scorePercentage >= 60) return "text-yellow-600 dark:text-yellow-200";
+    return "text-red-600 dark:text-red-400";
 };
 export const getDifficultyColor = difficultId => {
     switch (difficultId) {
         case 1:
-            return "bg-green-600";
+            return "bg-green-600 dark:bg-green-300 dark:text-black";
         case 2:
-            return "text-black bg-yellow-400";
+            return "text-black bg-yellow-400 dark:bg-yellow-200 dark:text-black";
         default:
-            return "bg-red-600";
+            return "bg-red-600 dark:bg-red-400";
     }
 };
 

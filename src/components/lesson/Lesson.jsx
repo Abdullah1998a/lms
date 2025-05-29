@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Markdown } from "../markdown";
-import { Info, ArrowUp, ChevronLeft } from "lucide-react";
+import { Info, ArrowUp, ArrowRight, ChevronLeft } from "lucide-react";
 import { lessons } from "../../data/lessons";
 import { useProgress } from "../../hooks/useProgress";
 import { LessonProgress } from "../lesson-progress";
@@ -53,6 +53,13 @@ const Lesson = () => {
     }
     return (
         <div className="w-full max-w-4xl mx-auto self-start lesson">
+            <Link
+                to="/lessons"
+                className="flex items-center gap-2 mb-4 text-blue-600 dark:text-blue-200 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+            >
+                <ArrowRight className="h-5 w-5" />
+                <span>الرجوع للدروس</span>
+            </Link>
             <LessonProgress
                 progress={progressStats}
                 hasExercises={lesson.hasExercises}
@@ -64,11 +71,11 @@ const Lesson = () => {
             <div className="flex gap-2 items-center">
                 <Link
                     to="quiz"
-                    className="px-4 py-2 my-4 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 font-medium rounded-md transition-colors"
+                    className="px-2 py-2 my-4 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-200 dark:text-black hover:bg-blue-700 dark:hover:bg-blue-300 hover:text-white dark:hover:text-black dark:border-blue-200 dark:hover:border-blue-300 font-medium rounded-md transition-colors"
                 >
                     اختبر نفسك
                     {lessonStatus.quizCompleted && (
-                        <span className="mr-2 text-sm bg-white text-blue-600 px-2 py-0.5 rounded-full">
+                        <span className="mr-2 text-sm bg-white dark:bg-neutral-700 text-blue-600 dark:text-blue-200 px-2 py-0.5 rounded-full">
                             {lessonStatus.quizScore}%
                         </span>
                     )}
@@ -76,22 +83,22 @@ const Lesson = () => {
                 {lesson.hasExercises && lessonStatus.quizCompleted && (
                     <Link
                         to="exercises"
-                        className="px-4 py-2 my-4 bg-white border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-medium rounded-md transition-colors"
+                        className="p-2 border border-blue-200 bg-white text-blue-600 dark:text-neutral-100 dark:bg-neutral-800 hover:text-white dark:hover:text-black dark:hover:border-blue-300 hover:bg-blue-700 dark:hover:bg-blue-300 font-medium rounded-md transition-colors"
                     >
                         التمارين
                     </Link>
                 )}
             </div>
             {lessonStatus.completed && (
-                <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
-                    <p className="text-green-700 font-medium">
+                <div className="mt-4 p-3 bg-green-50 dark:bg-neutral-700 rounded-md">
+                    <p className="text-green-700 dark:text-green-200 font-medium">
                         لقد أكملت هذا الدرس بنجاح! يمكنك الانتقال إلى الدرس
                         التالي.
                     </p>
                     {parsedLessonId < lessons.length && (
                         <Link
                             to={`/lessons/${parsedLessonId + 1}`}
-                            className="mt-2.5 inline-flex items-center text-green-600 hover:text-green-800"
+                            className="mt-2.5 inline-flex items-center text-green-600 dark:text-green-300 hover:text-green-800 dark:hover:text-green-400"
                         >
                             الدرس التالي
                             <ChevronLeft size={16} className="mr-1" />
@@ -104,9 +111,9 @@ const Lesson = () => {
                 <button
                     type="button"
                     onClick={handleScroll}
-                    className="fixed bottom-6 left-6 bg-gray-200 hover:bg-gray-300 p-3 rounded-full shadow-lg transition-all duration-300"
+                    className="fixed bottom-6 left-6 bg-gray-200 dark:bg-neutral-700 hover:bg-gray-300 dark:hover:bg-neutral-600 p-3 rounded-full shadow-lg transition-all duration-300"
                 >
-                    <ArrowUp size={24} />
+                    <ArrowUp size={24} className="dark:text-white" />
                 </button>
             )}
         </div>

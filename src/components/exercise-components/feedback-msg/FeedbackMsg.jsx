@@ -4,15 +4,16 @@ const FeedbackMsg = ({ message, type }) => {
     if (!message) return null;
 
     const styles = {
-        hint: "bg-blue-50 border border-blue-200 text-blue-800",
-        error: "bg-red-50 border border-red-200 text-red-800",
-        success: "bg-green-50 border border-green-200 text-green-800"
+        hint: "bg-blue-50 dark:bg-neutral-700 border border-blue-200 dark:border-none text-blue-800 dark:text-blue-200",
+        error: "bg-red-50 dark:bg-neutral-700 border border-red-200 dark:border-none text-red-800 dark:text-red-400",
+        success:
+            "bg-green-50 dark:bg-neutral-700 border border-green-200 dark:border-none text-green-800 dark:text-green-300"
     };
 
     const icons = {
-        hint: <Info className="h-5 w-5" />,
-        error: <AlertCircle className="h-5 w-5" />,
-        success: <CheckCircle className="h-5 w-5" />
+        hint: <Info className="h-5 w-5 dark:text-blue-300" />,
+        error: <AlertCircle className="h-5 w-5 dark:text-red-500" />,
+        success: <CheckCircle className="h-5 w-5 dark:text-green-400" />
     };
 
     return (
